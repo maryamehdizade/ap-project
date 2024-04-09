@@ -2,7 +2,14 @@ package view.charactersView;
 
 import java.awt.geom.Point2D;
 
-public class PlayerView {
+public final class PlayerView {
+
+    private String id;
+
+    public PlayerView(String id) {
+        this.id = id;
+    }
+
     private static Point2D location = new Point2D.Double(300,300);
 
     public static Point2D getLocation() {
