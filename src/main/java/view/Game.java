@@ -5,7 +5,7 @@ import static controller.Constant.FRAME_DIMENSION;
 import javax.swing.*;
 import java.awt.*;
 
-public class Game extends JFrame {
+public final class Game extends JFrame {
     private static Game INSTANCE;
 
     public static Game getINSTANCE() {
@@ -19,6 +19,7 @@ public class Game extends JFrame {
         setSize(FRAME_DIMENSION);
         setLocationRelativeTo(null);
         setVisible(true);
+
 
         add(new GamePanel());
 
