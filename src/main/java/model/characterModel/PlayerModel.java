@@ -7,11 +7,17 @@ import java.util.UUID;
 
 import static controller.Controller.createPlayerView;
 
-public class PlayerModel {
+public final class PlayerModel {
     private String id;
+    private int xp = 0;
+    private int lp = 0;
+    private Point2D location;
 
     public static PlayerModel getPlayer() {
-        if(player == null)player = new PlayerModel(new Point2D.Double(200,200));
+        if(player == null){
+            System.out.println("new player");
+            player = new PlayerModel(new Point2D.Double(100,100));
+        }
         return player;
     }
 
@@ -21,11 +27,7 @@ public class PlayerModel {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
 
-    private Point2D location;
 
     public PlayerModel(Point2D location) {
         this.location = location;
@@ -40,7 +42,6 @@ public class PlayerModel {
         return location;
     }
 
-    private int xp = 0;
-    private int lp = 0;
+
 
 }
