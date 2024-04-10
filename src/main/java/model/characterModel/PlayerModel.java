@@ -30,7 +30,6 @@ public class PlayerModel {
     public PlayerModel(Point2D location) {
         this.location = location;
         this.id = UUID.randomUUID().toString();;
-        createPlayerView(id);
     }
 
     public void setLocation(Point2D location) {

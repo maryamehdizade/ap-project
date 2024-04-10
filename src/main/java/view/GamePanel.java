@@ -1,6 +1,8 @@
 package view;
 
 import static controller.Constant.BALL_SIZE;
+import static controller.Controller.createPlayerView;
+
 import controller.Constant;
 import controller.Update;
 import model.characterModel.PlayerModel;
@@ -17,6 +19,8 @@ import java.awt.geom.Point2D;
 
 
 public final class GamePanel extends JPanel implements  ActionListener {
+    PlayerModel playerModel = PlayerModel.getPlayer();
+    PlayerView playerView = createPlayerView(playerModel.getId());
 
     public GamePanel() {
         setSize(Constant.PANEL_DIMENSION);
@@ -36,7 +40,7 @@ public final class GamePanel extends JPanel implements  ActionListener {
         super.paintComponent(g);
         g.setFont(new Font("TimesRoman", Font.PLAIN, 30));
 //        g.drawOval((int)player.getLocation().getX(), (int)player.getLocation().getY(),BALL_SIZE, BALL_SIZE);
-       g.drawOval((int)PlayerView.getLocation().getX(),(int)PlayerView.getLocation().getY(),BALL_SIZE,BALL_SIZE);
+       g.drawOval((int)playerView.getLocation().getX(),(int)playerView.getLocation().getY(),BALL_SIZE,BALL_SIZE);
     }
 
 //    @Override

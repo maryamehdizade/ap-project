@@ -9,8 +9,8 @@ import java.awt.geom.Point2D;
 
 public class Controller implements KeyListener {
 
-    public static void createPlayerView(String id){
-        new PlayerView(id);
+    public static PlayerView createPlayerView(String id){
+        return new PlayerView(id);
     }
     public static PlayerModel findPlayer(String id){
         if(PlayerModel.getPlayer().getId().equals(id))return PlayerModel.getPlayer();

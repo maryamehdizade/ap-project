@@ -2,7 +2,7 @@ package view.charactersView;
 
 import java.awt.geom.Point2D;
 
-public final class PlayerView {
+public  class PlayerView {
 
     private String id;
 
