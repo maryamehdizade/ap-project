@@ -69,19 +69,19 @@ public  class GamePanel extends JPanel implements KeyListener {
         int keyCode = e.getKeyCode();
         if (keyCode == KeyEvent.VK_D) {
             movePlayer.setrForce(false);
-            movePlayer.setXvelocity(0);
+            movePlayer.setR0Force(true);
         }
         if (keyCode == KeyEvent.VK_A) {
             movePlayer.setlForce(false);
-            movePlayer.setXvelocity(0);
+            movePlayer.setL0Force(true);
         }
         if (keyCode == KeyEvent.VK_S) {
             movePlayer.setdForce(false);
-            movePlayer.setYvelocity(0);
+            movePlayer.setD0Force(true);
         }
         if (keyCode == KeyEvent.VK_W) {
             movePlayer.setuForce(false);
-            movePlayer.setYvelocity(0);
+            movePlayer.setU0Force(true);
         }
     }
 }

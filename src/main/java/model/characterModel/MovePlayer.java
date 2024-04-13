@@ -13,6 +13,43 @@ public class MovePlayer implements Movable {
     private boolean uForce = false;
     private boolean lForce = false;
     private boolean rForce = false;
+    private boolean r0Force = false;
+    private boolean d0Force = false;
+    private boolean u0Force = false;
+    private boolean l0Force = false;
+
+    public boolean isR0Force() {
+        return r0Force;
+    }
+
+    public void setR0Force(boolean r0Force) {
+        this.r0Force = r0Force;
+    }
+
+    public boolean isD0Force() {
+        return d0Force;
+    }
+
+    public void setD0Force(boolean d0Force) {
+        this.d0Force = d0Force;
+    }
+
+    public boolean isU0Force() {
+        return u0Force;
+    }
+
+    public void setU0Force(boolean u0Force) {
+        this.u0Force = u0Force;
+    }
+
+    public boolean isL0Force() {
+        return l0Force;
+    }
+
+    public void setL0Force(boolean l0Force) {
+        this.l0Force = l0Force;
+    }
+
     private Timer move;
 
     public void setXvelocity(double xvelocity) {
@@ -44,10 +81,10 @@ public class MovePlayer implements Movable {
 
     @Override
     public void move(double velocity) {
-        if(dForce || uForce){
+        if(dForce || uForce || u0Force || d0Force){
             playerModel.setLocation(addVector(playerModel.getLocation(),new Point2D.Double(0,velocity)));
         }
-        if(rForce || lForce){
+        if(rForce || lForce || l0Force || r0Force){
             playerModel.setLocation(addVector(playerModel.getLocation(),new Point2D.Double(velocity, 0)));
         }
     }
