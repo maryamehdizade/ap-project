@@ -20,7 +20,22 @@ public class Update {
     public void updateView(){
         panel.playerView.setLocation(playerViewLocation(panel.playerModel));
     }
-    public void updateModel(){
-
+    public void updateModel() {
+        if (panel.movePlayer.isdForce()) {
+            panel.movePlayer.setYvelocity(panel.movePlayer.getYvelocity()+ 0.2);
+            panel.movePlayer.move(panel.movePlayer.getYvelocity());
+        }
+        if (panel.movePlayer.isuForce()) {
+            panel.movePlayer.setYvelocity(panel.movePlayer.getYvelocity()+ 0.2);
+            panel.movePlayer.move(-panel.movePlayer.getYvelocity());
+        }
+        if (panel.movePlayer.isrForce()) {
+            panel.movePlayer.setXvelocity(panel.movePlayer.getXvelocity()+ 0.2);
+            panel.movePlayer.move(panel.movePlayer.getXvelocity());
+        }
+        if (panel.movePlayer.isrForce()) {
+            panel.movePlayer.setXvelocity(panel.movePlayer.getXvelocity()+ 0.2);
+            panel.movePlayer.move(-panel.movePlayer.getXvelocity());
+        }
     }
 }

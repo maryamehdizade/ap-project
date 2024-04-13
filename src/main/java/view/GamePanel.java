@@ -5,13 +5,12 @@ import static controller.Controller.createPlayerView;
 
 import controller.Constant;
 import controller.Update;
+import model.characterModel.MovePlayer;
 import model.characterModel.PlayerModel;
 import view.charactersView.PlayerView;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.geom.Point2D;
@@ -21,6 +20,7 @@ import java.awt.geom.Point2D;
 public  class GamePanel extends JPanel implements KeyListener {
     public PlayerModel playerModel;
     public PlayerView playerView;
+    public MovePlayer movePlayer;
 
 
     public GamePanel() {
@@ -35,6 +35,7 @@ public  class GamePanel extends JPanel implements KeyListener {
 
         playerModel = PlayerModel.getPlayer();
         playerView = createPlayerView(playerModel.getId());
+        movePlayer = new MovePlayer(playerModel);
     }
 
     @Override
@@ -52,17 +53,35 @@ public  class GamePanel extends JPanel implements KeyListener {
     public void keyPressed(KeyEvent e) {
         int keyCode = e.getKeyCode();
         if (keyCode == KeyEvent.VK_A) {
-            playerModel.setLocation(new Point2D.Double(playerModel.getLocation().getX() - 10,playerModel.getLocation().getY()));
+            movePlayer.setlForce(true);
         } else if (keyCode == KeyEvent.VK_D) {
-            playerModel.setLocation(new Point2D.Double(playerModel.getLocation().getX() + 10,playerModel.getLocation().getY()));
+            movePlayer.setrForce(true);
         } else if (keyCode == KeyEvent.VK_W) {
-            playerModel.setLocation(new Point2D.Double(playerModel.getLocation().getX(),playerModel.getLocation().getY()- 10));
+            movePlayer.setuForce(true);
         } else if (keyCode == KeyEvent.VK_S) {
-            playerModel.setLocation(new Point2D.Double(playerModel.getLocation().getX(),playerModel.getLocation().getY() + 10));
+            movePlayer.setdForce(true);
         }
     }
     @Override
     public void keyTyped(KeyEvent e) {}
     @Override
-    public void keyReleased(KeyEvent e) {}
+    public void keyReleased(KeyEvent e) {
+        int keyCode = e.getKeyCode();
+        if (keyCode == KeyEvent.VK_D) {
+            movePlayer.setrForce(false);
+            movePlayer.setXvelocity(0);
+        }
+        if (keyCode == KeyEvent.VK_A) {
+            movePlayer.setlForce(false);
+            movePlayer.setXvelocity(0);
+        }
+        if (keyCode == KeyEvent.VK_S) {
+            movePlayer.setdForce(false);
+            movePlayer.setYvelocity(0);
+        }
+        if (keyCode == KeyEvent.VK_W) {
+            movePlayer.setuForce(false);
+            movePlayer.setYvelocity(0);
+        }
+    }
 }

@@ -1,17 +1,21 @@
 package model.characterModel;
 
-import view.charactersView.PlayerView;
 
+import model.movement.Movable;
+
+import javax.swing.*;
 import java.awt.geom.Point2D;
 import java.util.UUID;
 
-import static controller.Controller.createPlayerView;
+import static controller.Util.addVector;
 
-public final class PlayerModel {
+
+public final class PlayerModel  {
     private String id;
     private int xp = 0;
     private int lp = 0;
     private Point2D location;
+    private static PlayerModel player;
 
     public static PlayerModel getPlayer() {
         if(player == null){
@@ -21,13 +25,11 @@ public final class PlayerModel {
         return player;
     }
 
-    private static PlayerModel player;
+
 
     public String getId() {
         return id;
     }
-
-
 
     public PlayerModel(Point2D location) {
         this.location = location;
@@ -41,7 +43,4 @@ public final class PlayerModel {
     public Point2D getLocation() {
         return location;
     }
-
-
-
 }
