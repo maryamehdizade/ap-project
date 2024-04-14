@@ -6,13 +6,14 @@ import javax.swing.*;
 import java.awt.*;
 
 import static controller.Constant.FRAME_DIMENSION;
+import static controller.Constant.FRAME_LOCATON;
 
 
 public final class Game extends JFrame {
     private static Game INSTANCE;
     JPanel panel ;
     int y = 2;
-    GamePanel gamePanel = GamePanel.getINSTANCE();
+    GamePanel gamePanel = new GamePanel(this);
 
     public static Game getINSTANCE() {
         if(INSTANCE == null)INSTANCE = new Game();
@@ -27,6 +28,7 @@ public final class Game extends JFrame {
         setResizable(false);
         setSize(FRAME_DIMENSION);
         setLocationRelativeTo(null);
+//        setLocation((Point) FRAME_LOCATON);
         setVisible(true);
 
 

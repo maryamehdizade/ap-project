@@ -15,8 +15,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.geom.Point2D;
 
-public final class GamePanel extends JPanel implements KeyListener {
-    private static GamePanel INSTANCE;
+public  class GamePanel extends JPanel implements KeyListener {
     public PlayerModel playerModel;
     public PlayerView playerView;
     public MovePlayer movePlayer;
@@ -25,15 +24,17 @@ public final class GamePanel extends JPanel implements KeyListener {
     private Timer timerx;
     private Timer timery;
 
+    private JFrame frame;
 
-
-    public GamePanel() {
+    public GamePanel(JFrame frame) {
+        this.frame = frame;
 
         setBackground(new Color(0, 0, 0));
         setFocusable(true);
         setLayout(null);
-        setBounds(20,20,size.width, size.height);
-        requestFocusInWindow();
+//        setBounds(20,20,size.width, size.height);
+//        requestFocusInWindow();
+        requestFocus();
         addKeyListener(this);
         new Update(this);
         setSize(size);
@@ -113,8 +114,8 @@ public final class GamePanel extends JPanel implements KeyListener {
     }
 
 
-    public static GamePanel getINSTANCE() {
-        if(INSTANCE == null)INSTANCE = new GamePanel();
-        return INSTANCE;
-    }
+//    public static GamePanel getINSTANCE() {
+//        if(INSTANCE == null)INSTANCE = new GamePanel();
+//        return INSTANCE;
+//    }
 }

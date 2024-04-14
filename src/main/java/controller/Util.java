@@ -6,4 +6,7 @@ public class Util {
     public static Point2D addVector(Point2D a, Point2D b){
         return new Point2D.Double(a.getX() + b.getX(), a.getY() + b.getY());
     }
+//    public static Point2D relativeLoction(){
+//        return
+//    }
 }

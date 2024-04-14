@@ -25,9 +25,9 @@ public class Update {
     }
     private void moveEpsilon(){
         if (panel.movePlayer.isdForce()) {
-        panel.movePlayer.setYvelocity(panel.movePlayer.getYvelocity()+ 0.2);
-        panel.movePlayer.move(panel.movePlayer.getYvelocity());
-    }
+            panel.movePlayer.setYvelocity(panel.movePlayer.getYvelocity() + 0.2);
+            panel.movePlayer.move(panel.movePlayer.getYvelocity());
+        }
         if (panel.movePlayer.isuForce()) {
             panel.movePlayer.setYvelocity(panel.movePlayer.getYvelocity()+ 0.2);
             panel.movePlayer.move(-panel.movePlayer.getYvelocity());
@@ -40,7 +40,7 @@ public class Update {
             panel.movePlayer.setXvelocity(panel.movePlayer.getXvelocity()+ 0.2);
             panel.movePlayer.move(-panel.movePlayer.getXvelocity());
         }
-        if(panel.movePlayer.isR0Force()){
+        if (panel.movePlayer.isR0Force()){
             panel.movePlayer.setXvelocity(panel.movePlayer.getXvelocity()- 0.2);
             if(panel.movePlayer.getXvelocity() <= 0){
                 panel.movePlayer.setR0Force(false);

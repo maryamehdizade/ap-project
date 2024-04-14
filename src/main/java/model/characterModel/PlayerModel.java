@@ -1,13 +1,12 @@
 package model.characterModel;
 
 
-import model.movement.Movable;
 
 import javax.swing.*;
 import java.awt.geom.Point2D;
 import java.util.UUID;
 
-import static controller.Util.addVector;
+import static controller.Constant.FRAME_LOCATON;
 
 
 public final class PlayerModel  {
