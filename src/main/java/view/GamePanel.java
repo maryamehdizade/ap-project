@@ -1,9 +1,9 @@
 package view;
 
 import static controller.Constant.BALL_SIZE;
+import static controller.Constant.MIN_SIZE;
 import static controller.Controller.createPlayerView;
 
-import controller.Constant;
 import controller.Update;
 import model.characterModel.MovePlayer;
 import model.characterModel.PlayerModel;
@@ -15,27 +15,54 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.geom.Point2D;
 
-
-
-public  class GamePanel extends JPanel implements KeyListener {
+public final class GamePanel extends JPanel implements KeyListener {
+    private static GamePanel INSTANCE;
     public PlayerModel playerModel;
     public PlayerView playerView;
     public MovePlayer movePlayer;
+    private Dimension size = new Dimension(700,700);
+    private Point loc = new Point(100,20);
+    private Timer timerx;
+    private Timer timery;
+
 
 
     public GamePanel() {
 
-        setSize(Constant.PANEL_DIMENSION);
-        setBackground(new Color(0,0,0,100));
+        setBackground(new Color(0, 0, 0));
         setFocusable(true);
+        setLayout(null);
+        setBounds(20,20,size.width, size.height);
         requestFocusInWindow();
         addKeyListener(this);
         new Update(this);
+        setSize(size);
 
 
         playerModel = PlayerModel.getPlayer();
         playerView = createPlayerView(playerModel.getId());
-        movePlayer = new MovePlayer(playerModel);
+        movePlayer = new MovePlayer(playerModel, this);
+
+        timerx = new Timer(100, e->{
+            xmin();
+            ymin();
+            setSize(size);
+            setLocation(loc);
+        });
+        timerx.start();
+
+    }
+    public void xmin(){
+        if(size.width > MIN_SIZE.width) {
+            size.width -= 2;
+            if(loc.getX() < 300) loc.setLocation(loc.getX() + 1,loc.getY() );
+        }
+    }
+    public void ymin(){
+        if(size.height > MIN_SIZE.height) {
+            size.height -= 2;
+            if(loc.getY() < 300) loc.setLocation(loc.getX(),loc.getY() + 1);
+        }
     }
 
     @Override
@@ -83,5 +110,11 @@ public  class GamePanel extends JPanel implements KeyListener {
             movePlayer.setuForce(false);
             movePlayer.setU0Force(true);
         }
+    }
+
+
+    public static GamePanel getINSTANCE() {
+        if(INSTANCE == null)INSTANCE = new GamePanel();
+        return INSTANCE;
     }
 }

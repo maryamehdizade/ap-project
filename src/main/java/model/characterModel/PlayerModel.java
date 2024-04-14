@@ -20,7 +20,7 @@ public final class PlayerModel  {
     public static PlayerModel getPlayer() {
         if(player == null){
             System.out.println("new player");
-            player = new PlayerModel(new Point2D.Double(100,100));
+            player = new PlayerModel(new Point2D.Double(350,350));
         }
         return player;
     }
