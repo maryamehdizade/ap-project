@@ -9,7 +9,6 @@ import java.util.UUID;
 
 public class BulletModel {
     private Point2D loc;
-    private final int diameter = 5;
     private double dx;
     private double dy;
     private String id;

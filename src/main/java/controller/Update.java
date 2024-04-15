@@ -14,10 +14,12 @@ import static controller.Controller.playerViewLocation;
 
 public class Update {
     GamePanel panel;
+    int second;
     public Update(GamePanel panel) {
         this.panel = panel;
         new Timer((int) FRAME_UPDATE_TIME, e -> updateView()){{setCoalesce(true);}}.start();
         new Timer((int) MODEL_UPDATE_TIME, e -> updateModel()){{setCoalesce(true);}}.start();
+
 
     }
     public void updateView(){
@@ -37,7 +39,7 @@ public class Update {
     private void updateBullets() {
         for (int i = panel.getBulletsModel().size() - 1; i >= 0; i--) {
             if (panel.getBulletsModel().get(i).move()) {
-
+                panel.getBullets().remove(i);
                 for(int j = 0; j < panel.getBullets().size(); j++) {
                     if(panel.getBullets().get(j).getId().equals(panel.getBulletsModel().get(i).getId())){
                         panel.getBullets().remove(j);
