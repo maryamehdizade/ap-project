@@ -2,6 +2,8 @@ package view.charactersView;
 
 import java.awt.geom.Point2D;
 
+import static controller.Constant.BALL_SIZE;
+
 public  class PlayerView {
     private int xp ;
     private int hp ;
@@ -14,7 +16,7 @@ public  class PlayerView {
     }
 
     public  Point2D getLocation() {
-        return location;
+        return new Point2D.Double(location.getX() + BALL_SIZE/2.0,location.getY() + BALL_SIZE/2.0);
     }
 
     public void setLocation(Point2D location) {

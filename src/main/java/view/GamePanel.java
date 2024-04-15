@@ -80,7 +80,8 @@ public  class GamePanel extends JPanel implements KeyListener, MouseListener {
 
         super.paintComponent(g);
         g.setColor(Color.gray);
-        g.drawOval((int) playerView.getLocation().getX(), (int) playerView.getLocation().getY(), BALL_SIZE, BALL_SIZE);
+        g.drawOval((int) playerView.getLocation().getX() - BALL_SIZE/2,
+                (int) playerView.getLocation().getY() - BALL_SIZE/2, BALL_SIZE, BALL_SIZE);
 
         for (BulletView b : bullets) {
             b.draw(g);

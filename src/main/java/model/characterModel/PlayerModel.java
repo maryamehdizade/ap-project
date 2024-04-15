@@ -6,6 +6,7 @@ import javax.swing.*;
 import java.awt.geom.Point2D;
 import java.util.UUID;
 
+import static controller.Constant.BALL_SIZE;
 import static controller.Constant.FRAME_LOCATON;
 
 
@@ -39,7 +40,7 @@ public final class PlayerModel  {
     }
 
     public Point2D getLocation() {
-        return location;
+        return new Point2D.Double(location.getX() + BALL_SIZE/2.0,location.getY() + BALL_SIZE/2.0);
     }
 
     public int getXp() {
