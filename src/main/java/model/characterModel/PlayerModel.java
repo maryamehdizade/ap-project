@@ -12,13 +12,12 @@ import static controller.Constant.FRAME_LOCATON;
 public final class PlayerModel  {
     private String id;
     private int xp = 0;
-    private int lp = 0;
+    private int hp = 50;
     private Point2D location;
     private static PlayerModel player;
 
     public static PlayerModel getPlayer() {
         if(player == null){
-            System.out.println("new player");
             player = new PlayerModel(new Point2D.Double(350,350));
         }
         return player;
@@ -41,5 +40,13 @@ public final class PlayerModel  {
 
     public Point2D getLocation() {
         return location;
+    }
+
+    public int getXp() {
+        return xp;
+    }
+
+    public int getHp() {
+        return hp;
     }
 }

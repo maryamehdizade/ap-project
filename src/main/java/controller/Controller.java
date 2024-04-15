@@ -24,8 +24,17 @@ public class Controller  {
         return model.getLocation();
 
     }
+    public static int playerViewXp(PlayerModel playerModel){
+        PlayerModel model = PlayerModel.getPlayer();
+        return model.getXp();
+
+    }
+    public static int playerViewHp(PlayerModel playerModel){
+        PlayerModel model = PlayerModel.getPlayer();
+        return model.getHp();
+
+    }
     public static BulletView createBulletView(BulletModel bulletModel){
-        System.out.println("bullet view added");
         return new BulletView(bulletModel.getId(), bulletModel.getLoc(), bulletModel.getDx(), bulletModel.getDy(), bulletModel.getPanel());
     }
 

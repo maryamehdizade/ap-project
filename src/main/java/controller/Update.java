@@ -9,8 +9,7 @@ import javax.swing.*;
 
 import static controller.Constant.MODEL_UPDATE_TIME;
 import static controller.Constant.FRAME_UPDATE_TIME;
-import static controller.Controller.createBulletView;
-import static controller.Controller.playerViewLocation;
+import static controller.Controller.*;
 
 public class Update {
     GamePanel panel;
@@ -24,6 +23,9 @@ public class Update {
     }
     public void updateView(){
         panel.playerView.setLocation(playerViewLocation(panel.playerModel));
+        panel.playerView.setXp(playerViewXp(panel.playerModel));
+        panel.playerView.setHp(playerViewHp(panel.playerModel));
+        System.out.println(panel.playerView.getHp());
         for (BulletView b : panel.getBullets()) {
             for (BulletModel m : panel.getBulletsModel()) {
                 if(m.getId().equals(b.getId())){
