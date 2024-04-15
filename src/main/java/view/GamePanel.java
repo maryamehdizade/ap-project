@@ -24,7 +24,7 @@ public  class GamePanel extends JPanel implements KeyListener, MouseListener {
     public PlayerModel playerModel;
     public PlayerView playerView;
     public MovePlayer movePlayer;
-    private Dimension size = new Dimension(700,700);
+    private Dimension dimension = new Dimension(700,700);
     private Point loc = new Point(100,20);
     private Timer timerx;
     private Timer timery;
@@ -46,7 +46,7 @@ public  class GamePanel extends JPanel implements KeyListener, MouseListener {
         addKeyListener(this);
         addMouseListener(this);
         new Update(this);
-        setSize(size);
+        setSize(dimension);
 
 
         playerModel = PlayerModel.getPlayer();
@@ -56,23 +56,22 @@ public  class GamePanel extends JPanel implements KeyListener, MouseListener {
         timerx = new Timer(100, e->{
             xmin();
             ymin();
-            setSize(size);
+            setSize(dimension);
             setLocation(loc);
-            updateBullets();
         });
         timerx.start();
 
     }
     public void xmin(){
-        if(size.width > MIN_SIZE.width) {
-            size.width -= 2;
-            if(loc.getX() < 300) loc.setLocation(loc.getX() + 1,loc.getY() );
+        if(dimension.width > MIN_SIZE.width) {
+            dimension.width -= 2;
+            if(loc.getX() < 200) loc.setLocation(loc.getX() + 1,loc.getY() );
         }
     }
     public void ymin(){
-        if(size.height > MIN_SIZE.height) {
-            size.height -= 2;
-            if(loc.getY() < 300) loc.setLocation(loc.getX(),loc.getY() + 1);
+        if(dimension.height > MIN_SIZE.height) {
+            dimension.height -= 2;
+            if(loc.getY() < 200) loc.setLocation(loc.getX(),loc.getY() + 1);
         }
     }
 
@@ -88,14 +87,6 @@ public  class GamePanel extends JPanel implements KeyListener, MouseListener {
         }
         repaint();
 
-    }
-    private void updateBullets() {
-
-        for (int i = bulletsModel.size() - 1; i >= 0; i--) {
-            if (bulletsModel.get(i).move()) {
-                bulletsModel.remove(i);
-            }
-        }
     }
 
 
@@ -175,8 +166,9 @@ public  class GamePanel extends JPanel implements KeyListener, MouseListener {
 //        return INSTANCE;
 //    }
 
-    public Dimension getSize() {
-        return size;
+
+    public Dimension getDimension() {
+        return dimension;
     }
 
     public ArrayList<BulletModel> getBulletsModel() {
@@ -189,6 +181,14 @@ public  class GamePanel extends JPanel implements KeyListener, MouseListener {
 
     public Point getLoc() {
         return loc;
+    }
+
+    public void setDimension(Dimension dimension) {
+        this.dimension = dimension;
+    }
+
+    public void setLoc(Point loc) {
+        this.loc = loc;
     }
 
 }

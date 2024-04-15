@@ -26,11 +26,14 @@ public class BulletModel {
 
     }
 
-    public boolean move() {
+    public int move() {
         loc = new Point2D.Double(loc.getX() + dx, loc.getY() + dy);
 
-        return loc.getX() < 0 || loc.getX() > panel.getSize().getWidth() + panel.getLoc().getX()
-                || loc.getY() < 0 || loc.getY() > panel.getSize().getHeight()+ panel.getLoc().getY();
+        if(loc.getX() < 0)return 1;
+        else if(loc.getX() > panel.getDimension().getWidth() + panel.getLoc().getX() - 200)return 2;
+        else if(loc.getY() < 0)return 3;
+        else if(loc.getY() > panel.getDimension().getHeight()+ panel.getLoc().getY() - 150)return 4;
+        return 0;
     }
 
     public JPanel getPanel() {
