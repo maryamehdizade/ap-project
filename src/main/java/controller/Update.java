@@ -1,7 +1,6 @@
 package controller;
 
 import model.characterModel.BulletModel;
-import model.characterModel.PlayerModel;
 import view.GamePanel;
 import view.charactersView.BulletView;
 

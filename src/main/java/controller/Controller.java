@@ -5,9 +5,6 @@ import model.characterModel.PlayerModel;
 import view.charactersView.BulletView;
 import view.charactersView.PlayerView;
 
-import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.geom.Point2D;
 import java.util.Objects;
 
