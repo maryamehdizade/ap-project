@@ -1,6 +1,8 @@
 package controller;
 
+import model.characterModel.BulletModel;
 import model.characterModel.PlayerModel;
+import view.charactersView.BulletView;
 import view.charactersView.PlayerView;
 
 import java.awt.*;
@@ -22,5 +24,11 @@ public class Controller  {
         return model.getLocation();
 
     }
+    public static BulletView createBulletView(BulletModel bulletModel){
+        System.out.println("bullet view added");
+        return new BulletView(bulletModel.getId(), bulletModel.getLoc(), bulletModel.getDx(), bulletModel.getDy(), bulletModel.getPanel());
+    }
+
+
 
 }

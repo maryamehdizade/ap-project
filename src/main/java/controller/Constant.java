@@ -13,5 +13,7 @@ public class Constant {
     public static final Dimension MAX_SIZE = new Dimension(800,800);
     public static final Dimension MIN_SIZE = new Dimension(300,300);
     public static final Point2D FRAME_LOCATON = new Point2D.Double(10,10);
+
     public static final int BALL_SIZE = 20;
+    public static final int BULLET_SIZE = 20;
 }

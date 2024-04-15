@@ -32,7 +32,7 @@ public final class PlayerModel  {
 
     public PlayerModel(Point2D location) {
         this.location = location;
-        this.id = UUID.randomUUID().toString();;
+        this.id = UUID.randomUUID().toString();
     }
 
     public void setLocation(Point2D location) {

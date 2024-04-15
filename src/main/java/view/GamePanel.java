@@ -2,20 +2,25 @@ package view;
 
 import static controller.Constant.BALL_SIZE;
 import static controller.Constant.MIN_SIZE;
+import static controller.Controller.createBulletView;
 import static controller.Controller.createPlayerView;
 
 import controller.Update;
+import model.characterModel.BulletModel;
 import model.characterModel.MovePlayer;
 import model.characterModel.PlayerModel;
+import view.charactersView.BulletView;
 import view.charactersView.PlayerView;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.geom.Point2D;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.util.ArrayList;
 
-public  class GamePanel extends JPanel implements KeyListener {
+public  class GamePanel extends JPanel implements KeyListener, MouseListener {
     public PlayerModel playerModel;
     public PlayerView playerView;
     public MovePlayer movePlayer;
@@ -23,6 +28,9 @@ public  class GamePanel extends JPanel implements KeyListener {
     private Point loc = new Point(100,20);
     private Timer timerx;
     private Timer timery;
+    private ArrayList<BulletView> bullets = new ArrayList<>();
+    private ArrayList<BulletModel> bulletsModel = new ArrayList<>();
+
 
     private JFrame frame;
 
@@ -36,6 +44,7 @@ public  class GamePanel extends JPanel implements KeyListener {
 //        requestFocusInWindow();
         requestFocus();
         addKeyListener(this);
+        addMouseListener(this);
         new Update(this);
         setSize(size);
 
@@ -49,6 +58,7 @@ public  class GamePanel extends JPanel implements KeyListener {
             ymin();
             setSize(size);
             setLocation(loc);
+            updateBullets();
         });
         timerx.start();
 
@@ -72,7 +82,20 @@ public  class GamePanel extends JPanel implements KeyListener {
         super.paintComponent(g);
         g.setColor(Color.gray);
         g.drawOval((int) playerView.getLocation().getX(), (int) playerView.getLocation().getY(), BALL_SIZE, BALL_SIZE);
+
+        for (BulletView b : bullets) {
+            b.draw(g);
+        }
         repaint();
+
+    }
+    private void updateBullets() {
+
+        for (int i = bulletsModel.size() - 1; i >= 0; i--) {
+            if (bulletsModel.get(i).move()) {
+                bulletsModel.remove(i);
+            }
+        }
     }
 
 
@@ -113,9 +136,59 @@ public  class GamePanel extends JPanel implements KeyListener {
         }
     }
 
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        int targetX = e.getX();
+        int targetY = e.getY();
+
+        BulletModel model = new BulletModel(playerModel.getLocation(), targetX, targetY, this);
+
+        bulletsModel.add(model);
+        bullets.add(createBulletView(model));
+
+
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
+    }
+
 
 //    public static GamePanel getINSTANCE() {
 //        if(INSTANCE == null)INSTANCE = new GamePanel();
 //        return INSTANCE;
 //    }
+
+    public Dimension getSize() {
+        return size;
+    }
+
+    public ArrayList<BulletModel> getBulletsModel() {
+        return bulletsModel;
+    }
+
+    public ArrayList<BulletView> getBullets() {
+        return bullets;
+    }
+
+    public Point getLoc() {
+        return loc;
+    }
+
 }
