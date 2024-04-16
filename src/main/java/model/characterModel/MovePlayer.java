@@ -35,27 +35,27 @@ public class MovePlayer implements Movable {
     @Override
     public void move(double velocity) {
         if(dForce || uForce || u0Force || d0Force) {
-            if (playerModel.getLocation().getY() - BALL_SIZE/2.0 > 0 &&
-                    playerModel.getLocation().getY() + BALL_SIZE/2.0 <= panel.getHeight()) {
+            if (playerModel.getLocation().getY() > 0 &&
+                    playerModel.getLocation().getY() + BALL_SIZE <= panel.getHeight()) {
                 playerModel.setLocation(addVector(playerModel.getLocation(), new Point2D.Double(0, velocity)));
             }
-            if (playerModel.getLocation().getY() + BALL_SIZE/2.0 > panel.getHeight()) {
+            if (playerModel.getLocation().getY() + BALL_SIZE> panel.getHeight()) {
                 playerModel.setLocation(
-                        new Point2D.Double(playerModel.getLocation().getX(), panel.getHeight() - BALL_SIZE/2));
-            }else if(playerModel.getLocation().getY() - BALL_SIZE/2.0 < 2){
+                        new Point2D.Double(playerModel.getLocation().getX(), panel.getHeight()));
+            }else if(playerModel.getLocation().getY() < 2){
                 playerModel.setLocation(
                         new Point2D.Double(playerModel.getLocation().getX(),  5));
             }
         }
         if(rForce || lForce || l0Force || r0Force){
-            if(playerModel.getLocation().getX() - BALL_SIZE/2.0> 0 &&
-                    playerModel.getLocation().getX() + BALL_SIZE/2.0 <= panel.getWidth()){
+            if(playerModel.getLocation().getX()> 0 &&
+                    playerModel.getLocation().getX() + BALL_SIZE <= panel.getWidth()){
                 playerModel.setLocation(addVector(playerModel.getLocation(),new Point2D.Double(velocity, 0)));
             }
-            if(playerModel.getLocation().getX() + BALL_SIZE/2.0 > panel.getWidth()){
+            if(playerModel.getLocation().getX() + BALL_SIZE > panel.getWidth()){
                 playerModel.setLocation(
                         new Point2D.Double(panel.getWidth() - BALL_SIZE ,playerModel.getLocation().getY()));
-            }else if(playerModel.getLocation().getX() - BALL_SIZE/2.0 < 2){
+            }else if(playerModel.getLocation().getX()  < 2){
                 playerModel.setLocation(
                         new Point2D.Double(5,playerModel.getLocation().getY()));
 

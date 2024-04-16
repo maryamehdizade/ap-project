@@ -40,7 +40,8 @@ public final class PlayerModel  {
     }
 
     public Point2D getLocation() {
-        return new Point2D.Double(location.getX() + BALL_SIZE/2.0,location.getY() + BALL_SIZE/2.0);
+        return location;
+//        return new Point2D.Double(location.getX() + BALL_SIZE/2.0,location.getY() + BALL_SIZE/2.0);
     }
 
     public int getXp() {
