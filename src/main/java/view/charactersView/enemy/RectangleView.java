@@ -18,7 +18,7 @@ public class RectangleView {
     public void draw(Graphics g) {
         g.setColor(Color.red);
         g.drawRect((int) loc.getX(), (int) loc.getY(), RECT_SIZE, RECT_SIZE);
-        g.drawString(String.valueOf(hp), (int) loc.getX()+ 5, (int) loc.getY() + 15);
+        g.drawString(String.valueOf(hp), (int) loc.getX()+ 10, (int) loc.getY() + 20);
     }
 
     public Point2D getLoc() {
