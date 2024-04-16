@@ -9,8 +9,10 @@ import controller.Update;
 import model.characterModel.BulletModel;
 import model.characterModel.MovePlayer;
 import model.characterModel.PlayerModel;
+import model.characterModel.enemy.RectangleModel;
 import view.charactersView.BulletView;
 import view.charactersView.PlayerView;
+import view.charactersView.enemy.RectangleView;
 
 import javax.swing.*;
 import java.awt.*;
@@ -29,6 +31,9 @@ public  class GamePanel extends JPanel implements KeyListener, MouseListener {
     private Timer timerx;
     private Timer timery;
     private ArrayList<BulletView> bullets = new ArrayList<>();
+
+    private ArrayList<RectangleModel> rectangleModels = new ArrayList<>();
+    private ArrayList<RectangleView> rectangleView = new ArrayList<>();
     private ArrayList<BulletModel> bulletsModel = new ArrayList<>();
 
 
@@ -52,6 +57,8 @@ public  class GamePanel extends JPanel implements KeyListener, MouseListener {
         playerModel = PlayerModel.getPlayer();
         playerView = createPlayerView(playerModel.getId());
         movePlayer = new MovePlayer(playerModel, this);
+
+        rectangleModels.add(new RectangleModel(this));
 
         timerx = new Timer(100, e->{
             xmin();
@@ -85,6 +92,9 @@ public  class GamePanel extends JPanel implements KeyListener, MouseListener {
 
         for (BulletView b : bullets) {
             b.draw(g);
+        }
+        for (RectangleView r : rectangleView) {
+            r.draw(g);
         }
         repaint();
 
@@ -192,4 +202,11 @@ public  class GamePanel extends JPanel implements KeyListener, MouseListener {
         this.loc = loc;
     }
 
+    public ArrayList<RectangleModel> getRectangleModels() {
+        return rectangleModels;
+    }
+
+    public ArrayList<RectangleView> getRectangleView() {
+        return rectangleView;
+    }
 }

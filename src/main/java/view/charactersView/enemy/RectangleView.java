@@ -6,14 +6,37 @@ import java.awt.geom.Point2D;
 import static controller.Constant.RECT_SIZE;
 
 public class RectangleView {
-    private int xp;
+    private int hp;
     private Point2D loc;
     String id;
 
-    public void draw(Graphics g) {
-        g.setColor(Color.BLUE);
-        g.fillRect((int) loc.getX(), (int) loc.getY(), RECT_SIZE, RECT_SIZE);
+    public RectangleView(String id, Point2D loc) {
+        this.id = id;
+
     }
 
+    public void draw(Graphics g) {
+        g.setColor(Color.red);
+        g.drawRect((int) loc.getX(), (int) loc.getY(), RECT_SIZE, RECT_SIZE);
+    }
 
+    public Point2D getLoc() {
+        return loc;
+    }
+
+    public void setHp(int hp) {
+        this.hp = hp;
+    }
+
+    public void setLoc(Point2D loc) {
+        this.loc = loc;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public int getHp() {
+        return hp;
+    }
 }

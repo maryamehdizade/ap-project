@@ -15,14 +15,13 @@ public class BulletView {
 
     JPanel panel;
 
-    public BulletView(String id, Point2D loc, double dx, double dy, JPanel panel) {
+    public BulletView(String id, Point2D loc, double dx, double dy) {
 
         this.id = id;
         this.loc = loc;
         this.dx = dx;
         this.dy = dy;
 
-        this.panel = panel;
     }
 
     public void draw(Graphics g) {

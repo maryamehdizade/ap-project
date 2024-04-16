@@ -1,8 +1,10 @@
 package controller;
 
 import model.characterModel.BulletModel;
+import model.characterModel.enemy.RectangleModel;
 import view.GamePanel;
 import view.charactersView.BulletView;
+import view.charactersView.enemy.RectangleView;
 
 import javax.swing.*;
 
@@ -23,9 +25,22 @@ public class Update {
 
     }
     public void updateView(){
-        panel.playerView.setLocation(playerViewLocation(panel.playerModel));
-        panel.playerView.setXp(playerViewXp(panel.playerModel));
-        panel.playerView.setHp(playerViewHp(panel.playerModel));
+        updatePlayerView();
+        updateBulletsView();
+        updateRectangleView();
+
+    }
+    private void updateRectangleView(){
+        for (RectangleView r : panel.getRectangleView()) {
+            for (RectangleModel model: panel.getRectangleModels()) {
+                if(model.getId().equals(r.getId())){
+                    r.setLoc(model.getLoc());
+                    r.setHp(model.getHp());
+                }
+            }
+        }
+    }
+    private void updateBulletsView(){
         for (BulletView b : panel.getBullets()) {
             for (BulletModel m : panel.getBulletsModel()) {
                 if(m.getId().equals(b.getId())){
@@ -33,6 +48,11 @@ public class Update {
                 }
             }
         }
+    }
+    private void updatePlayerView(){
+        panel.playerView.setLocation(playerViewLocation(panel.playerModel));
+        panel.playerView.setXp(playerViewXp(panel.playerModel));
+        panel.playerView.setHp(playerViewHp(panel.playerModel));
     }
     public void updateModel() {
         moveEpsilon();
