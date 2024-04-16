@@ -2,9 +2,11 @@ package controller;
 
 import model.characterModel.BulletModel;
 import model.characterModel.enemy.RectangleModel;
+import model.characterModel.enemy.TriangleModel;
 import view.GamePanel;
 import view.charactersView.BulletView;
 import view.charactersView.enemy.RectangleView;
+import view.charactersView.enemy.TriangleView;
 
 import javax.swing.*;
 
@@ -28,7 +30,7 @@ public class Update {
         updatePlayerView();
         updateBulletsView();
         updateRectangleView();
-
+        updateTrianglesView();
     }
     private void updateRectangleView(){
         for (RectangleView r : panel.getRectangleView()) {
@@ -36,6 +38,22 @@ public class Update {
                 if(model.getId().equals(r.getId())){
                     r.setLoc(model.getLoc());
                     r.setHp(model.getHp());
+                }
+            }
+        }
+    }
+    private void updateTrianglesView(){
+        for (TriangleView t : panel.getTriangleViews()) {
+            for (TriangleModel model: panel.getTriangleModels()) {
+                if(model.getId().equals(t.getId())){
+                    t.setX1(model.getX1());
+                    t.setX2(model.getX2());
+                    t.setX3(model.getX3());
+                    t.setY1(model.getY1());
+                    t.setY2(model.getY2());
+                    t.setY3(model.getY3());
+                    t.setHp(model.getHp());
+
                 }
             }
         }
@@ -58,6 +76,7 @@ public class Update {
         moveEpsilon();
         updateBullets();
         updateRecs();
+        updateTriangles();
     }
     private void updateRecs(){
         for (int i = panel.getRectangleModels().size() - 1; i >= 0; i--) {
@@ -81,6 +100,13 @@ public class Update {
                 }
                 panel.getBulletsModel().remove(i);
             }
+        }
+    }
+
+    private void updateTriangles(){
+        for (int i = panel.getTriangleModels().size() - 1; i >= 0; i--){
+            panel.getTriangleModels().get(i).move();
+
         }
     }
     private void moveLeft(){

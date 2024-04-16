@@ -3,9 +3,11 @@ package controller;
 import model.characterModel.BulletModel;
 import model.characterModel.PlayerModel;
 import model.characterModel.enemy.RectangleModel;
+import model.characterModel.enemy.TriangleModel;
 import view.charactersView.BulletView;
 import view.charactersView.PlayerView;
 import view.charactersView.enemy.RectangleView;
+import view.charactersView.enemy.TriangleView;
 
 import java.awt.geom.Point2D;
 import java.util.Objects;
@@ -38,6 +40,10 @@ public class Controller  {
     }
     public static BulletView createBulletView(BulletModel bulletModel){
         return new BulletView(bulletModel.getId(), bulletModel.getLoc(), bulletModel.getDx(), bulletModel.getDy(), bulletModel.getPanel());
+    }
+
+    public static TriangleView createTriangleView(TriangleModel t){
+        return new TriangleView(t.getId(), t.getX1(), t.getY1(), t.getX2(), t.getY2(), t.getX3(), t.getY3());
     }
 
 

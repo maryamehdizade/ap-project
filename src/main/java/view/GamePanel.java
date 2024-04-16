@@ -10,9 +10,11 @@ import model.characterModel.BulletModel;
 import model.characterModel.MovePlayer;
 import model.characterModel.PlayerModel;
 import model.characterModel.enemy.RectangleModel;
+import model.characterModel.enemy.TriangleModel;
 import view.charactersView.BulletView;
 import view.charactersView.PlayerView;
 import view.charactersView.enemy.RectangleView;
+import view.charactersView.enemy.TriangleView;
 
 import javax.swing.*;
 import java.awt.*;
@@ -35,6 +37,8 @@ public  class GamePanel extends JPanel implements KeyListener, MouseListener {
     private ArrayList<RectangleModel> rectangleModels = new ArrayList<>();
     private ArrayList<RectangleView> rectangleView = new ArrayList<>();
     private ArrayList<BulletModel> bulletsModel = new ArrayList<>();
+    private ArrayList<TriangleModel> triangleModels = new ArrayList<>();
+    private ArrayList<TriangleView> triangleViews = new ArrayList<>();
 
 
     private JFrame frame;
@@ -210,5 +214,13 @@ public  class GamePanel extends JPanel implements KeyListener, MouseListener {
 
     public ArrayList<RectangleView> getRectangleView() {
         return rectangleView;
+    }
+
+    public ArrayList<TriangleModel> getTriangleModels() {
+        return triangleModels;
+    }
+
+    public ArrayList<TriangleView> getTriangleViews() {
+        return triangleViews;
     }
 }

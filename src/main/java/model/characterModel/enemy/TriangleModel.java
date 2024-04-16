@@ -3,11 +3,15 @@ package model.characterModel.enemy;
 import model.characterModel.PlayerModel;
 import model.movement.Movable;
 
+import java.util.UUID;
+
 public class TriangleModel implements Movable {
 
     private int x1, y1, x2, y2, x3, y3;
     private int speed;
+    private int hp;
     private PlayerModel playerModel;
+    private String id;
 
     public TriangleModel(int x1, int y1, int x2, int y2, int x3, int y3, int speed, PlayerModel playerModel) {
         this.x1 = x1;
@@ -17,6 +21,7 @@ public class TriangleModel implements Movable {
         this.x3 = x3;
         this.y3 = y3;
         this.speed = speed;
+        this.id = UUID.randomUUID().toString();
         this.playerModel = playerModel;
     }
     @Override
@@ -37,5 +42,37 @@ public class TriangleModel implements Movable {
     @Override
     public void move(double velocity) {
 
+    }
+
+    public int getX1() {
+        return x1;
+    }
+
+    public int getY1() {
+        return y1;
+    }
+
+    public int getX2() {
+        return x2;
+    }
+
+    public int getY2() {
+        return y2;
+    }
+
+    public int getX3() {
+        return x3;
+    }
+
+    public int getY3() {
+        return y3;
+    }
+
+    public int getHp() {
+        return hp;
+    }
+
+    public String getId() {
+        return id;
     }
 }
