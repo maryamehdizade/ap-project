@@ -3,6 +3,7 @@ package view;
 import static controller.Constant.BALL_SIZE;
 import static controller.Constant.MIN_SIZE;
 import static controller.Controller.*;
+import static controller.Util.playerCenter;
 
 import controller.Update;
 import model.characterModel.BulletModel;
@@ -144,7 +145,7 @@ public  class GamePanel extends JPanel implements KeyListener, MouseListener {
         int targetX = e.getX();
         int targetY = e.getY();
 
-        BulletModel model = new BulletModel(playerModel.getLocation(), targetX, targetY, this);
+        BulletModel model = new BulletModel(playerCenter(playerModel), targetX, targetY, this);
 
         bulletsModel.add(model);
         bullets.add(createBulletView(model));

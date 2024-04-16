@@ -37,7 +37,7 @@ public class Controller  {
 
     }
     public static BulletView createBulletView(BulletModel bulletModel){
-        return new BulletView(bulletModel.getId(), bulletModel.getLoc(), bulletModel.getDx(), bulletModel.getDy());
+        return new BulletView(bulletModel.getId(), bulletModel.getLoc(), bulletModel.getDx(), bulletModel.getDy(), bulletModel.getPanel());
     }
 
 

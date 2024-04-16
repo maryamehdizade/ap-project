@@ -43,7 +43,7 @@ public class BulletModel implements Movable {
 
     }
 
-    public JPanel getPanel() {
+    public GamePanel getPanel() {
         return panel;
     }
 

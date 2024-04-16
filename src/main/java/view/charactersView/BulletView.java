@@ -1,5 +1,7 @@
 package view.charactersView;
 
+import view.GamePanel;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Point2D;
@@ -13,10 +15,11 @@ public class BulletView {
     private double dy;
     private String id;
 
-    JPanel panel;
+    GamePanel panel;
 
-    public BulletView(String id, Point2D loc, double dx, double dy) {
+    public BulletView(String id, Point2D loc, double dx, double dy, GamePanel panel) {
 
+        this.panel = panel;
         this.id = id;
         this.loc = loc;
         this.dx = dx;
