@@ -15,5 +15,6 @@ public class Constant {
     public static final Point2D FRAME_LOCATON = new Point2D.Double(10,10);
 
     public static final int BALL_SIZE = 20;
-    public static final int BULLET_SIZE = 20;
+    public static final int BULLET_SIZE = 8;
+    public static final int RECT_SIZE = 25;
 }

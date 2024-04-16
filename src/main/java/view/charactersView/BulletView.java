@@ -5,9 +5,10 @@ import java.awt.*;
 import java.awt.geom.Point2D;
 import java.util.UUID;
 
+import static controller.Constant.BULLET_SIZE;
+
 public class BulletView {
     private Point2D loc;
-    private final int diameter = 8;
     private double dx;
     private double dy;
     private String id;
@@ -26,7 +27,7 @@ public class BulletView {
 
     public void draw(Graphics g) {
         g.setColor(Color.BLUE);
-        g.fillOval((int)loc.getX(), (int)loc.getY(), diameter, diameter);
+        g.fillOval((int)loc.getX(), (int)loc.getY(), BULLET_SIZE, BULLET_SIZE);
     }
 
     public void setLoc(Point2D loc) {

@@ -1,5 +1,6 @@
 package model.characterModel;
 
+import model.movement.Movable;
 import view.GamePanel;
 
 import javax.swing.*;
@@ -7,7 +8,7 @@ import java.awt.*;
 import java.awt.geom.Point2D;
 import java.util.UUID;
 
-public class BulletModel {
+public class BulletModel implements Movable {
     private Point2D loc;
     private double dx;
     private double dy;
@@ -26,6 +27,7 @@ public class BulletModel {
 
     }
 
+    @Override
     public int move() {
         loc = new Point2D.Double(loc.getX() + dx, loc.getY() + dy);
 
@@ -34,6 +36,11 @@ public class BulletModel {
         else if(loc.getY() < 0)return 3;
         else if(loc.getY() > panel.getDimension().getHeight())return 4;
         return 0;
+    }
+
+    @Override
+    public void move(double velocity) {
+
     }
 
     public JPanel getPanel() {

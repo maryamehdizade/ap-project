@@ -28,6 +28,11 @@ public class MovePlayer implements Movable {
     }
 
     @Override
+    public int move() {
+        return 0;
+    }
+
+    @Override
     public void move(double velocity) {
         if(dForce || uForce || u0Force || d0Force) {
             if (playerModel.getLocation().getY() - BALL_SIZE/2.0 > 0 &&
