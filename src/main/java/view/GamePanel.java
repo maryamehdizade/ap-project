@@ -2,8 +2,7 @@ package view;
 
 import static controller.Constant.BALL_SIZE;
 import static controller.Constant.MIN_SIZE;
-import static controller.Controller.createBulletView;
-import static controller.Controller.createPlayerView;
+import static controller.Controller.*;
 
 import controller.Update;
 import model.characterModel.BulletModel;
@@ -58,7 +57,9 @@ public  class GamePanel extends JPanel implements KeyListener, MouseListener {
         playerView = createPlayerView(playerModel.getId());
         movePlayer = new MovePlayer(playerModel, this);
 
-        rectangleModels.add(new RectangleModel(this));
+        RectangleModel r = new RectangleModel(this);
+        rectangleModels.add(r);
+        rectangleView.add(createRectView(r));
 
         timerx = new Timer(100, e->{
             xmin();

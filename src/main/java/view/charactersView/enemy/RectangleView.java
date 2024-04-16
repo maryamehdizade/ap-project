@@ -12,12 +12,13 @@ public class RectangleView {
 
     public RectangleView(String id, Point2D loc) {
         this.id = id;
-
+        this.loc = loc;
     }
 
     public void draw(Graphics g) {
         g.setColor(Color.red);
         g.drawRect((int) loc.getX(), (int) loc.getY(), RECT_SIZE, RECT_SIZE);
+        g.drawString(String.valueOf(hp), (int) loc.getX()+ 5, (int) loc.getY() + 15);
     }
 
     public Point2D getLoc() {

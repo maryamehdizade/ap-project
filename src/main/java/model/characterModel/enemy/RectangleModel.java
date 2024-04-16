@@ -26,8 +26,10 @@ public class RectangleModel extends java.awt.Rectangle implements Movable {
     String id;
 
     public RectangleModel(GamePanel panel) {
-        createRecs();
         this.panel = panel;
+
+        createRecs();
+
         this.playerModel = panel.playerModel;
         this.id = UUID.randomUUID().toString();
     }
@@ -62,13 +64,14 @@ public class RectangleModel extends java.awt.Rectangle implements Movable {
     public int move() {
 
         double m = Math.atan2((playerModel.getLocation().getY() - loc.getY()),(playerModel.getLocation().getX() - loc.getX()));
-        speedx = (int) (Math.cos(m) * 5);
-        speedy = (int) (Math.sin(m) * 5);
+        speedx = (int) (Math.cos(m) * 2);
+        speedy = (int) (Math.sin(m) * 2);
 
 
         loc = new Point2D.Double(loc.getX() + speedx, loc.getY() + speedy);
 
 
+        //collision
         return 0;
     }
 

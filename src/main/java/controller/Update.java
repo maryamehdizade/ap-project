@@ -57,6 +57,12 @@ public class Update {
     public void updateModel() {
         moveEpsilon();
         updateBullets();
+        updateRecs();
+    }
+    private void updateRecs(){
+        for (int i = panel.getRectangleModels().size() - 1; i >= 0; i--) {
+            panel.getRectangleModels().get(i).move();
+        }
     }
     private void updateBullets() throws ArrayIndexOutOfBoundsException{
         for (int i = panel.getBulletsModel().size() - 1; i >= 0; i--) {
