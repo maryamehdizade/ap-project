@@ -5,6 +5,8 @@ import model.movement.Movable;
 
 import java.awt.*;
 
+import static controller.Constant.TRI_SIZE;
+
 public class TriangleView {
     private double x1, y1, x2, y2, x3, y3;
     private int hp;
@@ -25,7 +27,7 @@ public class TriangleView {
         int[] yPoints = {(int) y1, (int) y2, (int) y3};
         g.setColor(Color.yellow);
         g.drawPolygon(xPoints, yPoints, 3);
-        g.drawString(String.valueOf(hp), (int) ((x1 + x2 + x3) / 3), (int) ((y1 + y2 + y3) / 3));
+        g.drawString(String.valueOf(hp), (int) ((x1 + x2 + x3) / 3) - TRI_SIZE/5, (int) ((y1 + y2 + y3) / 3) +  TRI_SIZE/5);
     }
 
     public void setX1(double x1) {

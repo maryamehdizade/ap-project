@@ -7,14 +7,16 @@ import view.GamePanel;
 import java.util.Random;
 import java.util.UUID;
 
+import static controller.Constant.TRI_SIZE;
+
 public class TriangleModel implements Movable {
 
     private double x1, y1, x2, y2, x3, y3;
-    private double speed = 2;
+    private double speed = 1;
     private int hp = 15;
     private PlayerModel playerModel;
     private String id;
-    private Random random;
+    private Random random = new Random();
     private GamePanel panel;
 
     public TriangleModel(GamePanel panel) {
@@ -60,10 +62,10 @@ public class TriangleModel implements Movable {
         }
         this.x1 = x;
         this.y1 = y;
-        this.x2 = x + 20;
+        this.x2 = x + TRI_SIZE;
         this.y2 = y;
-        this.x3 = x + 10;
-        this.y3 = y + 20;
+        this.x3 = x + TRI_SIZE/2;
+        this.y3 = y + TRI_SIZE;
 
     }
 

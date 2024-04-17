@@ -67,6 +67,8 @@ public  class GamePanel extends JPanel implements KeyListener, MouseListener {
         rectangleView.add(createRectView(r));
 
         TriangleModel t = new TriangleModel(this);
+        triangleModels.add(t);
+        triangleViews.add(createTriangleView(t));
 
 
         timerx = new Timer(100, e->{

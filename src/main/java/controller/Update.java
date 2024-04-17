@@ -18,6 +18,7 @@ import static controller.Controller.*;
 
 public class Update {
     GamePanel panel;
+    private double a = 0.1;
     int second;
     public Update(GamePanel panel) {
         this.panel = panel;
@@ -128,23 +129,23 @@ public class Update {
     }
     private void moveEpsilon(){
         if (panel.movePlayer.isdForce()) {
-            panel.movePlayer.setYvelocity(panel.movePlayer.getYvelocity() + 0.2);
+            panel.movePlayer.setYvelocity(panel.movePlayer.getYvelocity() + a);
             panel.movePlayer.move(panel.movePlayer.getYvelocity());
         }
         if (panel.movePlayer.isuForce()) {
-            panel.movePlayer.setYvelocity(panel.movePlayer.getYvelocity()+ 0.2);
+            panel.movePlayer.setYvelocity(panel.movePlayer.getYvelocity()+ a);
             panel.movePlayer.move(-panel.movePlayer.getYvelocity());
         }
         if (panel.movePlayer.isrForce()) {
-            panel.movePlayer.setXvelocity(panel.movePlayer.getXvelocity()+ 0.2);
+            panel.movePlayer.setXvelocity(panel.movePlayer.getXvelocity()+ a);
             panel.movePlayer.move(panel.movePlayer.getXvelocity());
         }
         if (panel.movePlayer.islForce()) {
-            panel.movePlayer.setXvelocity(panel.movePlayer.getXvelocity()+ 0.2);
+            panel.movePlayer.setXvelocity(panel.movePlayer.getXvelocity()+ a);
             panel.movePlayer.move(-panel.movePlayer.getXvelocity());
         }
         if (panel.movePlayer.isR0Force()){
-            panel.movePlayer.setXvelocity(panel.movePlayer.getXvelocity()- 0.2);
+            panel.movePlayer.setXvelocity(panel.movePlayer.getXvelocity()- a);
             if(panel.movePlayer.getXvelocity() <= 0){
                 panel.movePlayer.setR0Force(false);
                 panel.movePlayer.setXvelocity(0);
@@ -152,7 +153,7 @@ public class Update {
             panel.movePlayer.move(panel.movePlayer.getXvelocity());
         }
         if (panel.movePlayer.isL0Force()) {
-            panel.movePlayer.setXvelocity(panel.movePlayer.getXvelocity()- 0.2);
+            panel.movePlayer.setXvelocity(panel.movePlayer.getXvelocity()- a);
             if(panel.movePlayer.getXvelocity() <= 0){
                 panel.movePlayer.setL0Force(false);
                 panel.movePlayer.setXvelocity(0);
@@ -160,7 +161,7 @@ public class Update {
             panel.movePlayer.move(-panel.movePlayer.getXvelocity());
         }
         if (panel.movePlayer.isU0Force()) {
-            panel.movePlayer.setYvelocity(panel.movePlayer.getYvelocity()- 0.2);
+            panel.movePlayer.setYvelocity(panel.movePlayer.getYvelocity()- a);
             if(panel.movePlayer.getYvelocity() <= 0){
                 panel.movePlayer.setU0Force(false);
                 panel.movePlayer.setYvelocity(0);
@@ -168,7 +169,7 @@ public class Update {
             panel.movePlayer.move(-panel.movePlayer.getYvelocity());
         }
         if (panel.movePlayer.isD0Force()) {
-            panel.movePlayer.setYvelocity(panel.movePlayer.getYvelocity()- 0.2);
+            panel.movePlayer.setYvelocity(panel.movePlayer.getYvelocity()- a);
             if(panel.movePlayer.getYvelocity() <= 0){
                 panel.movePlayer.setD0Force(false);
                 panel.movePlayer.setYvelocity(0);
