@@ -3,6 +3,7 @@ package controller;
 import model.characterModel.BulletModel;
 import model.characterModel.enemy.RectangleModel;
 import model.characterModel.enemy.TriangleModel;
+import model.movement.Movable;
 import view.GamePanel;
 import view.charactersView.BulletView;
 import view.charactersView.enemy.RectangleView;
@@ -12,8 +13,7 @@ import javax.swing.*;
 
 import java.awt.*;
 
-import static controller.Constant.MODEL_UPDATE_TIME;
-import static controller.Constant.FRAME_UPDATE_TIME;
+import static controller.Constant.*;
 import static controller.Controller.*;
 
 public class Update {
@@ -92,14 +92,7 @@ public class Update {
             else if(a == 3)moveUp();
             else if(a == 4)moveDown();
             if (a != 0) {
-                panel.getBullets().remove(i);
-                for(int j = 0; j < panel.getBullets().size(); j++) {
-                    if(panel.getBullets().get(j).getId().equals(panel.getBulletsModel().get(i).getId())){
-                        panel.getBullets().remove(j);
-                        break;
-                    }
-                }
-                panel.getBulletsModel().remove(i);
+                removeBullet(i);
             }
         }
     }
@@ -175,6 +168,63 @@ public class Update {
                 panel.movePlayer.setYvelocity(0);
             }
             panel.movePlayer.move(panel.movePlayer.getYvelocity());
+        }
+    }
+    private void checkCollisioin(Movable movable){
+        if(movable instanceof BulletModel){
+            Rectangle m = new Rectangle((int) ((BulletModel) movable).getLoc().getX(),
+                    (int) ((BulletModel) movable).getLoc().getY(), BULLET_SIZE, BULLET_SIZE);
+            //rectsssssssssssssssssssssssssssssssssssss
+            for (int j = panel.getRectangleModels().size() - 1; j >= 0; j--) {
+                if(panel.getRectangleModels().get(j).intersects(m)){
+                    panel.getRectangleModels().get(j).setHp(panel.getRectangleModels().get(j).getHp() - 5);
+                    removeBullet((BulletModel) movable);
+                    //.............................
+                }
+            }
+            //triaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+            for (int p = 0; p < panel.getTriangleModels().size(); p++) {
+                //todo
+            }
+        }
+        else if(movable instanceof Rectangle){
+            //epsilonnnnnnnnnnnnnnnnnn
+            Rectangle e = new Rectangle((int) panel.playerModel.getLocation().getX(),
+                    (int) panel.playerModel.getLocation().getY(), BALL_SIZE, BALL_SIZE);
+            if(e.intersects((Rectangle) movable)){
+                //check damage and impact
+            }
+            //recttttttttttttttt
+            for (int i = 0; i < panel.getRectangleModels().size(); i++) {
+                if(((Rectangle) movable).intersects(panel.getRectangleModels().get(i))){
+                    //impact
+                }
+            }
+            //triaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+
+        }
+        else if(movable instanceof TriangleModel){
+            //epsilon
+
+            //triaaaaaaaaaaaaaaaaaaa
+        }
+    }
+    private void impact(){
+        //todo
+    }
+    private void removeBullet(int i){
+        panel.getBullets().remove(i);
+        for(int j = 0; j < panel.getBullets().size(); j++) {
+            if(panel.getBullets().get(j).getId().equals(panel.getBulletsModel().get(i).getId())){
+                panel.getBullets().remove(j);
+                break;
+            }
+        }
+        panel.getBulletsModel().remove(i);
+    }
+    private void removeBullet(BulletModel bulletModel){
+        for (int i = 0; i < panel.getBulletsModel().size(); i++) {
+            if(panel.getBulletsModel().get(i).getId().equals(bulletModel.getId()))removeBullet(i);
         }
     }
 }

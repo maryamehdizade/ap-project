@@ -91,4 +91,24 @@ public class RectangleModel extends java.awt.Rectangle implements Movable {
     public String getId() {
         return id;
     }
+
+    public void setHp(int hp) {
+        this.hp = hp;
+    }
+
+    public double getSpeedx() {
+        return speedx;
+    }
+
+    public void setSpeedx(double speedx) {
+        this.speedx = speedx;
+    }
+
+    public double getSpeedy() {
+        return speedy;
+    }
+
+    public void setSpeedy(double speedy) {
+        this.speedy = speedy;
+    }
 }
