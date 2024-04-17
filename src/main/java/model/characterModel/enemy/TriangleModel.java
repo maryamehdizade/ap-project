@@ -2,27 +2,27 @@ package model.characterModel.enemy;
 
 import model.characterModel.PlayerModel;
 import model.movement.Movable;
+import view.GamePanel;
 
+import java.util.Random;
 import java.util.UUID;
 
 public class TriangleModel implements Movable {
 
     private double x1, y1, x2, y2, x3, y3;
-    private double speed;
+    private double speed = 2;
     private int hp = 15;
     private PlayerModel playerModel;
     private String id;
+    private Random random;
+    private GamePanel panel;
 
-    public TriangleModel(double x1, double y1, double x2, double y2, double x3, double y3, double speed, PlayerModel playerModel) {
-        this.x1 = x1;
-        this.y1 = y1;
-        this.x2 = x2;
-        this.y2 = y2;
-        this.x3 = x3;
-        this.y3 = y3;
-        this.speed = speed;
+    public TriangleModel(GamePanel panel) {
+        this.panel = panel;
+        this.playerModel = panel.playerModel;
         this.id = UUID.randomUUID().toString();
-        this.playerModel = playerModel;
+
+        createTriangle();
     }
     @Override
     public int move() {
@@ -37,6 +37,34 @@ public class TriangleModel implements Movable {
         x3 += dx;
         y3 += dy;
         return 0;
+    }
+    void createTriangle(){
+        double x;
+        double y;
+        double r = Math.floor(Math.random()*2);
+        if(r == 0) {
+            x = random.nextDouble(panel.getLoc().getX(), panel.getDimension().getWidth());
+            if(Math.floor(Math.random()*2) == 0){
+                y = panel.getDimension().getHeight();
+            }else{
+                y = panel.getLoc().getY();
+            }
+        }else {
+            y = random.nextDouble(panel.getLoc().getY(), panel.getDimension().getHeight());
+            if(Math.floor(Math.random()*2) == 0){
+                x = panel.getDimension().getWidth();
+            }else{
+                x = panel.getLoc().getX();
+            }
+
+        }
+        this.x1 = x;
+        this.y1 = y;
+        this.x2 = x + 20;
+        this.y2 = y;
+        this.x3 = x + 10;
+        this.y3 = y + 20;
+
     }
 
     @Override

@@ -66,6 +66,9 @@ public  class GamePanel extends JPanel implements KeyListener, MouseListener {
         rectangleModels.add(r);
         rectangleView.add(createRectView(r));
 
+        TriangleModel t = new TriangleModel(this);
+
+
         timerx = new Timer(100, e->{
             xmin();
             ymin();
@@ -101,6 +104,9 @@ public  class GamePanel extends JPanel implements KeyListener, MouseListener {
         }
         for (RectangleView r : rectangleView) {
             r.draw(g);
+        }
+        for (TriangleView t: triangleViews) {
+            t.draw(g);
         }
         repaint();
 

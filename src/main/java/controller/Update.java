@@ -106,7 +106,6 @@ public class Update {
     private void updateTriangles(){
         for (int i = panel.getTriangleModels().size() - 1; i >= 0; i--){
             panel.getTriangleModels().get(i).move();
-
         }
     }
     private void moveLeft(){
