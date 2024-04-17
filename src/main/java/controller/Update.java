@@ -82,6 +82,7 @@ public class Update {
     private void updateRecs(){
         for (int i = panel.getRectangleModels().size() - 1; i >= 0; i--) {
             panel.getRectangleModels().get(i).move();
+            checkCollisioin(panel.getRectangleModels().get(i));
         }
     }
     private void updateBullets() throws ArrayIndexOutOfBoundsException{
@@ -94,12 +95,14 @@ public class Update {
             if (a != 0) {
                 removeBullet(i);
             }
+            checkCollisioin(panel.getBulletsModel().get(i));
         }
     }
 
     private void updateTriangles(){
         for (int i = panel.getTriangleModels().size() - 1; i >= 0; i--){
             panel.getTriangleModels().get(i).move();
+            checkCollisioin(panel.getTriangleModels().get(i));
         }
     }
     private void moveLeft(){
