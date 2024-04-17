@@ -81,7 +81,7 @@ public class RectangleModel extends java.awt.Rectangle implements Movable {
     }
 
     public Point2D getLoc() {
-        return new Point2D.Double(loc.getX() + RECT_SIZE/2.0, loc.getY() + RECT_SIZE/2.0);
+        return loc;
     }
 
     public int getHp() {

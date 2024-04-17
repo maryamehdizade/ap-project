@@ -7,13 +7,13 @@ import java.util.UUID;
 
 public class TriangleModel implements Movable {
 
-    private int x1, y1, x2, y2, x3, y3;
-    private int speed;
-    private int hp;
+    private double x1, y1, x2, y2, x3, y3;
+    private double speed;
+    private int hp = 15;
     private PlayerModel playerModel;
     private String id;
 
-    public TriangleModel(int x1, int y1, int x2, int y2, int x3, int y3, int speed, PlayerModel playerModel) {
+    public TriangleModel(double x1, double y1, double x2, double y2, double x3, double y3, double speed, PlayerModel playerModel) {
         this.x1 = x1;
         this.y1 = y1;
         this.x2 = x2;
@@ -27,8 +27,8 @@ public class TriangleModel implements Movable {
     @Override
     public int move() {
         double angle = Math.atan2(playerModel.getLocation().getY() - y1, playerModel.getLocation().getX() - x1);
-        int dx = (int) (Math.cos(angle) * speed);
-        int dy = (int) (Math.sin(angle) * speed);
+        double dx = Math.cos(angle) * speed;
+        double dy = Math.sin(angle) * speed;
 
         x1 += dx;
         y1 += dy;
@@ -44,27 +44,27 @@ public class TriangleModel implements Movable {
 
     }
 
-    public int getX1() {
+    public double getX1() {
         return x1;
     }
 
-    public int getY1() {
+    public double getY1() {
         return y1;
     }
 
-    public int getX2() {
+    public double getX2() {
         return x2;
     }
 
-    public int getY2() {
+    public double getY2() {
         return y2;
     }
 
-    public int getX3() {
+    public double getX3() {
         return x3;
     }
 
-    public int getY3() {
+    public double getY3() {
         return y3;
     }
 
