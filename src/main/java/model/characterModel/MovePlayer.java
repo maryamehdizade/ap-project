@@ -41,7 +41,7 @@ public class MovePlayer implements Movable {
             }
             if (playerModel.getLocation().getY() + BALL_SIZE> panel.getHeight()) {
                 playerModel.setLocation(
-                        new Point2D.Double(playerModel.getLocation().getX(), panel.getHeight()));
+                        new Point2D.Double(playerModel.getLocation().getX(), panel.getHeight() - BALL_SIZE - 5));
             }else if(playerModel.getLocation().getY() < 2){
                 playerModel.setLocation(
                         new Point2D.Double(playerModel.getLocation().getX(),  5));
