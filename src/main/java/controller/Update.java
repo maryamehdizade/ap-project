@@ -182,10 +182,10 @@ public class Update {
             //rect
             for (int j = 0; j < panel.getRectangleModels().size(); j++) {
                 if(m.intersects(panel.getRectangleModels().get(j))){
-                    System.out.println("collision");
+
                     panel.getRectangleModels().get(j).setHp(panel.getRectangleModels().get(j).getHp() - 5);
                     removeBullet((BulletModel) movable);
-                    //.............................
+                    //correction
 
                 }
             }
@@ -195,16 +195,20 @@ public class Update {
             }
         }
         else if(movable instanceof Rectangle){
-            //epsilonnnnnnnnnnnnnnnnnn
-            Rectangle e = new Rectangle((int) panel.playerModel.getLocation().getX(),
-                    (int) panel.playerModel.getLocation().getY(), BALL_SIZE, BALL_SIZE);
-            if(e.intersects((Rectangle) movable)){
-                //check damage and impact
+            //epsilon
+            int r = doesRecIntersectEpsilon((RectangleModel) movable, panel.playerModel);
+            if(r == 1){
+                reduceHp();
+                //impact
+            }else if(r == 2){
+                //impact
             }
+
             //recttttttttttttttt
             for (int i = 0; i < panel.getRectangleModels().size(); i++) {
                 if(((Rectangle) movable).intersects(panel.getRectangleModels().get(i))){
                     //impact
+                    //correction
                 }
             }
             //triaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
@@ -218,13 +222,16 @@ public class Update {
             //epsilon
             int c = doesCircleIntersectTriangle(panel.playerModel, (TriangleModel) movable);
             if(c == 1){
-                panel.playerModel.setHp(panel.playerModel.getHp() - 10);
+                reduceHp();
                 //impact
             }else if(c == 2){
                 //impact
             }
             //triaaaaaaaaaaaaaaaaaaa
         }
+    }
+    private void reduceHp(){
+        panel.playerModel.setHp(panel.playerModel.getHp() - 10);
     }
 
     private void removeTriangle(int i){

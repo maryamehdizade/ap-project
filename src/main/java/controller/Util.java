@@ -10,9 +10,20 @@ import static controller.Constant.BALL_SIZE;
 import static controller.Constant.RECT_SIZE;
 
 public class Util {
+    //rectangle epsilon collision
+    public static int doesRecIntersectEpsilon(RectangleModel rectangle, PlayerModel model){
+        Point2D rec = rectCenter(rectangle);
+        Point2D ep = playerCenter(model);
+        double distance = Math.pow((rec.getX() - ep.getX()), 2) + Math.pow((rec.getY() - ep.getY()), 2);
+        double a = BALL_SIZE/2.0 + RECT_SIZE/2.0;
+        double b = BALL_SIZE/2.0 + RECT_SIZE*0.7;
+        if(distance <= b && distance > a)return 1;
+            else if(distance <= a)return 2;
+        return 0;
+    }
 
     //triangle epsilon collision
-    public static boolean doesLineIntersectCircle(double x1, double y1, double x2, double y2,PlayerModel model) {
+    public static boolean doesLineIntersectEpsilon(double x1, double y1, double x2, double y2,PlayerModel model) {
         double closestX = max(playerCenter(model).getX(), x1, x2);
         double closestY = max(playerCenter(model).getY(), y1, y2);
         double distance = Math.sqrt(Math.pow(closestX - playerCenter(model).getX(), 2) + Math.pow(closestY - playerCenter(model).getY(), 2));
@@ -28,9 +39,9 @@ public class Util {
                 isPointInsideCircle(triangle.getX3(), triangle.getY3(), model)) {
 
             return 1;
-        } else if (doesLineIntersectCircle(triangle.getX1(), triangle.getY1(), triangle.getX2(), triangle.getY2(), model) ||
-                doesLineIntersectCircle(triangle.getX2(), triangle.getY2(), triangle.getX3(), triangle.getY3(), model) ||
-                doesLineIntersectCircle(triangle.getX3(), triangle.getY3(), triangle.getX1(), triangle.getY1(), model)) {
+        } else if (doesLineIntersectEpsilon(triangle.getX1(), triangle.getY1(), triangle.getX2(), triangle.getY2(), model) ||
+                doesLineIntersectEpsilon(triangle.getX2(), triangle.getY2(), triangle.getX3(), triangle.getY3(), model) ||
+                doesLineIntersectEpsilon(triangle.getX3(), triangle.getY3(), triangle.getX1(), triangle.getY1(), model)) {
 
             return 2;
         }
