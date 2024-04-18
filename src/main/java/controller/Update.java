@@ -210,8 +210,7 @@ public class Update {
             //triaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
             for (int i = 0; i < panel.getTriangleModels().size(); i++) {
                 if(isCollision(panel.getTriangleModels().get(i), (RectangleModel) movable)){
-                    System.out.println("collison");
-                    removeTriangle(i);
+                    //impact
                 }
             }
         }

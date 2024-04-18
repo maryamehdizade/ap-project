@@ -10,7 +10,11 @@ import static controller.Constant.BALL_SIZE;
 import static controller.Constant.RECT_SIZE;
 
 public class Util {
-    // Method to check if two line segments intersect
+    private boolean doesLineIntersectCircle(int x1, int y1, int x2, int y2, int circleX, int circleY, int radius) {
+        double distance = Math.abs((x1 - x2) * (circleY - y1) + (y2 - y1) * (circleX - x1)) / Math.sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
+
+        return distance <= radius;
+    }
     public static boolean doIntersect(double x1, double y1, double x2, double y2, double x3, double y3, double x4, double y4) {
         // Find the orientations of the points
         int o1 = orientation(x1, y1, x2, y2, x3, y3);
