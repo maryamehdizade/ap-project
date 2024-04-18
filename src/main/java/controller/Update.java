@@ -15,6 +15,7 @@ import java.awt.*;
 
 import static controller.Constant.*;
 import static controller.Controller.*;
+import static controller.Util.doIntersect;
 
 public class Update {
     GamePanel panel;
@@ -80,27 +81,28 @@ public class Update {
         updateTriangles();
     }
     private void updateRecs(){
-        for (int i = panel.getRectangleModels().size() - 1; i >= 0; i--) {
+        for (int i = 0; i < panel.getRectangleModels().size(); i++) {
             panel.getRectangleModels().get(i).move();
             checkCollisioin(panel.getRectangleModels().get(i));
         }
     }
     private void updateBullets() throws ArrayIndexOutOfBoundsException{
-        for (int i = panel.getBulletsModel().size() - 1; i >= 0; i--) {
+        for (int i = 0; i < panel.getBulletsModel().size(); i++) {
             int a = panel.getBulletsModel().get(i).move();
             if(a == 1)moveLeft();
             else if(a == 2)moveRight();
             else if(a == 3)moveUp();
             else if(a == 4)moveDown();
+            checkCollisioin(panel.getBulletsModel().get(i));
             if (a != 0) {
                 removeBullet(i);
             }
-            checkCollisioin(panel.getBulletsModel().get(i));
+
         }
     }
 
     private void updateTriangles(){
-        for (int i = panel.getTriangleModels().size() - 1; i >= 0; i--){
+        for (int i = 0; i < panel.getTriangleModels().size() ; i++){
             panel.getTriangleModels().get(i).move();
             checkCollisioin(panel.getTriangleModels().get(i));
         }
@@ -177,15 +179,17 @@ public class Update {
         if(movable instanceof BulletModel){
             Rectangle m = new Rectangle((int) ((BulletModel) movable).getLoc().getX(),
                     (int) ((BulletModel) movable).getLoc().getY(), BULLET_SIZE, BULLET_SIZE);
-            //rectsssssssssssssssssssssssssssssssssssss
-            for (int j = panel.getRectangleModels().size() - 1; j >= 0; j--) {
-                if(panel.getRectangleModels().get(j).intersects(m)){
+            //rect
+            for (int j = 0; j < panel.getRectangleModels().size(); j++) {
+                if(m.intersects(panel.getRectangleModels().get(j))){
+                    System.out.println("collision");
                     panel.getRectangleModels().get(j).setHp(panel.getRectangleModels().get(j).getHp() - 5);
                     removeBullet((BulletModel) movable);
                     //.............................
+
                 }
             }
-            //triaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+            //tria
             for (int p = 0; p < panel.getTriangleModels().size(); p++) {
                 //todo
             }
@@ -204,13 +208,51 @@ public class Update {
                 }
             }
             //triaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-
+            for (int i = 0; i < panel.getTriangleModels().size(); i++) {
+                if(isCollision(panel.getTriangleModels().get(i), (RectangleModel) movable)){
+                    System.out.println("collison");
+                    removeTriangle(i);
+                }
+            }
         }
         else if(movable instanceof TriangleModel){
             //epsilon
 
             //triaaaaaaaaaaaaaaaaaaa
         }
+    }
+    private void removeTriangle(int i){
+        panel.getTriangleViews().remove(i);
+        panel.getTriangleModels().remove(i);
+    }
+
+    private boolean isCollision(TriangleModel triangle, RectangleModel rectangle) {
+
+        // Get the coordinates of the triangle vertices
+        double[] xPoints = {triangle.getX1(), triangle.getX2(), triangle.getX3()};
+        double[] yPoints = {triangle.getY1(), triangle.getY2(), triangle.getY3()};
+
+        // Iterate over each side of the triangle
+        for (int i = 0; i < 3; i++) {
+            double x1 = xPoints[i];
+            double y1 = yPoints[i];
+            double x2 = xPoints[(i + 1) % 3];
+            double y2 = yPoints[(i + 1) % 3];
+
+            // Check if the current side of the triangle intersects with any side of the rectangle
+            for (int j = 0; j < 4; j++) {
+                int x3 = rectangle.getxPoints()[j];
+                int y3 = rectangle.getyPoints()[j];
+                int x4 = rectangle.getxPoints()[(j + 1) % 4];
+                int y4 = rectangle.getyPoints()[(j + 1) % 4];
+
+                // If there's an intersection, return true (collision)
+                if (doIntersect(x1, y1, x2, y2, x3, y3, x4, y4))
+                    return true;
+            }
+        }
+        // No collision detected
+        return false;
     }
     private void impact(){
         //todo

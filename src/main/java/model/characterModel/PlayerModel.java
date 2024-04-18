@@ -13,7 +13,7 @@ import static controller.Constant.FRAME_LOCATON;
 public final class PlayerModel  {
     private String id;
     private int xp = 0;
-    private int hp = 50;
+    private int hp = 100;
     private Point2D location;
     private static PlayerModel player;
 

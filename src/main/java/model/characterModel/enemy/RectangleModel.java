@@ -20,6 +20,8 @@ public class RectangleModel extends java.awt.Rectangle implements Movable {
     private double targetx;
     private double targety;
     private Random random = new Random();
+    private int[] xPoints;
+    private int[] yPoints;
 
 
     private Point2D loc;
@@ -56,6 +58,9 @@ public class RectangleModel extends java.awt.Rectangle implements Movable {
 
         loc = new Point2D.Double(x,y);
 
+        xPoints = new int[]{(int) loc.getX(), (int) (loc.getX() + RECT_SIZE),(int) (loc.getX() + RECT_SIZE), (int) loc.getX()};
+        yPoints = new int[]{(int) loc.getY(), (int) loc.getY(), (int) (loc.getY() + RECT_SIZE), (int) (loc.getY() + RECT_SIZE)};
+
 
 
     }
@@ -69,6 +74,9 @@ public class RectangleModel extends java.awt.Rectangle implements Movable {
 
 
         loc = new Point2D.Double(loc.getX() + speedx, loc.getY() + speedy);
+
+        xPoints = new int[]{(int) loc.getX(), (int) (loc.getX() + RECT_SIZE),(int) (loc.getX() + RECT_SIZE), (int) loc.getX()};
+        yPoints = new int[]{(int) loc.getY(), (int) loc.getY(), (int) (loc.getY() + RECT_SIZE), (int) (loc.getY() + RECT_SIZE)};
 
 
         //collision
@@ -110,5 +118,13 @@ public class RectangleModel extends java.awt.Rectangle implements Movable {
 
     public void setSpeedy(double speedy) {
         this.speedy = speedy;
+    }
+
+    public int[] getxPoints() {
+        return xPoints;
+    }
+
+    public int[] getyPoints() {
+        return yPoints;
     }
 }
