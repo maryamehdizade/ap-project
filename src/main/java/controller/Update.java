@@ -15,7 +15,7 @@ import java.awt.*;
 
 import static controller.Constant.*;
 import static controller.Controller.*;
-import static controller.Util.doIntersect;
+import static controller.Util.*;
 
 public class Update {
     GamePanel panel;
@@ -216,42 +216,20 @@ public class Update {
         }
         else if(movable instanceof TriangleModel){
             //epsilon
-
+            int c = doesCircleIntersectTriangle(panel.playerModel, (TriangleModel) movable);
+            if(c == 1){
+                panel.playerModel.setHp(panel.playerModel.getHp() - 10);
+                //impact
+            }else if(c == 2){
+                //impact
+            }
             //triaaaaaaaaaaaaaaaaaaa
         }
     }
+
     private void removeTriangle(int i){
         panel.getTriangleViews().remove(i);
         panel.getTriangleModels().remove(i);
-    }
-
-    private boolean isCollision(TriangleModel triangle, RectangleModel rectangle) {
-
-        // Get the coordinates of the triangle vertices
-        double[] xPoints = {triangle.getX1(), triangle.getX2(), triangle.getX3()};
-        double[] yPoints = {triangle.getY1(), triangle.getY2(), triangle.getY3()};
-
-        // Iterate over each side of the triangle
-        for (int i = 0; i < 3; i++) {
-            double x1 = xPoints[i];
-            double y1 = yPoints[i];
-            double x2 = xPoints[(i + 1) % 3];
-            double y2 = yPoints[(i + 1) % 3];
-
-            // Check if the current side of the triangle intersects with any side of the rectangle
-            for (int j = 0; j < 4; j++) {
-                int x3 = rectangle.getxPoints()[j];
-                int y3 = rectangle.getyPoints()[j];
-                int x4 = rectangle.getxPoints()[(j + 1) % 4];
-                int y4 = rectangle.getyPoints()[(j + 1) % 4];
-
-                // If there's an intersection, return true (collision)
-                if (doIntersect(x1, y1, x2, y2, x3, y3, x4, y4))
-                    return true;
-            }
-        }
-        // No collision detected
-        return false;
     }
     private void impact(){
         //todo
