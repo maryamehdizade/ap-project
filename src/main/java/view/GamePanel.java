@@ -22,6 +22,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 public  class GamePanel extends JPanel implements KeyListener, MouseListener {
@@ -30,8 +31,7 @@ public  class GamePanel extends JPanel implements KeyListener, MouseListener {
     public MovePlayer movePlayer;
     private Dimension dimension = new Dimension(700,700);
     private Point loc = new Point(100,20);
-    private Timer timerx;
-    private Timer timery;
+    protected Timer timerx;
     private ArrayList<BulletView> bullets = new ArrayList<>();
 
     private ArrayList<RectangleModel> rectangleModels = new ArrayList<>();
@@ -87,11 +87,27 @@ public  class GamePanel extends JPanel implements KeyListener, MouseListener {
             dimension.width -= 2;
             if(loc.getX() < 200) loc.setLocation(loc.getX() + 1,loc.getY() );
         }
+        if(playerModel.getLocation().getX() + BALL_SIZE > dimension.getWidth()){
+            playerModel.setLocation(
+                    new Point2D.Double(dimension.getWidth() - BALL_SIZE ,playerModel.getLocation().getY()));
+        }else if(playerModel.getLocation().getX()  < 2){
+            playerModel.setLocation(
+                    new Point2D.Double(5,playerModel.getLocation().getY()));
+
+        }
+
     }
     public void ymin(){
         if(dimension.height > MIN_SIZE.height) {
             dimension.height -= 2;
             if(loc.getY() < 200) loc.setLocation(loc.getX(),loc.getY() + 1);
+        }
+        if (playerModel.getLocation().getY() + BALL_SIZE> dimension.getHeight()) {
+            playerModel.setLocation(
+                    new Point2D.Double(playerModel.getLocation().getX(), dimension.getHeight() - BALL_SIZE - 5));
+        }else if(playerModel.getLocation().getY() < 2){
+            playerModel.setLocation(
+                    new Point2D.Double(playerModel.getLocation().getX(),  5));
         }
     }
 
@@ -156,6 +172,7 @@ public  class GamePanel extends JPanel implements KeyListener, MouseListener {
         if (keyCode == KeyEvent.VK_W) {
             movePlayer.setuForce(false);
             movePlayer.setU0Force(true);
+            timerx.stop();
         }
     }
 

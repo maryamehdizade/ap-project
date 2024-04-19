@@ -12,6 +12,7 @@ import view.charactersView.enemy.TriangleView;
 import javax.swing.*;
 
 import java.awt.*;
+import java.awt.geom.Point2D;
 import java.util.Objects;
 
 import static controller.Constant.*;
@@ -162,6 +163,21 @@ public class Update {
                 panel.movePlayer.setYvelocity(0);
             }
             panel.movePlayer.move(panel.movePlayer.getYvelocity());
+        }
+        if (panel.playerModel.getLocation().getY() + BALL_SIZE> panel.getHeight()) {
+            panel.playerModel.setLocation(
+                    new Point2D.Double(panel.playerModel.getLocation().getX(), panel.getHeight() - BALL_SIZE - 5));
+        }else if(panel.playerModel.getLocation().getY() < 2){
+            panel.playerModel.setLocation(
+                    new Point2D.Double(panel.playerModel.getLocation().getX(),  5));
+        }
+        if(panel.playerModel.getLocation().getX() + BALL_SIZE > panel.getWidth()){
+            panel.playerModel.setLocation(
+                    new Point2D.Double(panel.getWidth() - BALL_SIZE ,panel.playerModel.getLocation().getY()));
+        }else if(panel.playerModel.getLocation().getX()  < 2){
+            panel.playerModel.setLocation(
+                    new Point2D.Double(5,panel.playerModel.getLocation().getY()));
+
         }
     }
     private void checkCollisioin(Movable movable){

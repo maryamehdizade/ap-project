@@ -47,7 +47,7 @@ public class Store extends JFrame {
             if(panel.playerModel.getXp() >= 100){
                 panel.playerModel.setXp(panel.playerModel.getXp() - 100);
                 //todo
-                dispose();
+                start();
             }
         });
 
@@ -59,7 +59,7 @@ public class Store extends JFrame {
             if(panel.playerModel.getXp() >= 75){
                 panel.playerModel.setXp(panel.playerModel.getXp() - 75);
                 //todo
-                dispose();
+                start();
             }
         });
 
@@ -73,7 +73,7 @@ public class Store extends JFrame {
                 panel.playerModel.setXp(panel.playerModel.getXp() - 50);
                 panel.playerModel.setHp(panel.playerModel.getHp() + 10);
             }
-            dispose();
+            start();
         });
 
 
@@ -82,6 +82,12 @@ public class Store extends JFrame {
         main.add(banish);
         main.setBackground(Color.black);
 
+    }
+    private void start(){
+        dispose();
+        panel.update.view.start();
+        panel.update.model.start();
+        panel.timerx.start();
     }
 
 }
