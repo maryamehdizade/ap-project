@@ -26,6 +26,7 @@ public class Menu extends JFrame {
         setResizable(false);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         requestFocus();
+
         this.add(panel);
         panel.setLayout(null);
         panel.setBackground(Color.black);
@@ -41,12 +42,9 @@ public class Menu extends JFrame {
         play.setSize(buttonWidth,buttonHieght);
         play.setLocation(xLoc,100);
         play.setBackground(color);
-        play.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-                Game.getINSTANCE();
-            }
+        play.addActionListener(e -> {
+            dispose();
+            Game.getINSTANCE();
         });
 
         skillTree.setSize(buttonWidth,buttonHieght);

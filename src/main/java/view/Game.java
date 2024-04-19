@@ -28,7 +28,6 @@ public final class Game extends JFrame {
         setResizable(false);
         setSize(FRAME_DIMENSION);
         setLocationRelativeTo(null);
-//        setLocation((Point) FRAME_LOCATON);
         setVisible(true);
 
 

@@ -55,4 +55,8 @@ public final class PlayerModel  {
     public void setHp(int hp) {
         this.hp = hp;
     }
+
+    public void setXp(int xp) {
+        this.xp = xp;
+    }
 }
