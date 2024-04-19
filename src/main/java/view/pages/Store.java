@@ -1,11 +1,7 @@
-package view;
+package view.pages;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import static controller.Constant.FRAME_DIMENSION;
 
 public class Store extends JFrame {
     private GamePanel panel;
@@ -20,8 +16,7 @@ public class Store extends JFrame {
         this.panel = panel;
 
         setSize(300, 200);
-//        setLocation((int) ((panel.getDimension().getWidth()) / 2), (int) (panel.getDimension().getHeight() / 2));
-        setLocation(500,200);
+        setLocation((int) ((panel.getDimension().getWidth()) / 2), (int) (panel.getDimension().getHeight() / 2));
         setResizable(false);
         setBackground(Color.black);
         setUndecorated(true);

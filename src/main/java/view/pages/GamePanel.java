@@ -1,4 +1,4 @@
-package view;
+package view.pages;
 
 import static controller.Constant.BALL_SIZE;
 import static controller.Constant.MIN_SIZE;
@@ -11,6 +11,7 @@ import model.characterModel.MovePlayer;
 import model.characterModel.PlayerModel;
 import model.characterModel.enemy.RectangleModel;
 import model.characterModel.enemy.TriangleModel;
+import sound.Sound;
 import view.charactersView.BulletView;
 import view.charactersView.PlayerView;
 import view.charactersView.enemy.RectangleView;
@@ -33,20 +34,19 @@ public  class GamePanel extends JPanel implements KeyListener, MouseListener {
     private Point loc = new Point(100,20);
     protected Timer timerx;
     private ArrayList<BulletView> bullets = new ArrayList<>();
-
     private ArrayList<RectangleModel> rectangleModels = new ArrayList<>();
     private ArrayList<RectangleView> rectangleView = new ArrayList<>();
     private ArrayList<BulletModel> bulletsModel = new ArrayList<>();
     private ArrayList<TriangleModel> triangleModels = new ArrayList<>();
     private ArrayList<TriangleView> triangleViews = new ArrayList<>();
-
-
+    protected Sound sound;
     private JFrame frame;
     Update update;
 
 
-    public GamePanel(JFrame frame) {
+    public GamePanel(JFrame frame) throws Exception {
         this.frame = frame;
+        sound = new Sound();
 
         setBackground(new Color(0, 0, 0));
         setFocusable(true);

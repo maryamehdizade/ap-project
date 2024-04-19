@@ -1,9 +1,7 @@
-package view;
+package view.pages;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class Menu extends JFrame {
 
@@ -44,7 +42,11 @@ public class Menu extends JFrame {
         play.setBackground(color);
         play.addActionListener(e -> {
             dispose();
-            Game.getINSTANCE();
+            try {
+                Game.getINSTANCE();
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
+            }
         });
 
         skillTree.setSize(buttonWidth,buttonHieght);

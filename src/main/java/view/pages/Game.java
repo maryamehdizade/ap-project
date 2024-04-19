@@ -1,4 +1,4 @@
-package view;
+package view.pages;
 
 
 
@@ -6,7 +6,6 @@ import javax.swing.*;
 import java.awt.*;
 
 import static controller.Constant.FRAME_DIMENSION;
-import static controller.Constant.FRAME_LOCATON;
 
 
 public final class Game extends JFrame {
@@ -15,12 +14,12 @@ public final class Game extends JFrame {
     int y = 2;
     GamePanel gamePanel = new GamePanel(this);
 
-    public static Game getINSTANCE() {
+    public static Game getINSTANCE() throws Exception {
         if(INSTANCE == null)INSTANCE = new Game();
         return INSTANCE;
     }
 
-    public Game() {
+    public Game() throws Exception {
         setUndecorated(true);
         setBackground(new Color(0, 0, 0, 0));
         setLayout(null);

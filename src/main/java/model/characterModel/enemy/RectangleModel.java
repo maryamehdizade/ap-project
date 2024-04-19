@@ -2,7 +2,7 @@ package model.characterModel.enemy;
 
 import model.characterModel.PlayerModel;
 import model.movement.Movable;
-import view.GamePanel;
+import view.pages.GamePanel;
 
 import java.awt.geom.Point2D;
 import java.util.Random;

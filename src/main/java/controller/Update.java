@@ -4,7 +4,7 @@ import model.characterModel.BulletModel;
 import model.characterModel.enemy.RectangleModel;
 import model.characterModel.enemy.TriangleModel;
 import model.movement.Movable;
-import view.GamePanel;
+import view.pages.GamePanel;
 import view.charactersView.BulletView;
 import view.charactersView.enemy.RectangleView;
 import view.charactersView.enemy.TriangleView;

@@ -1,11 +1,9 @@
 package view.charactersView;
 
-import view.GamePanel;
+import view.pages.GamePanel;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Point2D;
-import java.util.UUID;
 
 import static controller.Constant.BULLET_SIZE;
 
