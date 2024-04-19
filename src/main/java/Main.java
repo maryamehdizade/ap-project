@@ -3,8 +3,7 @@ import view.pages.Setting;
 
 public class Main {
     public static void main(String[] args) {
-//        new Menu();
-    new Setting();
+        new Menu();
     }
 
 }
