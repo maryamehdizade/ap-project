@@ -105,4 +105,8 @@ public class TriangleModel implements Movable {
     public String getId() {
         return id;
     }
+
+    public void setHp(int hp) {
+        this.hp = hp;
+    }
 }

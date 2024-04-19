@@ -43,6 +43,7 @@ public  class GamePanel extends JPanel implements KeyListener, MouseListener {
 
     private JFrame frame;
 
+
     public GamePanel(JFrame frame) {
         this.frame = frame;
 
@@ -230,5 +231,9 @@ public  class GamePanel extends JPanel implements KeyListener, MouseListener {
 
     public ArrayList<TriangleView> getTriangleViews() {
         return triangleViews;
+    }
+
+    public JFrame getFrame() {
+        return frame;
     }
 }

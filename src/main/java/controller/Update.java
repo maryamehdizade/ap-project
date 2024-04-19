@@ -12,19 +12,25 @@ import view.charactersView.enemy.TriangleView;
 import javax.swing.*;
 
 import java.awt.*;
+import java.util.Objects;
 
 import static controller.Constant.*;
+import static controller.Util.doTrianglesIntersect;
 import static controller.Controller.*;
 import static controller.Util.*;
 
 public class Update {
+    private  Timer model;
+    private Timer view;
     GamePanel panel;
     private double a = 0.1;
     int second;
     public Update(GamePanel panel) {
         this.panel = panel;
-        new Timer((int) FRAME_UPDATE_TIME, e -> updateView()){{setCoalesce(true);}}.start();
-        new Timer((int) MODEL_UPDATE_TIME, e -> updateModel()){{setCoalesce(true);}}.start();
+        view = new Timer((int) FRAME_UPDATE_TIME, e -> updateView()){{setCoalesce(true);}};
+        view.start();
+        model = new Timer((int) MODEL_UPDATE_TIME, e -> updateModel()){{setCoalesce(true);}};
+        model.start();
 
 
     }
@@ -191,10 +197,15 @@ public class Update {
             }
             //tria
             for (int p = 0; p < panel.getTriangleModels().size(); p++) {
-                //todo
+                if(doesCircleIntersectTriangle(bulletCenter((BulletModel) movable).getX(),
+                        bulletCenter((BulletModel) movable).getY(), panel.getTriangleModels().get(p)) != 0){
+                    panel.getTriangleModels().get(p).setHp(panel.getTriangleModels().get(p).getHp() - 5);
+                    if(panel.getTriangleModels().get(p).getHp() <= 0)removeTriangle(p);
+                    removeBullet((BulletModel) movable);
+                }
             }
         }
-        else if(movable instanceof Rectangle){
+        else if(movable instanceof RectangleModel){
             //epsilon
             int r = doesRecIntersectEpsilon((RectangleModel) movable, panel.playerModel);
             if(r == 1){
@@ -204,14 +215,15 @@ public class Update {
                 //impact
             }
 
-            //recttttttttttttttt
+            //rect
             for (int i = 0; i < panel.getRectangleModels().size(); i++) {
-                if(((Rectangle) movable).intersects(panel.getRectangleModels().get(i))){
+                if(((RectangleModel) movable).intersects(panel.getRectangleModels().get(i))
+                        && !Objects.equals(panel.getRectangleModels().get(i).getId(), ((RectangleModel) movable).getId())){
                     //impact
                     //correction
                 }
             }
-            //triaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+            //tria
             for (int i = 0; i < panel.getTriangleModels().size(); i++) {
                 if(isCollision(panel.getTriangleModels().get(i), (RectangleModel) movable)){
                     //impact
@@ -220,18 +232,29 @@ public class Update {
         }
         else if(movable instanceof TriangleModel){
             //epsilon
-            int c = doesCircleIntersectTriangle(panel.playerModel, (TriangleModel) movable);
+            int c = doesCircleIntersectTriangle(playerCenter(panel.playerModel).getX(), playerCenter(panel.playerModel).getY() , (TriangleModel) movable);
             if(c == 1){
                 reduceHp();
                 //impact
             }else if(c == 2){
                 //impact
             }
-            //triaaaaaaaaaaaaaaaaaaa
+            //tria
+            for (int i = 0; i < panel.getTriangleModels().size(); i++) {
+                if(doTrianglesIntersect (panel.getTriangleModels().get(i), (TriangleModel) movable)
+                        && !Objects.equals(panel.getTriangleModels().get(i).getId(), ((TriangleModel) movable).getId())){
+                    //impact
+                }
+            }
         }
     }
     private void reduceHp(){
         panel.playerModel.setHp(panel.playerModel.getHp() - 10);
+        if(panel.playerModel.getHp() <= 0){
+            model.stop();
+            view.stop();
+
+        }
     }
 
     private void removeTriangle(int i){
