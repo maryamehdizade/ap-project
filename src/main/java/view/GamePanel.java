@@ -42,6 +42,7 @@ public  class GamePanel extends JPanel implements KeyListener, MouseListener {
 
 
     private JFrame frame;
+    Update update;
 
 
     public GamePanel(JFrame frame) {
@@ -55,7 +56,7 @@ public  class GamePanel extends JPanel implements KeyListener, MouseListener {
         requestFocus();
         addKeyListener(this);
         addMouseListener(this);
-        new Update(this);
+        update = new Update(this);
         setSize(dimension);
 
 
@@ -128,6 +129,11 @@ public  class GamePanel extends JPanel implements KeyListener, MouseListener {
             movePlayer.setuForce(true);
         } else if (keyCode == KeyEvent.VK_S) {
             movePlayer.setdForce(true);
+        }
+        if(keyCode == KeyEvent.VK_SPACE){
+            update.model.stop();
+            update.view.stop();
+            new Store(this);
         }
     }
     @Override

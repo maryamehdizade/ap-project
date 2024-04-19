@@ -20,8 +20,8 @@ import static controller.Controller.*;
 import static controller.Util.*;
 
 public class Update {
-    private  Timer model;
-    private Timer view;
+    public   Timer model;
+    public Timer view;
     GamePanel panel;
     private double a = 0.1;
     int second;
@@ -113,24 +113,7 @@ public class Update {
             checkCollisioin(panel.getTriangleModels().get(i));
         }
     }
-    private void moveLeft(){
-        panel.setLoc(new Point((int) (panel.getLoc().getX() - 5), (int) panel.getLoc().getY()));
-        panel.setDimension(new Dimension((int) (panel.getDimension().getWidth() + 5), (int) panel.getDimension().getHeight()));
 
-    }
-    private void moveRight(){
-        panel.setLoc(new Point((int) (panel.getLoc().getX() + 5), (int) panel.getLoc().getY()));
-        panel.setDimension(new Dimension((int) (panel.getDimension().getWidth() + 5), (int) panel.getDimension().getHeight()));
-    }
-    private void moveUp(){
-        panel.setLoc(new Point((int) (panel.getLoc().getX() ), (int) panel.getLoc().getY()- 5));
-        panel.setDimension(new Dimension((int)(panel.getDimension().getWidth()), (int)panel.getDimension().getHeight()+ 5));
-
-    }
-    private void moveDown(){
-        panel.setLoc(new Point((int) (panel.getLoc().getX() ), (int) panel.getLoc().getY() +  5));
-        panel.setDimension(new Dimension((int)(panel.getDimension().getWidth()), (int)panel.getDimension().getHeight()+ 5));
-    }
     private void moveEpsilon(){
         if (panel.movePlayer.isdForce()) {
             panel.movePlayer.setYvelocity(panel.movePlayer.getYvelocity() + a);
@@ -278,5 +261,23 @@ public class Update {
         for (int i = 0; i < panel.getBulletsModel().size(); i++) {
             if(panel.getBulletsModel().get(i).getId().equals(bulletModel.getId()))removeBullet(i);
         }
+    }
+    private void moveLeft(){
+        panel.setLoc(new Point((int) (panel.getLoc().getX() - 5), (int) panel.getLoc().getY()));
+        panel.setDimension(new Dimension((int) (panel.getDimension().getWidth() + 5), (int) panel.getDimension().getHeight()));
+
+    }
+    private void moveRight(){
+        panel.setLoc(new Point((int) (panel.getLoc().getX() + 5), (int) panel.getLoc().getY()));
+        panel.setDimension(new Dimension((int) (panel.getDimension().getWidth() + 5), (int) panel.getDimension().getHeight()));
+    }
+    private void moveUp(){
+        panel.setLoc(new Point((int) (panel.getLoc().getX() ), (int) panel.getLoc().getY()- 5));
+        panel.setDimension(new Dimension((int)(panel.getDimension().getWidth()), (int)panel.getDimension().getHeight()+ 5));
+
+    }
+    private void moveDown(){
+        panel.setLoc(new Point((int) (panel.getLoc().getX() ), (int) panel.getLoc().getY() +  5));
+        panel.setDimension(new Dimension((int)(panel.getDimension().getWidth()), (int)panel.getDimension().getHeight()+ 5));
     }
 }
