@@ -8,16 +8,18 @@ public class Menu extends JFrame {
     private JButton exit = new JButton("exit");
     private JButton skillTree = new JButton("skill tree");
     private JButton play = new JButton("play");
-
+    private JButton setting = new JButton("setting");
     private JButton tutorial = new JButton("tutorial");
 
     private final int buttonWidth = 300;
     private final int buttonHieght = 70;
     private int xLoc = 200;
     private final Color color = Color.GRAY;
+    protected GamePanel gamePanel;
 
     private JPanel panel = new JPanel();
-    public Menu(){
+    public Menu(GamePanel gamePanel) throws Exception {
+        this.gamePanel = gamePanel;
         setSize(700,700);
         setLocation(300,20);
         setVisible(true);
@@ -43,7 +45,7 @@ public class Menu extends JFrame {
         play.addActionListener(e -> {
             dispose();
             try {
-                Game.getINSTANCE();
+                new Game(this);
             } catch (Exception ex) {
                 throw new RuntimeException(ex);
             }
@@ -56,6 +58,14 @@ public class Menu extends JFrame {
         tutorial.setSize(buttonWidth,buttonHieght);
         tutorial.setLocation(xLoc,300);
         tutorial.setBackground(color);
+
+        setting.setSize(buttonWidth, buttonHieght);
+        setting.setLocation(xLoc, 500);
+        setting.setBackground(color);
+        setting.addActionListener(e -> {
+            dispose();
+            new Setting(gamePanel);
+        });
 
         panel.add(exit);
         panel.add(play);

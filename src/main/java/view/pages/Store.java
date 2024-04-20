@@ -2,8 +2,10 @@ package view.pages;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
-public class Store extends JFrame {
+public class Store extends JFrame implements KeyListener {
     private GamePanel panel;
     private JButton empower = new JButton("Empower : 75xp");
     private JButton heal = new JButton("Apollo Heal : 50xp");
@@ -85,4 +87,22 @@ public class Store extends JFrame {
         panel.timerx.start();
     }
 
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+        int keyCode = e.getKeyCode();
+        if(keyCode == KeyEvent.VK_SPACE){
+            start();
+        }
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+
+    }
 }

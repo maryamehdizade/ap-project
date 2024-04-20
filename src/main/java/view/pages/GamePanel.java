@@ -32,7 +32,7 @@ public  class GamePanel extends JPanel implements KeyListener, MouseListener {
     public MovePlayer movePlayer;
     private Dimension dimension = new Dimension(700,700);
     private Point loc = new Point(100,20);
-    protected Timer timerx;
+    public Timer timerx;
     private ArrayList<BulletView> bullets = new ArrayList<>();
     private ArrayList<RectangleModel> rectangleModels = new ArrayList<>();
     private ArrayList<RectangleView> rectangleView = new ArrayList<>();
@@ -40,13 +40,11 @@ public  class GamePanel extends JPanel implements KeyListener, MouseListener {
     private ArrayList<TriangleModel> triangleModels = new ArrayList<>();
     private ArrayList<TriangleView> triangleViews = new ArrayList<>();
     protected Sound sound;
-    private JFrame frame;
     Update update;
 
 
-    public GamePanel(JFrame frame) throws Exception {
-        this.frame = frame;
-        sound = new Sound();
+    public GamePanel() throws Exception {
+//        sound = new Sound();
 
         setBackground(new Color(0, 0, 0));
         setFocusable(true);
@@ -54,7 +52,6 @@ public  class GamePanel extends JPanel implements KeyListener, MouseListener {
         requestFocus();
         addKeyListener(this);
         addMouseListener(this);
-        update = new Update(this);
         setSize(dimension);
 
 
@@ -78,6 +75,8 @@ public  class GamePanel extends JPanel implements KeyListener, MouseListener {
             setLocation(loc);
         });
         timerx.start();
+
+        update = new Update(this);
 
     }
     public void xmin(){
@@ -207,13 +206,6 @@ public  class GamePanel extends JPanel implements KeyListener, MouseListener {
 
     }
 
-
-//    public static GamePanel getINSTANCE() {
-//        if(INSTANCE == null)INSTANCE = new GamePanel();
-//        return INSTANCE;
-//    }
-
-
     public Dimension getDimension() {
         return dimension;
     }
@@ -254,7 +246,4 @@ public  class GamePanel extends JPanel implements KeyListener, MouseListener {
         return triangleViews;
     }
 
-    public JFrame getFrame() {
-        return frame;
-    }
 }

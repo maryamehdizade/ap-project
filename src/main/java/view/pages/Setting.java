@@ -16,9 +16,9 @@ public class Setting extends JFrame {
     private JSlider sensitivity;
     private JSlider level;
 
-    private  GamePanel panel;
+    private  GamePanel gamePanel;
 
-    public Setting(GamePanel panel){
+    public Setting(GamePanel gamePanel){
 
         setSize(700,700);
         setLocation(300,20);
@@ -53,6 +53,18 @@ public class Setting extends JFrame {
         level1.setLocation(100,500);
         level1.setSize(200,100);
 
+        JButton menu = new JButton("menu");
+        menu.setSize(300,100);
+        menu.setLocation(100,100);
+        menu.addActionListener(e -> {
+            try {
+                new Menu(gamePanel);
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
+            }
+            dispose();
+        });
+
         add(sense);
         add(sound1);
         add(sensitivity);
@@ -60,8 +72,8 @@ public class Setting extends JFrame {
         add(level1);
         add(level);
 
-        this.panel = panel;
-        this.clip = panel.sound.getClip();
+        this.gamePanel = gamePanel;
+        this.clip = gamePanel.sound.getClip();
     }
 
     private void adjustVolume() {

@@ -8,18 +8,14 @@ import java.awt.*;
 import static controller.Constant.FRAME_DIMENSION;
 
 
-public final class Game extends JFrame {
-    private static Game INSTANCE;
+public  class Game extends JFrame {
     JPanel panel ;
     int y = 2;
-    GamePanel gamePanel = new GamePanel(this);
+    GamePanel gamePanel ;
 
-    public static Game getINSTANCE() throws Exception {
-        if(INSTANCE == null)INSTANCE = new Game();
-        return INSTANCE;
-    }
 
-    public Game() throws Exception {
+
+    public Game(Menu menu) throws Exception {
         setUndecorated(true);
         setBackground(new Color(0, 0, 0, 0));
         setLayout(null);
@@ -30,6 +26,7 @@ public final class Game extends JFrame {
         setVisible(true);
 
 
+        this.gamePanel = menu.gamePanel;
         panel = gamePanel;
         add(panel);
 

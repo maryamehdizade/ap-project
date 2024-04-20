@@ -189,6 +189,7 @@ public class Update {
                 if(m.intersects(panel.getRectangleModels().get(j))){
 
                     panel.getRectangleModels().get(j).setHp(panel.getRectangleModels().get(j).getHp() - 5);
+                    if(panel.getRectangleModels().get(j).getHp() <= 0)removeRect(j);
                     removeBullet((BulletModel) movable);
                     //correction
 
@@ -208,7 +209,7 @@ public class Update {
             //epsilon
             int r = doesRecIntersectEpsilon((RectangleModel) movable, panel.playerModel);
             if(r == 1){
-                reduceHp();
+//                reduceHp();
                 //impact
             }else if(r == 2){
                 //impact
@@ -233,7 +234,7 @@ public class Update {
             //epsilon
             int c = doesCircleIntersectTriangle(playerCenter(panel.playerModel).getX(), playerCenter(panel.playerModel).getY() , (TriangleModel) movable);
             if(c == 1){
-                reduceHp();
+//                reduceHp();
                 //impact
             }else if(c == 2){
                 //impact
@@ -252,16 +253,26 @@ public class Update {
         if(panel.playerModel.getHp() <= 0){
             model.stop();
             view.stop();
+            panel.timerx.stop();
 
         }
     }
+
+
+    private void impact(){
+        //todo
+    }
+
+    //remove
 
     private void removeTriangle(int i){
         panel.getTriangleViews().remove(i);
         panel.getTriangleModels().remove(i);
     }
-    private void impact(){
-        //todo
+
+    private void removeRect(int i){
+        panel.getRectangleModels().remove(i);
+        panel.getRectangleView().remove(i);
     }
     private void removeBullet(int i){
         panel.getBullets().remove(i);
