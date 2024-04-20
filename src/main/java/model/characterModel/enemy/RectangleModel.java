@@ -40,16 +40,16 @@ public class RectangleModel extends java.awt.Rectangle implements Movable {
         double y;
         double r = Math.floor(Math.random()*2);
         if(r == 0) {
-            x = random.nextDouble(panel.getLoc().getX(), panel.getDimension().getWidth());
+            x = random.nextDouble(panel.getLoc().getX(), panel.getDimension().getWidth() );
             if(Math.floor(Math.random()*2) == 0){
-                y = panel.getDimension().getHeight();
+                y = panel.getDimension().getHeight() + panel.getLoc().getY();
             }else{
                 y = panel.getLoc().getY();
             }
         }else {
-            y = random.nextDouble(panel.getLoc().getY(), panel.getDimension().getHeight());
+            y = random.nextDouble(panel.getLoc().getY(), panel.getDimension().getHeight() );
             if(Math.floor(Math.random()*2) == 0){
-                x = panel.getDimension().getWidth();
+                x = panel.getDimension().getWidth() + panel.getLoc().getX();
             }else{
                 x = panel.getLoc().getX();
             }

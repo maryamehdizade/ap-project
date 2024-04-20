@@ -25,6 +25,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
+import java.util.Random;
 
 public  class GamePanel extends JPanel implements KeyListener, MouseListener {
     public PlayerModel playerModel;
@@ -41,6 +42,9 @@ public  class GamePanel extends JPanel implements KeyListener, MouseListener {
     private ArrayList<TriangleView> triangleViews = new ArrayList<>();
     protected Sound sound;
     Update update;
+
+    private Random random = new Random();
+    public int bound = 50;
 
 
     public GamePanel() throws Exception {
@@ -59,6 +63,7 @@ public  class GamePanel extends JPanel implements KeyListener, MouseListener {
         playerView = createPlayerView(playerModel.getId());
         movePlayer = new MovePlayer(playerModel, this);
 
+
         RectangleModel r = new RectangleModel(this);
         rectangleModels.add(r);
         rectangleView.add(createRectView(r));
@@ -67,12 +72,21 @@ public  class GamePanel extends JPanel implements KeyListener, MouseListener {
         triangleModels.add(t);
         triangleViews.add(createTriangleView(t));
 
-
-        timerx = new Timer(100, e->{
+        timerx = new Timer(100, e -> {
             xmin();
             ymin();
             setSize(dimension);
             setLocation(loc);
+            if (random.nextDouble(0, bound) < 1) {
+                RectangleModel r1 = new RectangleModel(this);
+                rectangleModels.add(r1);
+                rectangleView.add(createRectView(r1));
+            }
+            if (random.nextDouble(0, bound) < 1) {
+                TriangleModel t1 = new TriangleModel(this);
+                triangleModels.add(t1);
+                triangleViews.add(createTriangleView(t1));
+            }
         });
         timerx.start();
 
