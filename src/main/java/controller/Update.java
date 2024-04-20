@@ -188,7 +188,8 @@ public class Update {
                     panel.getRectangleModels().get(j).setHp(panel.getRectangleModels().get(j).getHp() - 5);
                     if(panel.getRectangleModels().get(j).getHp() <= 0)removeRect(j);
                     removeBullet((BulletModel) movable);
-
+                    //correction
+                    //impact
                 }
             }
             //tria
@@ -198,6 +199,7 @@ public class Update {
                     panel.getTriangleModels().get(p).setHp(panel.getTriangleModels().get(p).getHp() - 5);
                     if(panel.getTriangleModels().get(p).getHp() <= 0)removeTriangle(p);
                     removeBullet((BulletModel) movable);
+                    //impact
                 }
             }
         }
@@ -205,7 +207,7 @@ public class Update {
             //epsilon
             int r = doesRecIntersectEpsilon((RectangleModel) movable, playerCenter(panel.playerModel), BALL_SIZE);
             if(r == 1){
-                reduceHp();
+                reduceHp(movable);
                 //impact
             }else if(r == 2){
                 //impact
@@ -230,7 +232,7 @@ public class Update {
             //epsilon
             int c = doesCircleIntersectTriangle(playerCenter(panel.playerModel).getX(), playerCenter(panel.playerModel).getY() , (TriangleModel) movable);
             if(c == 1){
-                reduceHp();
+                reduceHp(movable);
                 //impact
             }else if(c == 2){
                 //impact
