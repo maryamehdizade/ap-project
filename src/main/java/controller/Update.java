@@ -182,16 +182,12 @@ public class Update {
     }
     private void checkCollisioin(Movable movable){
         if(movable instanceof BulletModel){
-            Rectangle m = new Rectangle((int) ((BulletModel) movable).getLoc().getX(),
-                    (int) ((BulletModel) movable).getLoc().getY(), BULLET_SIZE, BULLET_SIZE);
             //rect
             for (int j = 0; j < panel.getRectangleModels().size(); j++) {
-                if(m.intersects(panel.getRectangleModels().get(j))){
-
+                if(doesRecIntersectEpsilon(panel.getRectangleModels().get(j), ((BulletModel) movable).getLoc(), BULLET_SIZE) != 0){
                     panel.getRectangleModels().get(j).setHp(panel.getRectangleModels().get(j).getHp() - 5);
                     if(panel.getRectangleModels().get(j).getHp() <= 0)removeRect(j);
                     removeBullet((BulletModel) movable);
-                    //correction
 
                 }
             }
@@ -207,9 +203,9 @@ public class Update {
         }
         else if(movable instanceof RectangleModel){
             //epsilon
-            int r = doesRecIntersectEpsilon((RectangleModel) movable, panel.playerModel);
+            int r = doesRecIntersectEpsilon((RectangleModel) movable, playerCenter(panel.playerModel), BALL_SIZE);
             if(r == 1){
-//                reduceHp();
+                reduceHp();
                 //impact
             }else if(r == 2){
                 //impact
@@ -234,7 +230,7 @@ public class Update {
             //epsilon
             int c = doesCircleIntersectTriangle(playerCenter(panel.playerModel).getX(), playerCenter(panel.playerModel).getY() , (TriangleModel) movable);
             if(c == 1){
-//                reduceHp();
+                reduceHp();
                 //impact
             }else if(c == 2){
                 //impact

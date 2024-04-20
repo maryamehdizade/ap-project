@@ -28,34 +28,34 @@ public class Setting extends JFrame {
         setVisible(true);
 
         sound = new JSlider(JSlider.HORIZONTAL, 0, 100, 50);
-        sound.setLocation(300,200);
+        sound.setLocation(300,100);
         sound.setSize(200,100);
         sound.addChangeListener(e -> adjustVolume());
 
         sensitivity = new JSlider(JSlider.HORIZONTAL, 0, 100, 50);
-        sensitivity.setLocation(300,350);
+        sensitivity.setLocation(300,250);
         sensitivity.setSize(200,100);
 
 
         level = new JSlider(JSlider.HORIZONTAL, 0, 100, 50);
-        level.setLocation(300,500);
+        level.setLocation(300,400);
         level.setSize(200,100);
 
         JLabel sound1 = new JLabel("sound");
-        sound1.setLocation(100,200);
+        sound1.setLocation(100,100);
         sound1.setSize(200,100);
 
         JLabel sense = new JLabel("sensitivity");
-        sense.setLocation(100,350);
+        sense.setLocation(100,250);
         sense.setSize(200,100);
 
         JLabel level1 = new JLabel("level");
-        level1.setLocation(100,500);
+        level1.setLocation(100,400);
         level1.setSize(200,100);
 
         JButton menu = new JButton("menu");
-        menu.setSize(300,100);
-        menu.setLocation(100,100);
+        menu.setSize(400,50);
+        menu.setLocation(100,500);
         menu.addActionListener(e -> {
             try {
                 new Menu(gamePanel);
@@ -65,6 +65,7 @@ public class Setting extends JFrame {
             dispose();
         });
 
+        add(menu);
         add(sense);
         add(sound1);
         add(sensitivity);

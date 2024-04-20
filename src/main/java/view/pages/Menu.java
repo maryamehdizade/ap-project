@@ -68,6 +68,7 @@ public class Menu extends JFrame {
         });
 
         panel.add(exit);
+        panel.add(setting);
         panel.add(play);
         panel.add(skillTree);
         panel.add(tutorial);
