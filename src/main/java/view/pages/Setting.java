@@ -16,7 +16,7 @@ public class Setting extends JFrame {
     private JSlider level;
 
 
-    public Setting(){
+    public Setting(Menu m){
 
         setSize(700,700);
         setLocation(300,20);
@@ -56,7 +56,7 @@ public class Setting extends JFrame {
         menu.setLocation(100,500);
         menu.addActionListener(e -> {
             try {
-                new Menu();
+                m.setVisible(true);
             } catch (Exception ex) {
                 throw new RuntimeException(ex);
             }

@@ -41,7 +41,7 @@ public class Menu extends JFrame {
         play.setLocation(xLoc,100);
         play.setBackground(color);
         play.addActionListener(e -> {
-            dispose();
+            setVisible(false);
             try {
                 new Game(this);
             } catch (Exception ex) {
@@ -61,9 +61,9 @@ public class Menu extends JFrame {
         setting.setLocation(xLoc, 500);
         setting.setBackground(color);
         setting.addActionListener(e -> {
-            dispose();
+            setVisible(false);
             try {
-                new Setting();
+                new Setting(this);
             } catch (Exception ex) {
                 throw new RuntimeException(ex);
             }

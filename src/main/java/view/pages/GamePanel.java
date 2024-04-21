@@ -45,10 +45,12 @@ public  class GamePanel extends JPanel implements KeyListener, MouseListener {
 
     private Random random = new Random();
     public int bound = 50;
+    protected Game game;
 
 
-    public GamePanel() throws Exception {
+    public GamePanel(Game game) throws Exception {
 //        sound = new Sound();
+        this.game = game;
 
         setBackground(new Color(0, 0, 0));
         setFocusable(true);
