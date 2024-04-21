@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-public class Store extends JFrame implements KeyListener {
+public class Store extends JFrame  {
     private GamePanel panel;
     private JButton empower = new JButton("Empower : 75xp");
     private JButton heal = new JButton("Apollo Heal : 50xp");
@@ -18,7 +18,7 @@ public class Store extends JFrame implements KeyListener {
         this.panel = panel;
 
         setSize(300, 200);
-        setLocation((int) ((panel.getDimension().getWidth()) / 2), (int) (panel.getDimension().getHeight() / 2));
+        setLocation((int) ((panel.getDimension().getWidth())), (int) (panel.getDimension().getHeight() / 2));
         setResizable(false);
         setBackground(Color.black);
         setUndecorated(true);
@@ -37,27 +37,29 @@ public class Store extends JFrame implements KeyListener {
     private void addButtons(){
 
         banish.setSize(size);
-        banish.setLocation(10, 150);
+        banish.setLocation(10, 120);
         banish.setBackground(color);
         banish.setFont(new Font("TimesRoman", Font.PLAIN, 22));
         banish.addActionListener(e -> {
             if(panel.playerModel.getXp() >= 100){
                 panel.playerModel.setXp(panel.playerModel.getXp() - 100);
                 //todo
-                start();
+
             }
+            start();
         });
 
         empower.setSize(size);
-        empower.setLocation(10, 90);
+        empower.setLocation(10, 60);
         empower.setBackground(color);
         empower.setFont(new Font("TimesRoman", Font.PLAIN, 22));
         empower.addActionListener(e -> {
             if(panel.playerModel.getXp() >= 75){
                 panel.playerModel.setXp(panel.playerModel.getXp() - 75);
                 //todo
-                start();
+
             }
+            start();
         });
 
 
@@ -70,6 +72,14 @@ public class Store extends JFrame implements KeyListener {
                 panel.playerModel.setXp(panel.playerModel.getXp() - 50);
                 panel.playerModel.setHp(panel.playerModel.getHp() + 10);
             }
+            start();
+        });
+
+        JButton play = new JButton("back");
+        play.setSize(size);
+        play.setBackground(color);
+        play.setLocation(10,150);
+        play.addActionListener(e -> {
             start();
         });
 
@@ -88,21 +98,4 @@ public class Store extends JFrame implements KeyListener {
     }
 
 
-    @Override
-    public void keyTyped(KeyEvent e) {
-        int keyCode = e.getKeyCode();
-        if(keyCode == KeyEvent.VK_SPACE){
-            start();
-        }
-    }
-
-    @Override
-    public void keyPressed(KeyEvent e) {
-
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
-
-    }
 }

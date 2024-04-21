@@ -11,14 +11,12 @@ import java.nio.file.Paths;
 
 public class Setting extends JFrame {
 
-    private Clip clip;
     private JSlider sound;
     private JSlider sensitivity;
     private JSlider level;
 
-    private  GamePanel gamePanel;
 
-    public Setting(GamePanel gamePanel){
+    public Setting(){
 
         setSize(700,700);
         setLocation(300,20);
@@ -58,7 +56,7 @@ public class Setting extends JFrame {
         menu.setLocation(100,500);
         menu.addActionListener(e -> {
             try {
-                new Menu(gamePanel);
+                new Menu();
             } catch (Exception ex) {
                 throw new RuntimeException(ex);
             }
@@ -73,17 +71,16 @@ public class Setting extends JFrame {
         add(level1);
         add(level);
 
-        this.gamePanel = gamePanel;
-        this.clip = gamePanel.sound.getClip();
     }
 
     private void adjustVolume() {
-        if (clip != null) {
-            int volume = sound.getValue();
-            FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-            float gain = (float) volume / sound.getMaximum();
-            float dB = gainControl.getMinimum() + gain * (gainControl.getMaximum() - gainControl.getMinimum());
-            gainControl.setValue(dB);
-        }
+//        if (clip != null) {
+//            int volume = sound.getValue();
+//            FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+//            float gain = (float) volume / sound.getMaximum();
+//            float dB = gainControl.getMinimum() + gain * (gainControl.getMaximum() - gainControl.getMinimum());
+//            gainControl.setValue(dB);
+//        }
+
     }
 }

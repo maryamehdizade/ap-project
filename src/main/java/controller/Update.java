@@ -4,6 +4,8 @@ import model.characterModel.BulletModel;
 import model.characterModel.enemy.RectangleModel;
 import model.characterModel.enemy.TriangleModel;
 import model.movement.Movable;
+import view.pages.Game;
+import view.pages.GameOver;
 import view.pages.GamePanel;
 import view.charactersView.BulletView;
 import view.charactersView.enemy.RectangleView;
@@ -23,7 +25,7 @@ import static controller.Util.*;
 public class Update {
     public   Timer model;
     public Timer view;
-    GamePanel panel;
+    public GamePanel panel;
     private double a = 0.1;
     int second;
     public Update(GamePanel panel) {
@@ -219,6 +221,7 @@ public class Update {
                         && !Objects.equals(panel.getRectangleModels().get(i).getId(), ((RectangleModel) movable).getId())){
                     //impact
                     //correction
+                    System.out.println("hi");
                 }
             }
             //tria
@@ -255,6 +258,7 @@ public class Update {
             view.stop();
             panel.timerx.stop();
 
+            new GameOver(this);
 
         }
     }

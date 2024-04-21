@@ -26,7 +26,7 @@ public  class Game extends JFrame {
         setVisible(true);
 
 
-        this.gamePanel = menu.gamePanel;
+        this.gamePanel = new GamePanel();
         panel = gamePanel;
         add(panel);
 

@@ -15,11 +15,9 @@ public class Menu extends JFrame {
     private final int buttonHieght = 70;
     private int xLoc = 200;
     private final Color color = Color.GRAY;
-    protected GamePanel gamePanel;
 
     private JPanel panel = new JPanel();
-    public Menu(GamePanel gamePanel) throws Exception {
-        this.gamePanel = gamePanel;
+    public Menu() throws Exception {
         setSize(700,700);
         setLocation(300,20);
         setVisible(true);
@@ -64,7 +62,11 @@ public class Menu extends JFrame {
         setting.setBackground(color);
         setting.addActionListener(e -> {
             dispose();
-            new Setting(gamePanel);
+            try {
+                new Setting();
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
+            }
         });
 
         panel.add(exit);
