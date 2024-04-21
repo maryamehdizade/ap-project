@@ -4,7 +4,6 @@ import model.characterModel.BulletModel;
 import model.characterModel.enemy.RectangleModel;
 import model.characterModel.enemy.TriangleModel;
 import model.movement.Movable;
-import view.pages.Game;
 import view.pages.GameOver;
 import view.pages.GamePanel;
 import view.charactersView.BulletView;
@@ -24,10 +23,13 @@ import static controller.Util.*;
 
 public class Update {
     public   Timer model;
+
+    public Timer time;
+
     public Timer view;
     public GamePanel panel;
     private double a = 0.1;
-    int second;
+    private int second;
     public Update(GamePanel panel) {
         this.panel = panel;
         view = new Timer((int) FRAME_UPDATE_TIME, e -> updateView()){{setCoalesce(true);}};
@@ -35,6 +37,8 @@ public class Update {
         model = new Timer((int) MODEL_UPDATE_TIME, e -> updateModel()){{setCoalesce(true);}};
         model.start();
 
+        time = new Timer(1000,e -> second++);
+        time.start();
 
     }
     public void updateView(){
@@ -188,7 +192,10 @@ public class Update {
             for (int j = 0; j < panel.getRectangleModels().size(); j++) {
                 if(doesRecIntersectEpsilon(panel.getRectangleModels().get(j), ((BulletModel) movable).getLoc(), BULLET_SIZE) != 0){
                     panel.getRectangleModels().get(j).setHp(panel.getRectangleModels().get(j).getHp() - 5);
-                    if(panel.getRectangleModels().get(j).getHp() <= 0)removeRect(j);
+                    if(panel.getRectangleModels().get(j).getHp() <= 0){
+                        removeRect(j);
+                        //death
+                    }
                     removeBullet((BulletModel) movable);
                     //correction
                     //impact
@@ -199,7 +206,10 @@ public class Update {
                 if(doesCircleIntersectTriangle(bulletCenter((BulletModel) movable).getX(),
                         bulletCenter((BulletModel) movable).getY(), panel.getTriangleModels().get(p)) != 0){
                     panel.getTriangleModels().get(p).setHp(panel.getTriangleModels().get(p).getHp() - 5);
-                    if(panel.getTriangleModels().get(p).getHp() <= 0)removeTriangle(p);
+                    if(panel.getTriangleModels().get(p).getHp() <= 0){
+                        removeTriangle(p);
+                        //death
+                    }
                     removeBullet((BulletModel) movable);
                     //impact
                 }
@@ -249,6 +259,12 @@ public class Update {
             }
         }
     }
+
+    private void death(Movable movable){
+        if(movable instanceof TriangleModel){
+
+        }
+    }
     private void reduceHp(Movable movable){
         int w = 10;
         if(movable instanceof RectangleModel)w = 6;
@@ -256,6 +272,7 @@ public class Update {
         if(panel.playerModel.getHp() <= 0){
             model.stop();
             view.stop();
+            time.stop();
             panel.timerx.stop();
 
             new GameOver(this);
@@ -312,5 +329,9 @@ public class Update {
     private void moveDown(){
         panel.setLoc(new Point((int) (panel.getLoc().getX() ), (int) panel.getLoc().getY() +  n/2));
         panel.setDimension(new Dimension((int)(panel.getDimension().getWidth()), (int)panel.getDimension().getHeight()+ n));
+    }
+
+    public int getSecond() {
+        return second;
     }
 }

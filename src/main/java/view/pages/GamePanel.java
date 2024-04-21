@@ -7,12 +7,14 @@ import static controller.Util.playerCenter;
 
 import controller.Update;
 import model.characterModel.BulletModel;
+import model.characterModel.CollectableModel;
 import model.characterModel.MovePlayer;
 import model.characterModel.PlayerModel;
 import model.characterModel.enemy.RectangleModel;
 import model.characterModel.enemy.TriangleModel;
 import sound.Sound;
 import view.charactersView.BulletView;
+import view.charactersView.CollectableView;
 import view.charactersView.PlayerView;
 import view.charactersView.enemy.RectangleView;
 import view.charactersView.enemy.TriangleView;
@@ -40,15 +42,17 @@ public  class GamePanel extends JPanel implements KeyListener, MouseListener {
     private ArrayList<BulletModel> bulletsModel = new ArrayList<>();
     private ArrayList<TriangleModel> triangleModels = new ArrayList<>();
     private ArrayList<TriangleView> triangleViews = new ArrayList<>();
+    private ArrayList<CollectableView> collectableViews = new ArrayList<>();
+    private ArrayList<CollectableModel> collectableModels = new ArrayList<>();
     protected Sound sound;
     Update update;
 
     private Random random = new Random();
-    public int bound = 50;
-    protected Game game;
+    public int bound = 60;
+    public Game game;
 
 
-    public GamePanel(Game game) throws Exception {
+    public GamePanel(Game game){
 //        sound = new Sound();
         this.game = game;
 
@@ -129,8 +133,8 @@ public  class GamePanel extends JPanel implements KeyListener, MouseListener {
 
         super.paintComponent(g);
         g.setColor(Color.gray);
-        g.drawOval((int) playerView.getLocation().getX() - BALL_SIZE/2,
-                (int) playerView.getLocation().getY() - BALL_SIZE/2, BALL_SIZE, BALL_SIZE);
+        g.drawOval((int) playerView.getLocation().getX() - BALL_SIZE / 2,
+                (int) playerView.getLocation().getY() - BALL_SIZE / 2, BALL_SIZE, BALL_SIZE);
 
         for (BulletView b : bullets) {
             b.draw(g);
@@ -138,15 +142,19 @@ public  class GamePanel extends JPanel implements KeyListener, MouseListener {
         for (RectangleView r : rectangleView) {
             r.draw(g);
         }
-        for (TriangleView t: triangleViews) {
+        for (TriangleView t : triangleViews) {
             t.draw(g);
         }
+
+        g.setColor(new Color(133, 186, 83));
+        g.drawString("xp:" + playerView.getXp() + "          " + "hp:" + playerView.getHp()
+                + "             " + update.getSecond(), game.getLocation().x - 273, game.getBounds().y + 20);
+
+
         repaint();
-
+        // TODO
+        revalidate();
     }
-
-
-
     @Override
     public void keyPressed(KeyEvent e) {
         int keyCode = e.getKeyCode();
@@ -162,6 +170,7 @@ public  class GamePanel extends JPanel implements KeyListener, MouseListener {
         if(keyCode == KeyEvent.VK_SPACE){
             update.model.stop();
             update.view.stop();
+            update.time.stop();
             timerx.stop();
             new Store(this);
         }
