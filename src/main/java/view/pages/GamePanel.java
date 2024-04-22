@@ -145,6 +145,9 @@ public  class GamePanel extends JPanel implements KeyListener, MouseListener {
         for (TriangleView t : triangleViews) {
             t.draw(g);
         }
+        for (CollectableView c :collectableViews) {
+            c.draw(g);
+        }
 
         g.setColor(new Color(133, 186, 83));
         g.drawString("xp:" + playerView.getXp() + "          " + "hp:" + playerView.getHp()

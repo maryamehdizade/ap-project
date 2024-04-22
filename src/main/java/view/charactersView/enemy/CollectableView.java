@@ -15,6 +15,6 @@ public class CollectableView {
 
     public void draw(Graphics g){
         g.setColor(Color.white);
-        g.drawRect((int) loc.getX(), (int) loc.getY(), COLLECTABLE_SIZE, COLLECTABLE_SIZE);
+        g.drawOval((int) loc.getX(), (int) loc.getY(), COLLECTABLE_SIZE, COLLECTABLE_SIZE);
     }
 }
