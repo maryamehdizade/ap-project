@@ -17,13 +17,9 @@ public class RectangleModel extends java.awt.Rectangle implements Movable {
     private double speedx = 3;
     private double speedy = 3;
     private GamePanel panel;
-    private double targetx;
-    private double targety;
     private Random random = new Random();
     private int[] xPoints;
     private int[] yPoints;
-
-
     private Point2D loc;
     String id;
 

@@ -21,9 +21,6 @@ public class RectangleView {
         g.drawString(String.valueOf(hp), (int) loc.getX()+ RECT_SIZE/3, (int) loc.getY() + RECT_SIZE*2/3);
     }
 
-    public Point2D getLoc() {
-        return loc;
-    }
 
     public void setHp(int hp) {
         this.hp = hp;

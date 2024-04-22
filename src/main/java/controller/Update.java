@@ -1,9 +1,11 @@
 package controller;
 
 import model.characterModel.BulletModel;
+import model.characterModel.enemy.CollectableModel;
 import model.characterModel.enemy.RectangleModel;
 import model.characterModel.enemy.TriangleModel;
 import model.movement.Movable;
+import view.charactersView.enemy.CollectableView;
 import view.pages.GameOver;
 import view.pages.GamePanel;
 import view.charactersView.BulletView;
@@ -263,6 +265,10 @@ public class Update {
     private void death(Movable movable){
         if(movable instanceof TriangleModel){
 
+        }else if(movable instanceof RectangleModel){
+            CollectableModel c = new CollectableModel(((RectangleModel) movable).getLoc());
+            panel.getCollectableModels().add(c);
+            panel.getCollectableViews().add(createCollectableView(c));
         }
     }
     private void reduceHp(Movable movable){

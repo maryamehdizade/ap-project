@@ -2,10 +2,12 @@ package controller;
 
 import model.characterModel.BulletModel;
 import model.characterModel.PlayerModel;
+import model.characterModel.enemy.CollectableModel;
 import model.characterModel.enemy.RectangleModel;
 import model.characterModel.enemy.TriangleModel;
 import view.charactersView.BulletView;
 import view.charactersView.PlayerView;
+import view.charactersView.enemy.CollectableView;
 import view.charactersView.enemy.RectangleView;
 import view.charactersView.enemy.TriangleView;
 
@@ -40,6 +42,9 @@ public class Controller  {
     }
     public static BulletView createBulletView(BulletModel bulletModel){
         return new BulletView(bulletModel.getId(), bulletModel.getLoc(), bulletModel.getDx(), bulletModel.getDy(), bulletModel.getPanel());
+    }
+    public static CollectableView createCollectableView(CollectableModel collectableModel){
+        return new CollectableView(collectableModel.getId(), collectableModel.getLoc());
     }
 
     public static TriangleView createTriangleView(TriangleModel t){

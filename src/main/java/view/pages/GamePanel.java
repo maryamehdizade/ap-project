@@ -7,14 +7,14 @@ import static controller.Util.playerCenter;
 
 import controller.Update;
 import model.characterModel.BulletModel;
-import model.characterModel.CollectableModel;
+import model.characterModel.enemy.CollectableModel;
 import model.characterModel.MovePlayer;
 import model.characterModel.PlayerModel;
 import model.characterModel.enemy.RectangleModel;
 import model.characterModel.enemy.TriangleModel;
 import sound.Sound;
 import view.charactersView.BulletView;
-import view.charactersView.CollectableView;
+import view.charactersView.enemy.CollectableView;
 import view.charactersView.PlayerView;
 import view.charactersView.enemy.RectangleView;
 import view.charactersView.enemy.TriangleView;
@@ -271,4 +271,11 @@ public  class GamePanel extends JPanel implements KeyListener, MouseListener {
         return triangleViews;
     }
 
+    public ArrayList<CollectableView> getCollectableViews() {
+        return collectableViews;
+    }
+
+    public ArrayList<CollectableModel> getCollectableModels() {
+        return collectableModels;
+    }
 }
