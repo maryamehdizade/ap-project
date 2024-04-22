@@ -31,11 +31,11 @@ public class Util {
         }
 
 
-        if (isPointInsideTriangle(triangle2.getX1(), triangle2.getY1(), triangle1) ||
-                isPointInsideTriangle(triangle2.getX2(), triangle2.getY2(), triangle1) ||
-                isPointInsideTriangle(triangle2.getX3(), triangle2.getY3(), triangle1)) {
-            return true;
-        }
+//        if (isPointInsideTriangle(triangle2.getX1(), triangle2.getY1(), triangle1) ||
+//                isPointInsideTriangle(triangle2.getX2(), triangle2.getY2(), triangle1) ||
+//                isPointInsideTriangle(triangle2.getX3(), triangle2.getY3(), triangle1)) {
+//            return true;
+//        }
 
         return false;
 
