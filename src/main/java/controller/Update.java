@@ -197,6 +197,7 @@ public class Update {
                     if(panel.getRectangleModels().get(j).getHp() <= 0){
                         removeRect(j);
                         //death
+                        death(movable);
                     }
                     removeBullet((BulletModel) movable);
                     //correction
@@ -211,6 +212,7 @@ public class Update {
                     if(panel.getTriangleModels().get(p).getHp() <= 0){
                         removeTriangle(p);
                         //death
+                        death(movable);
                     }
                     removeBullet((BulletModel) movable);
                     //impact
@@ -264,9 +266,19 @@ public class Update {
 
     private void death(Movable movable){
         if(movable instanceof TriangleModel){
+            CollectableModel c = new CollectableModel(new Point2D.Double(((TriangleModel) movable).getX1(), ((TriangleModel) movable).getY1()));
+            CollectableModel c1 = new CollectableModel(addVector(new Point2D.Double(((TriangleModel) movable).getX1(),
+                    ((TriangleModel) movable).getY1()), new Point2D.Double(10,10)));
 
+            panel.getCollectableModels().add(c);
+            panel.getCollectableViews().add(createCollectableView(c));
+
+            panel.getCollectableModels().add(c1);
+            panel.getCollectableViews().add(createCollectableView(c1));
         }else if(movable instanceof RectangleModel){
+
             CollectableModel c = new CollectableModel(((RectangleModel) movable).getLoc());
+
             panel.getCollectableModels().add(c);
             panel.getCollectableViews().add(createCollectableView(c));
         }

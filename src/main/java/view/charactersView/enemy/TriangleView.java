@@ -61,4 +61,12 @@ public class TriangleView {
     public String getId() {
         return id;
     }
+
+    public double getX1() {
+        return x1;
+    }
+
+    public double getY1() {
+        return y1;
+    }
 }
