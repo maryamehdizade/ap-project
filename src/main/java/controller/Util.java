@@ -42,13 +42,7 @@ public class Util {
     }
     //rectangle epsilon collision
     public static int doesRecIntersectEpsilon(RectangleModel rectangle,Point2D ep, int size){
-        Point2D rec = rectCenter(rectangle);
-        double distance = Math.pow((rec.getX() - ep.getX()), 2) + Math.pow((rec.getY() - ep.getY()), 2);
-        double a = size/2.0 + RECT_SIZE/2.0;
-        double b = size/2.0 + RECT_SIZE*0.7;
-        if(distance <= b && distance > a)return 1;
-            else if(distance <= a)return 2;
-        return 0;
+        return size;
     }
 
     //triangle epsilon collision

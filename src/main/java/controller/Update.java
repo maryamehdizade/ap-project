@@ -5,7 +5,6 @@ import model.characterModel.enemy.CollectableModel;
 import model.characterModel.enemy.RectangleModel;
 import model.characterModel.enemy.TriangleModel;
 import model.movement.Movable;
-import view.charactersView.enemy.CollectableView;
 import view.pages.GameOver;
 import view.pages.GamePanel;
 import view.charactersView.BulletView;
@@ -17,6 +16,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Point2D;
 import java.util.Objects;
+import java.util.Random;
 
 import static controller.Constant.*;
 import static controller.Util.doTrianglesIntersect;
@@ -36,7 +36,13 @@ public class Update {
         this.panel = panel;
         view = new Timer((int) FRAME_UPDATE_TIME, e -> updateView()){{setCoalesce(true);}};
         view.start();
-        model = new Timer((int) MODEL_UPDATE_TIME, e -> updateModel()){{setCoalesce(true);}};
+        model = new Timer((int) MODEL_UPDATE_TIME, e -> {
+            try {
+                updateModel();
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
+            }
+        }){{setCoalesce(true);}};
         model.start();
 
         time = new Timer(1000,e -> second++);
@@ -89,19 +95,22 @@ public class Update {
         panel.playerView.setXp(playerViewXp(panel.playerModel));
         panel.playerView.setHp(playerViewHp(panel.playerModel));
     }
-    public void updateModel() {
+    public void updateModel() throws Exception {
         moveEpsilon();
         updateBullets();
         updateRecs();
         updateTriangles();
     }
-    private void updateRecs(){
+    private void updateRecs() throws Exception {
         for (int i = 0; i < panel.getRectangleModels().size(); i++) {
+            if(new Random().nextDouble(0,50) <= 1){
+                panel.getRectangleModels().get(i).setSpeed(2);
+            }if(second % 2 == 0)panel.getRectangleModels().get(i).setSpeed(1);
             panel.getRectangleModels().get(i).move();
             checkCollisioin(panel.getRectangleModels().get(i));
         }
     }
-    private void updateBullets() throws ArrayIndexOutOfBoundsException{
+    private void updateBullets() throws Exception{
         for (int i = 0; i < panel.getBulletsModel().size(); i++) {
             int a = panel.getBulletsModel().get(i).move();
             if(a == 1)moveLeft();
@@ -116,8 +125,13 @@ public class Update {
         }
     }
 
-    private void updateTriangles(){
-        for (int i = 0; i < panel.getTriangleModels().size() ; i++){
+    private void updateTriangles() throws Exception {
+        for (int i = 0; i < panel.getTriangleModels().size() ; i++) {
+            if (Math.abs(panel.getTriangleModels().get(i).getY3() - panel.playerModel.getLocation().getY()) >= 200) {
+                panel.getTriangleModels().get(i).setSpeed(2);
+            }else{
+                panel.getTriangleModels().get(i).setSpeed(1);
+            }
             panel.getTriangleModels().get(i).move();
             checkCollisioin(panel.getTriangleModels().get(i));
         }
@@ -188,7 +202,7 @@ public class Update {
 
         }
     }
-    private void checkCollisioin(Movable movable){
+    private void checkCollisioin(Movable movable) throws Exception {
         if(movable instanceof BulletModel){
             //rect
             for (int j = 0; j < panel.getRectangleModels().size(); j++) {
@@ -316,7 +330,7 @@ public class Update {
         panel.getRectangleModels().remove(i);
         panel.getRectangleView().remove(i);
     }
-    private void removeBullet(int i){
+    private void removeBullet(int i) throws Exception{
         panel.getBullets().remove(i);
         for(int j = 0; j < panel.getBullets().size(); j++) {
             if(panel.getBullets().get(j).getId().equals(panel.getBulletsModel().get(i).getId())){
@@ -326,7 +340,7 @@ public class Update {
         }
         panel.getBulletsModel().remove(i);
     }
-    private void removeBullet(BulletModel bulletModel){
+    private void removeBullet(BulletModel bulletModel) throws Exception {
         for (int i = 0; i < panel.getBulletsModel().size(); i++) {
             if(panel.getBulletsModel().get(i).getId().equals(bulletModel.getId()))removeBullet(i);
         }

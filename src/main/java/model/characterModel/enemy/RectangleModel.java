@@ -14,8 +14,7 @@ public class RectangleModel extends java.awt.Rectangle implements Movable {
     private int hp = 10;
     private PlayerModel playerModel;
 
-    private double speedx = 3;
-    private double speedy = 3;
+    private double speed = 1;
     private GamePanel panel;
     private Random random = new Random();
     private int[] xPoints;
@@ -36,16 +35,16 @@ public class RectangleModel extends java.awt.Rectangle implements Movable {
         double y;
         double r = Math.floor(Math.random()*2);
         if(r == 0) {
-            x = random.nextDouble(panel.getLoc().getX(), panel.getDimension().getWidth() );
+            x = random.nextDouble(panel.game.getLocation().getX(), panel.getDimension().getWidth());
             if(Math.floor(Math.random()*2) == 0){
-                y = panel.getDimension().getHeight() + panel.getLoc().getY();
+                y = panel.getDimension().getHeight() ;
             }else{
                 y = panel.game.getLocation().getY();
             }
         }else {
-            y = random.nextDouble(panel.getLoc().getY(), panel.getDimension().getHeight() );
+            y = random.nextDouble(panel.game.getLocation().getY(), panel.getDimension().getHeight());
             if(Math.floor(Math.random()*2) == 0){
-                x = panel.getDimension().getWidth() + panel.getLoc().getX();
+                x = panel.getDimension().getWidth();
             }else{
                 x = panel.game.getLocation().getX();
             }
@@ -65,11 +64,11 @@ public class RectangleModel extends java.awt.Rectangle implements Movable {
     public int move() {
 
         double m = Math.atan2((playerModel.getLocation().getY() - loc.getY()),(playerModel.getLocation().getX() - loc.getX()));
-        speedx = (int) (Math.cos(m) * 2);
-        speedy = (int) (Math.sin(m) * 2);
+        double dx = (Math.cos(m) * 2) * speed;
+         double dy = (Math.sin(m) * 2) * speed;
 
 
-        loc = new Point2D.Double(loc.getX() + speedx, loc.getY() + speedy);
+        loc = new Point2D.Double(loc.getX() + dx, loc.getY() + dy);
 
         xPoints = new int[]{(int) loc.getX(), (int) (loc.getX() + RECT_SIZE),(int) (loc.getX() + RECT_SIZE), (int) loc.getX()};
         yPoints = new int[]{(int) loc.getY(), (int) loc.getY(), (int) (loc.getY() + RECT_SIZE), (int) (loc.getY() + RECT_SIZE)};
@@ -100,27 +99,15 @@ public class RectangleModel extends java.awt.Rectangle implements Movable {
         this.hp = hp;
     }
 
-    public double getSpeedx() {
-        return speedx;
-    }
-
-    public void setSpeedx(double speedx) {
-        this.speedx = speedx;
-    }
-
-    public double getSpeedy() {
-        return speedy;
-    }
-
-    public void setSpeedy(double speedy) {
-        this.speedy = speedy;
-    }
-
     public int[] getxPoints() {
         return xPoints;
     }
 
     public int[] getyPoints() {
         return yPoints;
+    }
+
+    public void setSpeed(double speed) {
+        this.speed = speed;
     }
 }

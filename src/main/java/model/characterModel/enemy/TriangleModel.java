@@ -109,4 +109,8 @@ public class TriangleModel implements Movable {
     public void setHp(int hp) {
         this.hp = hp;
     }
+
+    public void setSpeed(double speed) {
+        this.speed = speed;
+    }
 }
