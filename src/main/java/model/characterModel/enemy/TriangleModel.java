@@ -47,7 +47,7 @@ public class TriangleModel implements Movable {
         if(r == 0) {
             x = random.nextDouble(panel.getLoc().getX(), panel.getDimension().getWidth() );
             if(Math.floor(Math.random()*2) == 0){
-                y = panel.getDimension().getHeight() + panel.getLoc().getY();
+                y = panel.getDimension().getHeight() ;
             }else{
                 y = panel.game.getLocation().getY();
             }
@@ -64,7 +64,7 @@ public class TriangleModel implements Movable {
         this.y1 = y;
         this.x2 = x + TRI_SIZE;
         this.y2 = y;
-        this.x3 = x + TRI_SIZE/2;
+        this.x3 = x + TRI_SIZE/2.0;
         this.y3 = y + TRI_SIZE;
 
     }

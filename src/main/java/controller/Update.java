@@ -100,6 +100,15 @@ public class Update {
         updateBullets();
         updateRecs();
         updateTriangles();
+        updateCollectable();
+    }
+    private void updateCollectable(){
+        for (int i = 0; i < panel.getCollectableModels().size();i ++){
+            if(panel.getCollectableModels().get(i).getSecond() >= 10){
+                panel.getCollectableModels().remove(i);
+                panel.getCollectableViews().remove(i);
+            }
+        }
     }
     private void updateRecs() throws Exception {
         for (int i = 0; i < panel.getRectangleModels().size(); i++) {
