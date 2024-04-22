@@ -323,8 +323,12 @@ public class Update {
         }
     }
 
-
-    private void impact(){
+    private void impact(Movable movable1, Movable movable2){
+        if(movable1 instanceof BulletModel){
+            if(movable2 instanceof RectangleModel || movable2 instanceof TriangleModel){
+                movable2.setSpeed(-movable2.getSpeed());
+            }
+        }
         //todo
     }
 

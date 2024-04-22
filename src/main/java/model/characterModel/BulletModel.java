@@ -10,6 +10,7 @@ public class BulletModel implements Movable {
     private Point2D loc;
     private double dx;
     private double dy;
+    private double speed = 6;
     private String id;
     GamePanel panel;
 
@@ -20,8 +21,8 @@ public class BulletModel implements Movable {
         id = UUID.randomUUID().toString();
         this.loc = loc;
         double angle = Math.atan2(targetY - loc.getX(), targetX - loc.getY());
-        dx = (int) (Math.cos(angle) * 5);
-        dy = (int) (Math.sin(angle) * 5);
+        dx = (int) (Math.cos(angle) * speed);
+        dy = (int) (Math.sin(angle) * speed);
 
     }
 
@@ -39,6 +40,16 @@ public class BulletModel implements Movable {
     @Override
     public void move(double velocity) {
 
+    }
+
+    @Override
+    public double getSpeed() {
+        return speed;
+    }
+
+    @Override
+    public void setSpeed(double speed) {
+        this.speed = speed;
     }
 
     public GamePanel getPanel() {

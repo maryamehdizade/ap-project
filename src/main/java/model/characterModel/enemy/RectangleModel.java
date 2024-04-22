@@ -110,4 +110,8 @@ public class RectangleModel extends java.awt.Rectangle implements Movable {
     public void setSpeed(double speed) {
         this.speed = speed;
     }
+
+    public double getSpeed() {
+        return speed;
+    }
 }

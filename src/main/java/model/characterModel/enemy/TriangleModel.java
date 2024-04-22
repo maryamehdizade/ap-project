@@ -110,7 +110,14 @@ public class TriangleModel implements Movable {
         this.hp = hp;
     }
 
+    @Override
     public void setSpeed(double speed) {
         this.speed = speed;
     }
+
+    @Override
+    public double getSpeed() {
+        return speed;
+    }
+
 }
