@@ -4,6 +4,7 @@ import model.characterModel.PlayerModel;
 import model.movement.Movable;
 import view.pages.GamePanel;
 
+import java.awt.geom.Point2D;
 import java.util.Random;
 import java.util.UUID;
 
@@ -12,6 +13,7 @@ import static controller.Constant.TRI_SIZE;
 public class TriangleModel implements Movable {
 
     private double x1, y1, x2, y2, x3, y3;
+    private Point2D loc;
     private double speed = 1;
     private int hp = 15;
     private PlayerModel playerModel;
@@ -38,6 +40,9 @@ public class TriangleModel implements Movable {
         y2 += dy;
         x3 += dx;
         y3 += dy;
+
+        loc = new Point2D.Double((x1 + x2 + x3)/3, (y1 + y2 + y3)/3);
+
         return 0;
     }
     void createTriangle(){
@@ -120,4 +125,8 @@ public class TriangleModel implements Movable {
         return speed;
     }
 
+    @Override
+    public Point2D getLoc() {
+        return loc;
+    }
 }

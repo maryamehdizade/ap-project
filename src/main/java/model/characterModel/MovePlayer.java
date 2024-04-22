@@ -10,6 +10,7 @@ import static controller.Util.addVector;
 
 public class MovePlayer implements Movable {
     PlayerModel playerModel;
+    private Point2D loc;
     private double xvelocity = 0;
     private double yvelocity = 0;
     private boolean dForce = false;
@@ -25,6 +26,7 @@ public class MovePlayer implements Movable {
     public MovePlayer(PlayerModel playerModel, JPanel panel) {
         this.playerModel = playerModel;
         this.panel = panel;
+        loc = playerModel.getLocation();
     }
 
     @Override
@@ -61,6 +63,21 @@ public class MovePlayer implements Movable {
 
             }
         }
+    }
+
+    @Override
+    public double getSpeed() {
+        return 0;
+    }
+
+    @Override
+    public void setSpeed(double speed) {
+
+    }
+
+    @Override
+    public Point2D getLoc() {
+        return loc;
     }
 
     public boolean isdForce() {

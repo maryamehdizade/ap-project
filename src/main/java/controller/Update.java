@@ -1,6 +1,8 @@
 package controller;
 
 import model.characterModel.BulletModel;
+import model.characterModel.MovePlayer;
+import model.characterModel.PlayerModel;
 import model.characterModel.enemy.CollectableModel;
 import model.characterModel.enemy.RectangleModel;
 import model.characterModel.enemy.TriangleModel;
@@ -112,6 +114,7 @@ public class Update {
     }
     private void updateRecs() throws Exception {
         for (int i = 0; i < panel.getRectangleModels().size(); i++) {
+            increase(panel.getRectangleModels().get(i));
             if(new Random().nextDouble(0,50) <= 1){
                 panel.getRectangleModels().get(i).setSpeed(2);
             }if(second % 2 == 0)panel.getRectangleModels().get(i).setSpeed(1);
@@ -136,6 +139,7 @@ public class Update {
 
     private void updateTriangles() throws Exception {
         for (int i = 0; i < panel.getTriangleModels().size() ; i++) {
+            increase(panel.getTriangleModels().get(i));
             if (Math.abs(panel.getTriangleModels().get(i).getY3() - panel.playerModel.getLocation().getY()) >= 200) {
                 panel.getTriangleModels().get(i).setSpeed(2);
             }else{
@@ -328,8 +332,17 @@ public class Update {
             if(movable2 instanceof RectangleModel || movable2 instanceof TriangleModel){
                 movable2.setSpeed(-movable2.getSpeed());
             }
+        }else if(movable1 instanceof RectangleModel){
+            if(movable2 instanceof MovePlayer){
+
+            }
         }
         //todo
+    }
+    void increase(Movable movable){
+        if(movable.getSpeed() <= 1){
+            movable.setSpeed(movable.getSpeed() + a*2);
+        }
     }
 
     //remove
