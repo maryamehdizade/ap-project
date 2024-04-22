@@ -195,9 +195,10 @@ public class Update {
                 if(doesRecIntersectEpsilon(panel.getRectangleModels().get(j), ((BulletModel) movable).getLoc(), BULLET_SIZE) != 0){
                     panel.getRectangleModels().get(j).setHp(panel.getRectangleModels().get(j).getHp() - 5);
                     if(panel.getRectangleModels().get(j).getHp() <= 0){
+                        death(panel.getRectangleModels().get(j));
                         removeRect(j);
                         //death
-                        death(movable);
+
                     }
                     removeBullet((BulletModel) movable);
                     //correction
@@ -210,9 +211,10 @@ public class Update {
                         bulletCenter((BulletModel) movable).getY(), panel.getTriangleModels().get(p)) != 0){
                     panel.getTriangleModels().get(p).setHp(panel.getTriangleModels().get(p).getHp() - 5);
                     if(panel.getTriangleModels().get(p).getHp() <= 0){
+                        death(panel.getTriangleModels().get(p));
                         removeTriangle(p);
                         //death
-                        death(movable);
+
                     }
                     removeBullet((BulletModel) movable);
                     //impact
