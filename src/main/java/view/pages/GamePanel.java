@@ -12,6 +12,7 @@ import model.characterModel.MovePlayer;
 import model.characterModel.PlayerModel;
 import model.characterModel.enemy.RectangleModel;
 import model.characterModel.enemy.TriangleModel;
+import model.movement.Movable;
 import sound.Sound;
 import view.charactersView.BulletView;
 import view.charactersView.enemy.CollectableView;
@@ -44,6 +45,7 @@ public  class GamePanel extends JPanel implements KeyListener, MouseListener {
     private ArrayList<TriangleView> triangleViews = new ArrayList<>();
     private ArrayList<CollectableView> collectableViews = new ArrayList<>();
     private ArrayList<CollectableModel> collectableModels = new ArrayList<>();
+    private ArrayList<Movable> movables = new ArrayList<>();
     protected Sound sound;
     Update update;
 
@@ -68,15 +70,8 @@ public  class GamePanel extends JPanel implements KeyListener, MouseListener {
         playerModel = PlayerModel.getPlayer();
         playerView = createPlayerView(playerModel.getId());
         movePlayer = new MovePlayer(playerModel, this);
+        movables.add(movePlayer);
 
-
-        RectangleModel r = new RectangleModel(this);
-        rectangleModels.add(r);
-        rectangleView.add(createRectView(r));
-
-        TriangleModel t = new TriangleModel(this);
-        triangleModels.add(t);
-        triangleViews.add(createTriangleView(t));
 
         timerx = new Timer(100, e -> {
             xmin();
@@ -87,11 +82,13 @@ public  class GamePanel extends JPanel implements KeyListener, MouseListener {
                 RectangleModel r1 = new RectangleModel(this);
                 rectangleModels.add(r1);
                 rectangleView.add(createRectView(r1));
+                movables.add(r1);
             }
             if (random.nextDouble(0, bound) < 1) {
                 TriangleModel t1 = new TriangleModel(this);
                 triangleModels.add(t1);
                 triangleViews.add(createTriangleView(t1));
+                movables.add(t1);
             }
         });
         timerx.start();
@@ -280,5 +277,9 @@ public  class GamePanel extends JPanel implements KeyListener, MouseListener {
 
     public ArrayList<CollectableModel> getCollectableModels() {
         return collectableModels;
+    }
+
+    public ArrayList<Movable> getMovables() {
+        return movables;
     }
 }

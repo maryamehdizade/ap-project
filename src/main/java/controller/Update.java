@@ -34,6 +34,7 @@ public class Update {
     public GamePanel panel;
     private double a = 0.1;
     private int second;
+    private boolean impact = false;
     public Update(GamePanel panel) {
         this.panel = panel;
         view = new Timer((int) FRAME_UPDATE_TIME, e -> updateView()){{setCoalesce(true);}};
@@ -214,6 +215,11 @@ public class Update {
                     new Point2D.Double(5,panel.playerModel.getLocation().getY()));
 
         }
+        if(impact){
+            increase(panel.movePlayer);
+            if(panel.movePlayer.getXvelocity() == 0 && panel.movePlayer.getYvelocity() == 0)impact = false;
+
+        }
     }
     private void checkCollisioin(Movable movable) throws Exception {
         if(movable instanceof BulletModel){
@@ -327,10 +333,105 @@ public class Update {
         }
     }
 
+    private int idk = 3;
     private void impact(Movable movable1, Movable movable2){
         if(movable1 instanceof BulletModel){
             if(movable2 instanceof RectangleModel || movable2 instanceof TriangleModel){
-                movable2.setSpeed(-movable2.getSpeed());
+                for (Movable m : panel.getMovables()) {
+                    if(Math.abs(m.getLoc().getX() - movable1.getLoc().getX()) <= 50 &&
+                            Math.abs(m.getLoc().getY() - movable1.getLoc().getY()) <= 50){
+                        if(m instanceof MovePlayer){
+                            if(m.getLoc().getX() < movable1.getLoc().getX()){
+                                if(((MovePlayer) m).getXvelocity() <= 0){
+                                    ((MovePlayer) m).setXvelocity(((MovePlayer) m).getXvelocity() + idk);
+                                    //2
+                                    if(m.getLoc().getY() < movable1.getLoc().getY()){
+                                        if(((MovePlayer) m).getYvelocity() <= 0){
+                                            ((MovePlayer) m).setYvelocity(((MovePlayer) m).getYvelocity() - idk);
+                                        }else{
+                                            ((MovePlayer) m).setYvelocity(-((MovePlayer) m).getYvelocity());
+                                        }
+                                    }
+                                    //3
+                                    else{
+                                        if(((MovePlayer) m).getYvelocity() < 0){
+                                            ((MovePlayer) m).setYvelocity(-((MovePlayer) m).getYvelocity());
+                                        }else{
+                                            ((MovePlayer) m).setYvelocity(((MovePlayer) m).getYvelocity() + idk);
+                                        }
+                                    }
+                                }else{
+                                    ((MovePlayer) m).setXvelocity(-((MovePlayer) m).getXvelocity());
+                                    //2
+                                    if(m.getLoc().getY() < movable1.getLoc().getY()){
+                                        if(((MovePlayer) m).getYvelocity() <= 0){
+                                            ((MovePlayer) m).setYvelocity(((MovePlayer) m).getYvelocity() - idk);
+                                        }else{
+                                            ((MovePlayer) m).setYvelocity(-((MovePlayer) m).getYvelocity());
+                                        }
+                                    }
+                                    //3
+                                    else{
+                                        if(((MovePlayer) m).getYvelocity() < 0){
+                                            ((MovePlayer) m).setYvelocity(-((MovePlayer) m).getYvelocity());
+                                        }else{
+                                            ((MovePlayer) m).setYvelocity(((MovePlayer) m).getYvelocity() + idk);
+                                        }
+                                    }
+                                }
+                            }else{
+                                if(((MovePlayer) m).getXvelocity() < 0){
+                                    ((MovePlayer) m).setXvelocity(-((MovePlayer) m).getXvelocity());
+                                    //1
+                                    if(m.getLoc().getY() < movable1.getLoc().getY()){
+                                        if(((MovePlayer) m).getYvelocity() <= 0){
+                                            ((MovePlayer) m).setYvelocity(((MovePlayer) m).getYvelocity() - idk);
+                                        }else{
+                                            ((MovePlayer) m).setYvelocity(-((MovePlayer) m).getYvelocity());
+                                        }
+                                    }
+                                    //4
+                                    else{
+                                        if(((MovePlayer) m).getYvelocity() < 0){
+                                            ((MovePlayer) m).setYvelocity(-((MovePlayer) m).getYvelocity());
+                                        }else{
+                                            ((MovePlayer) m).setYvelocity(((MovePlayer) m).getYvelocity() + idk);
+                                        }
+                                    }
+                                }else{
+                                    ((MovePlayer) m).setXvelocity(((MovePlayer) m).getXvelocity() + idk);
+                                    //1
+                                    if(m.getLoc().getY() < movable1.getLoc().getY()){
+                                        if(((MovePlayer) m).getYvelocity() <= 0){
+                                            ((MovePlayer) m).setYvelocity(((MovePlayer) m).getYvelocity() - idk);
+                                        }else{
+                                            ((MovePlayer) m).setYvelocity(-((MovePlayer) m).getYvelocity());
+                                        }
+                                    }
+                                    //4
+                                    else{
+                                        if(((MovePlayer) m).getYvelocity() < 0){
+                                            ((MovePlayer) m).setYvelocity(-((MovePlayer) m).getYvelocity());
+                                        }else{
+                                            ((MovePlayer) m).setYvelocity(((MovePlayer) m).getYvelocity() + idk);
+                                        }
+                                    }
+                                }
+                            }
+                            impact = true;
+                        }
+                        else if(m instanceof RectangleModel || m instanceof TriangleModel){
+                            if(m.getLoc().getX() < m.getLoc().getX()){
+                                if(m.getSpeed() > 0)m.setSpeed(m.getSpeed() - idk);
+                                else m.setSpeed(m.getSpeed() + idk);
+                            }else{
+                                if(m.getSpeed() > 0)m.setSpeed(m.getSpeed() + idk);
+                                else m.setSpeed(m.getSpeed() - idk);
+                            }
+                        }
+                    }
+                }
+                movable2.setSpeed(movable2.getSpeed() - idk);
             }
         }else if(movable1 instanceof RectangleModel){
             if(movable2 instanceof MovePlayer){
@@ -340,8 +441,10 @@ public class Update {
         //todo
     }
     void increase(Movable movable){
-        if(movable.getSpeed() <= 1){
-            movable.setSpeed(movable.getSpeed() + a*2);
+        if(movable.getSpeed() < 1){
+            movable.setSpeed(movable.getSpeed() + a);
+        }if(movable.getSpeed() > 1){
+            movable.setSpeed(movable.getSpeed() - a);
         }
     }
 

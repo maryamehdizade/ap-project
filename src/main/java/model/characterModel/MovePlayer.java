@@ -67,12 +67,13 @@ public class MovePlayer implements Movable {
 
     @Override
     public double getSpeed() {
-        return 0;
+        return Math.pow(Math.pow(xvelocity,2) + Math.pow(yvelocity,2), 0.5);
     }
 
     @Override
     public void setSpeed(double speed) {
-
+        xvelocity = 0.8*speed;
+        yvelocity= 0.8*speed;
     }
 
     @Override
