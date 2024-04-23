@@ -218,6 +218,19 @@ public class Update {
             if(panel.movePlayer.getXvelocity() == 0 && panel.movePlayer.getYvelocity() == 0)impact = false;
 
         }
+        getC();
+    }
+    private void getC(){
+        for (int i = 0; i < panel.getCollectableModels().size(); i++) {
+            if(Math.abs(panel.getCollectableModels().get(i).getLoc().getX() - panel.playerModel.getLocation().getX()) <= 13 &&
+                    Math.abs(panel.getCollectableModels().get(i).getLoc().getY() - panel.playerModel.getLocation().getY()) <= 13 ){
+
+                panel.getCollectableModels().remove(i);
+                panel.getCollectableViews().remove(i);
+
+                panel.playerModel.setXp(panel.playerModel.getXp() + 5);
+            }
+        }
     }
     private void checkCollision(Movable movable) throws Exception {
         if(movable instanceof BulletModel){
