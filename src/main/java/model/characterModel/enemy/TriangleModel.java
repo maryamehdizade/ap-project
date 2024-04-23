@@ -52,7 +52,7 @@ public class TriangleModel implements Movable {
         if(r == 0) {
             x = random.nextDouble(panel.getLoc().getX(), panel.getDimension().getWidth() );
             if(Math.floor(Math.random()*2) == 0){
-                y = panel.getDimension().getHeight() ;
+                y = panel.getDimension().getHeight() + panel.getLoc().getY() ;
             }else{
                 y = panel.game.getLocation().getY();
             }

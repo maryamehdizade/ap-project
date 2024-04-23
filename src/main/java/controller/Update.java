@@ -24,6 +24,7 @@ import static controller.Constant.*;
 import static controller.Util.doTrianglesIntersect;
 import static controller.Controller.*;
 import static controller.Util.*;
+import static model.characterModel.PlayerModel.getPlayer;
 
 public class Update {
     public   Timer model;
@@ -327,6 +328,7 @@ public class Update {
             view.stop();
             time.stop();
             panel.timerx.stop();
+            PlayerModel.setPlayer( null);
 
             new GameOver(this);
 

@@ -24,7 +24,9 @@ public final class PlayerModel  {
         return player;
     }
 
-
+    public static void setPlayer(PlayerModel player) {
+        PlayerModel.player = player;
+    }
 
     public String getId() {
         return id;
