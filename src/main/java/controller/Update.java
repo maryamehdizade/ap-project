@@ -343,7 +343,6 @@ public class Update {
 
         }
     }
-
     void increase(Movable movable){
         if(movable.getSpeed() < 1){
             movable.setSpeed(movable.getSpeed() + a);
@@ -353,7 +352,6 @@ public class Update {
     }
 
     //remove
-
     private void removeTriangle(int i){
         panel.getTriangleViews().remove(i);
         panel.getTriangleModels().remove(i);
