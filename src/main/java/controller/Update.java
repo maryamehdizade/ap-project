@@ -102,6 +102,7 @@ public class Update {
         updateRecs();
         updateTriangles();
         updateCollectable();
+        victory();
     }
     private void updateCollectable(){
         for (int i = 0; i < panel.getCollectableModels().size();i ++){
@@ -294,7 +295,7 @@ public class Update {
             //epsilon
             int c = doesCircleIntersectTriangle(playerCenter(panel.playerModel).getX(), playerCenter(panel.playerModel).getY() , (TriangleModel) movable);
             if(c == 1){
-//                reduceHp(movable);
+                reduceHp(movable);
                 //impact
             }else if(c == 2){
                 //impact
@@ -306,6 +307,11 @@ public class Update {
                     //impact
                 }
             }
+        }
+    }
+    private void victory(){
+        if(panel.isVictory()){
+            new GameOver(this);
         }
     }
 

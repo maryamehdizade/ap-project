@@ -37,6 +37,7 @@ public  class GamePanel extends JPanel implements KeyListener, MouseListener {
     private Dimension dimension = new Dimension(700,700);
     private Point loc = new Point(100,20);
     public Timer timerx;
+    private int wave = 1;
     private ArrayList<BulletView> bullets = new ArrayList<>();
     private ArrayList<RectangleModel> rectangleModels = new ArrayList<>();
     private ArrayList<RectangleView> rectangleView = new ArrayList<>();
@@ -48,10 +49,14 @@ public  class GamePanel extends JPanel implements KeyListener, MouseListener {
     private ArrayList<Movable> movables = new ArrayList<>();
     protected Sound sound;
     Update update;
+    protected boolean victory = false;
 
     private Random random = new Random();
     public int bound = 60;
     public Game game;
+    private boolean wave1 = true;
+    private boolean wave2 = false;
+    private boolean wave3 = false;
 
 
     public GamePanel(Game game){
@@ -74,27 +79,51 @@ public  class GamePanel extends JPanel implements KeyListener, MouseListener {
 
 
         timerx = new Timer(100, e -> {
+            if(wave == 2 && !wave2){
+                bound = 55;
+                wave2 = true;
+                wave1 = false;
+            }
+            if(wave == 3 && !wave3){
+                bound = 50;
+                wave3 = true;
+                wave2 = false;
+            }
             xmin();
             ymin();
             setSize(dimension);
             setLocation(loc);
             if (random.nextDouble(0, bound) < 1) {
-                RectangleModel r1 = new RectangleModel(this);
-                rectangleModels.add(r1);
-                rectangleView.add(createRectView(r1));
-                movables.add(r1);
+                if((wave == 1 && movables.size() < 10) || (wave == 2 && movables.size() <= 15) || (wave == 3 && movables.size() < 25)) {
+                    RectangleModel r1 = new RectangleModel(this);
+                    rectangleModels.add(r1);
+                    rectangleView.add(createRectView(r1));
+                    movables.add(r1);
+                }
             }
             if (random.nextDouble(0, bound) < 1) {
-                TriangleModel t1 = new TriangleModel(this);
-                triangleModels.add(t1);
-                triangleViews.add(createTriangleView(t1));
-                movables.add(t1);
+                if((wave == 1 && movables.size() <= 10) || (wave == 2 && movables.size() <= 15) ||
+                        (wave == 3 && movables.size() <= 25)) {
+                    TriangleModel t1 = new TriangleModel(this);
+                    triangleModels.add(t1);
+                    triangleViews.add(createTriangleView(t1));
+                    movables.add(t1);
+                }
             }
+            Wave();
         });
         timerx.start();
 
         update = new Update(this);
 
+    }
+
+    private void Wave(){
+        if(movables.size() == 1 && wave != 3){
+            wave++;
+        }else if(wave == 3 && movables.size() == 1){
+            victory = true;
+        }
     }
     public void xmin(){
         if(dimension.width > MIN_SIZE.width) {
@@ -281,5 +310,9 @@ public  class GamePanel extends JPanel implements KeyListener, MouseListener {
 
     public ArrayList<Movable> getMovables() {
         return movables;
+    }
+
+    public boolean isVictory() {
+        return victory;
     }
 }
