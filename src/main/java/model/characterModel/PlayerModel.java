@@ -14,6 +14,7 @@ public final class PlayerModel  {
     private String id;
     private int xp = 0;
     private int hp = 100;
+    public double size = 20;
     private Point2D location;
     private static PlayerModel player;
 

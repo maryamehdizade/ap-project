@@ -1,5 +1,6 @@
 package view.charactersView;
 
+import java.awt.*;
 import java.awt.geom.Point2D;
 
 import static controller.Constant.BALL_SIZE;
@@ -7,12 +8,17 @@ import static controller.Constant.BALL_SIZE;
 public  class PlayerView {
     private int xp ;
     private int hp ;
-    private String id;
+    private final String id;
+    public double size;
     private  Point2D location;
 
     public PlayerView(String id, Point2D location) {
         this.location = location;
         this.id = id;
+    }
+    public void draw(Graphics g){
+        g.setColor(Color.gray);
+        g.drawOval((int) location.getX(), (int) location.getY(), (int) size, (int) size);
     }
 
     public  Point2D getLocation() {

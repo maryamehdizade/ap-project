@@ -11,7 +11,7 @@ public class GameOver extends JFrame {
         this.update = update;
 
         setSize(300, 200);
-        setLocation((int) ((update.panel.getDimension().getWidth())), (int) (update.panel.getDimension().getHeight() / 2));
+        setLocation(500,100);
         setResizable(false);
         setBackground(Color.black);
         setLayout(null);

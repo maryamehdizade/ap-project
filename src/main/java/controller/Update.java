@@ -95,6 +95,7 @@ public class Update {
         panel.playerView.setLocation(playerViewLocation(panel.playerModel));
         panel.playerView.setXp(playerViewXp(panel.playerModel));
         panel.playerView.setHp(playerViewHp(panel.playerModel));
+        panel.playerView.size = panel.playerModel.size;
     }
     public void updateModel() throws Exception {
         moveEpsilon();
@@ -295,7 +296,7 @@ public class Update {
             //epsilon
             int c = doesCircleIntersectTriangle(playerCenter(panel.playerModel).getX(), playerCenter(panel.playerModel).getY() , (TriangleModel) movable);
             if(c == 1){
-                reduceHp(movable);
+//                reduceHp(movable);
                 //impact
             }else if(c == 2){
                 //impact
@@ -311,7 +312,21 @@ public class Update {
     }
     private void victory(){
         if(panel.isVictory()){
-            new GameOver(this);
+            v();
+        }
+    }
+    private void v(){
+        if(panel.getDimension().getWidth()  + 200 >= panel.playerModel.size) panel.playerModel.size += 1;
+        if(panel.playerModel.size > panel.getDimension().getWidth() + 200)v1();
+    }
+    private void v1(){
+        if(panel.getDimension().getWidth() >= 1 && panel.getDimension().getHeight() >= 1){
+            panel.setDimension(new Dimension((int) (panel.getDimension().getWidth() - 0.1),
+                    (int) (panel.getDimension().getHeight()  - 0.1)));
+        }
+        if(panel.getDimension().getHeight() <= 1 || panel.getDimension().getWidth() <= 1){
+            gameOver();
+            panel.game.dispose();
         }
     }
 
@@ -339,15 +354,17 @@ public class Update {
         if(movable instanceof RectangleModel)w = 6;
         panel.playerModel.setHp(panel.playerModel.getHp() - w);
         if(panel.playerModel.getHp() <= 0){
-            model.stop();
-            view.stop();
-            time.stop();
-            panel.timerx.stop();
-            PlayerModel.setPlayer( null);
-
-            new GameOver(this);
-
+            gameOver();
         }
+    }
+    private void gameOver(){
+        model.stop();
+        view.stop();
+        time.stop();
+        panel.timerx.stop();
+        PlayerModel.setPlayer( null);
+
+        new GameOver(this);
     }
     void increase(Movable movable){
         if(movable.getSpeed() < 1){

@@ -1,6 +1,7 @@
 package model.characterModel;
 
 import model.movement.Movable;
+import view.pages.GamePanel;
 
 import javax.swing.*;
 import java.awt.geom.Point2D;
@@ -21,10 +22,10 @@ public class MovePlayer implements Movable {
     private boolean d0Force = false;
     private boolean u0Force = false;
     private boolean l0Force = false;
-    private JPanel panel;
+    private GamePanel panel;
     private double speed;
 
-    public MovePlayer(PlayerModel playerModel, JPanel panel) {
+    public MovePlayer(PlayerModel playerModel, GamePanel panel) {
         this.playerModel = playerModel;
         this.panel = panel;
         loc = playerModel.getLocation();
@@ -40,38 +41,40 @@ public class MovePlayer implements Movable {
 
     @Override
     public void move(double velocity) {
-        if(dForce || uForce || u0Force || d0Force) {
-            if (playerModel.getLocation().getY() > 0 &&
-                    playerModel.getLocation().getY() + BALL_SIZE <= panel.getHeight()) {
-                playerModel.setLocation(addVector(playerModel.getLocation(), new Point2D.Double(0, velocity)));
+        if(!panel.isVictory()) {
+            if (dForce || uForce || u0Force || d0Force) {
+                if (playerModel.getLocation().getY() > 0 &&
+                        playerModel.getLocation().getY() + BALL_SIZE <= panel.getHeight()) {
+                    playerModel.setLocation(addVector(playerModel.getLocation(), new Point2D.Double(0, velocity)));
+                }
+                if (playerModel.getLocation().getY() + BALL_SIZE > panel.getHeight()) {
+                    playerModel.setLocation(
+                            new Point2D.Double(playerModel.getLocation().getX(), panel.getHeight() - BALL_SIZE - 7));
+                    yvelocity = 0;
+                } else if (playerModel.getLocation().getY() < 2) {
+                    playerModel.setLocation(
+                            new Point2D.Double(playerModel.getLocation().getX(), 7));
+                    yvelocity = 0;
+                }
+                updateLoc();
             }
-            if (playerModel.getLocation().getY() + BALL_SIZE> panel.getHeight()) {
-                playerModel.setLocation(
-                        new Point2D.Double(playerModel.getLocation().getX(), panel.getHeight() - BALL_SIZE - 7));
-                yvelocity = 0;
-            }else if(playerModel.getLocation().getY() < 2){
-                playerModel.setLocation(
-                        new Point2D.Double(playerModel.getLocation().getX(),  7));
-                yvelocity = 0;
-            }
-            updateLoc();
-        }
-        if(rForce || lForce || l0Force || r0Force){
-            if(playerModel.getLocation().getX()> 0 &&
-                    playerModel.getLocation().getX() + BALL_SIZE <= panel.getWidth()){
-                playerModel.setLocation(addVector(playerModel.getLocation(),new Point2D.Double(velocity, 0)));
-            }
-            if(playerModel.getLocation().getX() + BALL_SIZE > panel.getWidth()){
-                playerModel.setLocation(
-                        new Point2D.Double(panel.getWidth() - BALL_SIZE - 7 ,playerModel.getLocation().getY()));
-                xvelocity = 0;
-            }else if(playerModel.getLocation().getX()  < 2){
-                playerModel.setLocation(
-                        new Point2D.Double(7,playerModel.getLocation().getY()));
-                xvelocity = 0;
+            if (rForce || lForce || l0Force || r0Force) {
+                if (playerModel.getLocation().getX() > 0 &&
+                        playerModel.getLocation().getX() + BALL_SIZE <= panel.getWidth()) {
+                    playerModel.setLocation(addVector(playerModel.getLocation(), new Point2D.Double(velocity, 0)));
+                }
+                if (playerModel.getLocation().getX() + BALL_SIZE > panel.getWidth()) {
+                    playerModel.setLocation(
+                            new Point2D.Double(panel.getWidth() - BALL_SIZE - 7, playerModel.getLocation().getY()));
+                    xvelocity = 0;
+                } else if (playerModel.getLocation().getX() < 2) {
+                    playerModel.setLocation(
+                            new Point2D.Double(7, playerModel.getLocation().getY()));
+                    xvelocity = 0;
 
+                }
+                updateLoc();
             }
-            updateLoc();
         }
     }
 

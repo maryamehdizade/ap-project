@@ -116,7 +116,6 @@ public  class GamePanel extends JPanel implements KeyListener, MouseListener {
             Wave();
         });
         timerx.start();
-
         update = new Update(this);
 
     }
@@ -161,9 +160,8 @@ public  class GamePanel extends JPanel implements KeyListener, MouseListener {
     protected void paintComponent(Graphics g) {
 
         super.paintComponent(g);
-        g.setColor(Color.gray);
-        g.drawOval((int) playerView.getLocation().getX() - BALL_SIZE / 2,
-                (int) playerView.getLocation().getY() - BALL_SIZE / 2, BALL_SIZE, BALL_SIZE);
+
+        playerView.draw(g);
 
         for (BulletView b : bullets) {
             b.draw(g);
@@ -180,7 +178,8 @@ public  class GamePanel extends JPanel implements KeyListener, MouseListener {
 
         g.setColor(new Color(133, 186, 83));
         g.drawString("xp:" + playerView.getXp() + "          " + "hp:" + playerView.getHp()
-                + "             " + update.getSecond(), game.getLocation().x - 273, game.getBounds().y + 20);
+                + "             " + update.getSecond()+ "             wave:" + wave
+                , game.getLocation().x - 273, game.getBounds().y + 20);
 
 
         repaint();

@@ -26,18 +26,15 @@ public class Controller  {
         return PlayerModel.getPlayer();
     }
     public static Point2D playerViewLocation(PlayerModel playerModel){
-        PlayerModel model = PlayerModel.getPlayer();
-        return model.getLocation();
+        return playerModel.getLocation();
 
     }
     public static int playerViewXp(PlayerModel playerModel){
-        PlayerModel model = PlayerModel.getPlayer();
-        return model.getXp();
+        return playerModel.getXp();
 
     }
     public static int playerViewHp(PlayerModel playerModel){
-        PlayerModel model = PlayerModel.getPlayer();
-        return model.getHp();
+        return playerModel.getHp();
 
     }
     public static BulletView createBulletView(BulletModel bulletModel){
