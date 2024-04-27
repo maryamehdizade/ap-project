@@ -8,5 +8,13 @@ public interface Movable {
 
     double getSpeed();
     void setSpeed(double speed);
+     void setXvelocity(double xvelocity);
+     void setYvelocity(double yvelocity);
+
+
+     double getXvelocity();
+
+     double getYvelocity();
     Point2D getLoc();
+    void findPlayer();
 }

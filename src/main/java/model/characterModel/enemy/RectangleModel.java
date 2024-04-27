@@ -20,6 +20,8 @@ public class RectangleModel extends java.awt.Rectangle implements Movable {
     private int[] xPoints;
     private int[] yPoints;
     private Point2D loc;
+    private double dx;
+    private double dy;
     String id;
 
     public RectangleModel(GamePanel panel) {
@@ -64,8 +66,8 @@ public class RectangleModel extends java.awt.Rectangle implements Movable {
     public int move() {
 
         double m = Math.atan2((playerModel.getLocation().getY() - loc.getY()),(playerModel.getLocation().getX() - loc.getX()));
-        double dx = (Math.cos(m) * 2) * speed;
-         double dy = (Math.sin(m) * 2) * speed;
+         dx = (Math.cos(m) * 2) * speed;
+          dy = (Math.sin(m) * 2) * speed;
 
 
         loc = new Point2D.Double(loc.getX() + dx, loc.getY() + dy);
@@ -79,10 +81,11 @@ public class RectangleModel extends java.awt.Rectangle implements Movable {
     }
 
     @Override
-    public void move(double velocity) {
-
+    public void findPlayer() {
+        double m = Math.atan2((playerModel.getLocation().getY() - loc.getY()),(playerModel.getLocation().getX() - loc.getX()));
+        dx = (Math.cos(m) * 2) * speed;
+        dy = (Math.sin(m) * 2) * speed;
     }
-
     public Point2D getLoc() {
         return loc;
     }
@@ -114,4 +117,27 @@ public class RectangleModel extends java.awt.Rectangle implements Movable {
     public double getSpeed() {
         return speed;
     }
+    public void setXvelocity(double xvelocity) {
+        dx = xvelocity;
+    }
+
+    @Override
+    public void setYvelocity(double yvelocity) {
+        dy = yvelocity;
+    }
+
+    @Override
+    public double getXvelocity() {
+        return dx;
+    }
+
+    @Override
+    public double getYvelocity() {
+        return dy;
+    }
+    @Override
+    public void move(double velocity) {
+
+    }
+
 }

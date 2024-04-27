@@ -54,7 +54,8 @@ public  class GamePanel extends JPanel implements KeyListener, MouseListener {
     private Random random = new Random();
     public int bound = 60;
     public Game game;
-    private boolean wave1 = true;
+    private boolean wave1 = false;
+    private boolean start = false;
     private boolean wave2 = false;
     private boolean wave3 = false;
 
@@ -94,12 +95,13 @@ public  class GamePanel extends JPanel implements KeyListener, MouseListener {
             setSize(dimension);
             setLocation(loc);
             if (random.nextDouble(0, bound) < 1) {
-                if((wave == 1 && movables.size() < 10) || (wave == 2 && movables.size() <= 15) || (wave == 3 && movables.size() < 25)) {
+                if((wave == 1 && movables.size() <= 10) || (wave == 2 && movables.size() <= 15) || (wave == 3 && movables.size() < 25)) {
                     RectangleModel r1 = new RectangleModel(this);
                     rectangleModels.add(r1);
                     rectangleView.add(createRectView(r1));
                     movables.add(r1);
                 }
+                start = true;
             }
             if (random.nextDouble(0, bound) < 1) {
                 if((wave == 1 && movables.size() <= 10) || (wave == 2 && movables.size() <= 15) ||
@@ -109,6 +111,7 @@ public  class GamePanel extends JPanel implements KeyListener, MouseListener {
                     triangleViews.add(createTriangleView(t1));
                     movables.add(t1);
                 }
+                start = true;
             }
             Wave();
         });
@@ -119,7 +122,7 @@ public  class GamePanel extends JPanel implements KeyListener, MouseListener {
     }
 
     private void Wave(){
-        if(movables.size() == 1 && wave != 3){
+        if(movables.size() == 1 && wave != 3 && start){
             wave++;
         }else if(wave == 3 && movables.size() == 1){
             victory = true;

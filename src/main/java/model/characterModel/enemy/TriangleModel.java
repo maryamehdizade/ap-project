@@ -15,6 +15,8 @@ public class TriangleModel implements Movable {
     private double x1, y1, x2, y2, x3, y3;
     private Point2D loc;
     private double speed = 1;
+    private double dx;
+    private double dy;
     private int hp = 15;
     private PlayerModel playerModel;
     private String id;
@@ -27,6 +29,11 @@ public class TriangleModel implements Movable {
         this.id = UUID.randomUUID().toString();
 
         createTriangle();
+    }
+    public void findPlayer(){
+        double angle = Math.atan2(playerModel.getLocation().getY() - y1, playerModel.getLocation().getX() - x1);
+         dx = Math.cos(angle) * speed;
+         dy = Math.sin(angle) * speed;
     }
     @Override
     public int move() {
@@ -118,6 +125,26 @@ public class TriangleModel implements Movable {
     @Override
     public void setSpeed(double speed) {
         this.speed = speed;
+    }
+
+    @Override
+    public void setXvelocity(double xvelocity) {
+        dx = xvelocity;
+    }
+
+    @Override
+    public void setYvelocity(double yvelocity) {
+        dy = yvelocity;
+    }
+
+    @Override
+    public double getXvelocity() {
+        return dx;
+    }
+
+    @Override
+    public double getYvelocity() {
+        return dy;
     }
 
     @Override

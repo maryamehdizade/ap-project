@@ -25,6 +25,9 @@ public class BulletModel implements Movable {
         dy = (int) (Math.sin(angle) * speed);
 
     }
+    public void findPlayer(){
+
+    }
 
     @Override
     public int move() {
@@ -50,6 +53,26 @@ public class BulletModel implements Movable {
     @Override
     public void setSpeed(double speed) {
         this.speed = speed;
+    }
+
+    @Override
+    public void setXvelocity(double xvelocity) {
+        dx = xvelocity;
+    }
+
+    @Override
+    public void setYvelocity(double yvelocity) {
+        dy = yvelocity;
+    }
+
+    @Override
+    public double getXvelocity() {
+        return dx;
+    }
+
+    @Override
+    public double getYvelocity() {
+        return dy;
     }
 
     public GamePanel getPanel() {

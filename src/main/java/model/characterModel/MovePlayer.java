@@ -22,10 +22,14 @@ public class MovePlayer implements Movable {
     private boolean u0Force = false;
     private boolean l0Force = false;
     private JPanel panel;
+    private double speed;
 
     public MovePlayer(PlayerModel playerModel, JPanel panel) {
         this.playerModel = playerModel;
         this.panel = panel;
+        loc = playerModel.getLocation();
+    }
+    void updateLoc(){
         loc = playerModel.getLocation();
     }
 
@@ -43,11 +47,14 @@ public class MovePlayer implements Movable {
             }
             if (playerModel.getLocation().getY() + BALL_SIZE> panel.getHeight()) {
                 playerModel.setLocation(
-                        new Point2D.Double(playerModel.getLocation().getX(), panel.getHeight() - BALL_SIZE - 5));
+                        new Point2D.Double(playerModel.getLocation().getX(), panel.getHeight() - BALL_SIZE - 7));
+                yvelocity = 0;
             }else if(playerModel.getLocation().getY() < 2){
                 playerModel.setLocation(
-                        new Point2D.Double(playerModel.getLocation().getX(),  5));
+                        new Point2D.Double(playerModel.getLocation().getX(),  7));
+                yvelocity = 0;
             }
+            updateLoc();
         }
         if(rForce || lForce || l0Force || r0Force){
             if(playerModel.getLocation().getX()> 0 &&
@@ -56,29 +63,36 @@ public class MovePlayer implements Movable {
             }
             if(playerModel.getLocation().getX() + BALL_SIZE > panel.getWidth()){
                 playerModel.setLocation(
-                        new Point2D.Double(panel.getWidth() - BALL_SIZE ,playerModel.getLocation().getY()));
+                        new Point2D.Double(panel.getWidth() - BALL_SIZE - 7 ,playerModel.getLocation().getY()));
+                xvelocity = 0;
             }else if(playerModel.getLocation().getX()  < 2){
                 playerModel.setLocation(
-                        new Point2D.Double(5,playerModel.getLocation().getY()));
+                        new Point2D.Double(7,playerModel.getLocation().getY()));
+                xvelocity = 0;
 
             }
+            updateLoc();
         }
     }
 
     @Override
     public double getSpeed() {
-        return Math.pow(Math.pow(xvelocity,2) + Math.pow(yvelocity,2), 0.5);
+        return speed;
     }
 
     @Override
     public void setSpeed(double speed) {
-        xvelocity = 0.8*speed;
-        yvelocity= 0.8*speed;
+        this.speed = speed;
     }
 
     @Override
     public Point2D getLoc() {
         return loc;
+    }
+
+    @Override
+    public void findPlayer() {
+
     }
 
     public boolean isdForce() {
