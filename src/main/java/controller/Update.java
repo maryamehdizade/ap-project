@@ -227,6 +227,8 @@ public class Update {
             if(Math.abs(panel.getCollectableModels().get(i).getLoc().getX() - panel.playerModel.getLocation().getX()) <= 13 &&
                     Math.abs(panel.getCollectableModels().get(i).getLoc().getY() - panel.playerModel.getLocation().getY()) <= 13 ){
 
+                panel.getCollectableModels().get(i).timer.stop();
+
                 panel.getCollectableModels().remove(i);
                 panel.getCollectableViews().remove(i);
 
@@ -254,27 +256,20 @@ public class Update {
             for (int p = 0; p < panel.getTriangleModels().size(); p++) {
                 if(doesCircleIntersectTriangle(bulletCenter((BulletModel) movable).getX(),
                         bulletCenter((BulletModel) movable).getY(), panel.getTriangleModels().get(p)) != 0){
+                    removeBullet((BulletModel) movable);
                     panel.getTriangleModels().get(p).setHp(panel.getTriangleModels().get(p).getHp() - 5);
                     if(panel.getTriangleModels().get(p).getHp() <= 0){
                         removeFromMovables(panel.getTriangleModels().get(p));
                         death(panel.getTriangleModels().get(p));
                         removeTriangle(p);
                     }
-                    removeBullet((BulletModel) movable);
                     //impact
                 }
             }
         }
         else if(movable instanceof RectangleModel){
             //epsilon
-            int r = doesRecIntersectEpsilon((RectangleModel) movable, playerCenter(panel.playerModel), BALL_SIZE);
-            if(r == 1){
-                reduceHp(movable);
-                //impact
-            }else if(r == 2){
 
-                //impact
-            }
 
             //rect
             for (int i = 0; i < panel.getRectangleModels().size(); i++) {

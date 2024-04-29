@@ -8,7 +8,7 @@ public class CollectableModel {
     private Point2D loc;
     String id;
     private int second = 0;
-    Timer timer ;
+    public Timer timer ;
 
     public CollectableModel(Point2D loc) {
         this.loc = loc;

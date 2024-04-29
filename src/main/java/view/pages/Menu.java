@@ -1,5 +1,7 @@
 package view.pages;
 
+import controller.Minimize;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -10,6 +12,7 @@ public class Menu extends JFrame {
     private JButton play = new JButton("play");
     private JButton setting = new JButton("setting");
     private JButton tutorial = new JButton("tutorial");
+    public boolean a = false;
 
     private final int buttonWidth = 300;
     private final int buttonHieght = 70;
@@ -43,7 +46,10 @@ public class Menu extends JFrame {
         play.addActionListener(e -> {
             setVisible(false);
             try {
-                new Game(this);
+                Minimize m = new Minimize(this);
+                if(a) {
+                    new Game(this);
+                }
             } catch (Exception ex) {
                 throw new RuntimeException(ex);
             }
