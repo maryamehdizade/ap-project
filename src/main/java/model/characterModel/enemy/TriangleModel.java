@@ -13,6 +13,8 @@ import static controller.Constant.TRI_SIZE;
 public class TriangleModel implements Movable {
 
     private double x1, y1, x2, y2, x3, y3;
+    private int[] xPoints;
+    private int[] yPoints;
     private Point2D loc;
     private double speed = 1;
     private double dx;
@@ -47,6 +49,9 @@ public class TriangleModel implements Movable {
         y2 += dy;
         x3 += dx;
         y3 += dy;
+
+        xPoints = new int[]{(int) x1, (int) x3, (int) x2};
+        yPoints = new int[]{(int) y1, (int) y3, (int) y2};
 
         loc = new Point2D.Double((x1 + x2 + x3)/3, (y1 + y2 + y3)/3);
 
@@ -155,5 +160,13 @@ public class TriangleModel implements Movable {
     @Override
     public Point2D getLoc() {
         return loc;
+    }
+
+    public int[] getxPoints() {
+        return xPoints;
+    }
+
+    public int[] getyPoints() {
+        return yPoints;
     }
 }
