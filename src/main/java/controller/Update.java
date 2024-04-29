@@ -238,35 +238,11 @@ public class Update {
         if(movable instanceof BulletModel) {
             //rect
             for (int j = 0; j < panel.getRectangleModels().size(); j++) {
-                Polygon rec = new Polygon(panel.getRectangleModels().get(j).getxPoints(), panel.getRectangleModels().get(j).getyPoints(), 4);
-                if (rec.contains(bulletCenter((BulletModel) movable))) {
-                    removeBullet((BulletModel) movable);
-
-                    panel.getRectangleModels().get(j).setHp(panel.getRectangleModels().get(j).getHp() - 5);
-                    if (panel.getRectangleModels().get(j).getHp() <= 0) {
-                        removeFromMovables(panel.getRectangleModels().get(j));
-                        death(panel.getRectangleModels().get(j));
-                        removeRect(j);
-                    }
-                    //impact
-                }
+                br((BulletModel) movable, panel.getRectangleModels().get(j));
             }
             //tria
             for (int p = 0; p < panel.getTriangleModels().size(); p++) {
-                Polygon tri = new Polygon(panel.getTriangleModels().get(p).getxPoints(),
-                        panel.getTriangleModels().get(p).getyPoints(), 3);
-                if (tri.contains(bulletCenter((BulletModel) movable))) {
-                    removeBullet((BulletModel) movable);
-
-                    panel.getTriangleModels().get(p).setHp(panel.getTriangleModels().get(p).getHp() - 5);
-                    if (panel.getTriangleModels().get(p).getHp() <= 0) {
-
-                        removeFromMovables(panel.getTriangleModels().get(p));
-                        death(panel.getTriangleModels().get(p));
-                        removeTriangle(p);
-                    }
-                    //impact
-                }
+                bt((BulletModel) movable, panel.getTriangleModels().get(p));
             }
         }
         else if(movable instanceof RectangleModel){
@@ -303,6 +279,37 @@ public class Update {
                     //impact
                 }
             }
+        }
+    }
+    //collision
+    private void bt(BulletModel b, TriangleModel t){
+        Polygon tri = new Polygon(t.getxPoints(),
+                t.getyPoints(), 3);
+        if (tri.contains(bulletCenter(b))) {
+            removeBullet(b);
+
+            t.setHp(t.getHp() - 5);
+            if (t.getHp() <= 0) {
+
+                removeFromMovables(t);
+                death(t);
+            }
+            removeTriangle(t);
+            //impact
+        }
+    }
+    private void br(BulletModel b, RectangleModel r){
+        Polygon rec = new Polygon(r.getxPoints(), r.getyPoints(), 4);
+        if (rec.contains(bulletCenter(b))) {
+            removeBullet(b);
+
+            r.setHp(r.getHp() - 5);
+            if (r.getHp() <= 0) {
+                removeFromMovables(r);
+                death(r);
+                removeRect(r);
+            }
+            //impact
         }
     }
     private void victory(){
@@ -392,10 +399,24 @@ public class Update {
         panel.getTriangleViews().remove(i);
         panel.getTriangleModels().remove(i);
     }
+    private void removeTriangle(TriangleModel t){
+        for (int i = 0; i < panel.getTriangleModels().size(); i++) {
+            if(panel.getTriangleModels().get(i) == t){
+                removeTriangle(i);
+            }
+        }
+    }
 
     private void removeRect(int i){
         panel.getRectangleModels().remove(i);
         panel.getRectangleView().remove(i);
+    }
+    private void removeRect(RectangleModel i){
+        for (int j = 0; j < panel.getRectangleModels().size(); j++) {
+            if(panel.getRectangleModels().get(j) == i){
+                removeRect(j);
+            }
+        }
     }
     private void removeBullet(int i) {
         panel.getBullets().remove(i);
@@ -407,7 +428,7 @@ public class Update {
         }
         panel.getBulletsModel().remove(i);
     }
-    private void removeBullet(BulletModel bulletModel) throws Exception {
+    private void removeBullet(BulletModel bulletModel){
         for (int i = 0; i < panel.getBulletsModel().size(); i++) {
             if(panel.getBulletsModel().get(i).getId().equals(bulletModel.getId()))removeBullet(i);
         }
