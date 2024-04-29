@@ -54,7 +54,7 @@ public  class GamePanel extends JPanel implements KeyListener, MouseListener {
     private Random random = new Random();
     public int bound = 60;
     public Game game;
-    private boolean wave1 = false;
+    private boolean wave1 = true;
     private boolean start = false;
     private boolean wave2 = false;
     private boolean wave3 = false;
@@ -123,6 +123,7 @@ public  class GamePanel extends JPanel implements KeyListener, MouseListener {
     private void Wave(){
         if(movables.size() == 1 && wave != 3 && start){
             wave++;
+            System.out.println(wave);
         }else if(wave == 3 && movables.size() == 1){
             victory = true;
         }

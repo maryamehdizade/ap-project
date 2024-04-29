@@ -312,7 +312,15 @@ public class Update {
     }
     private void victory(){
         if(panel.isVictory()){
-            v();
+            model.stop();
+            view.stop();
+            time.stop();
+            panel.timerx.stop();
+            new Timer(10,e -> {
+                v();
+                updatePlayerView();
+            });
+
         }
     }
     private void v(){
