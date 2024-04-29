@@ -236,31 +236,28 @@ public class Update {
     }
     private void checkCollision(Movable movable) throws Exception {
         if(movable instanceof BulletModel) {
-            //rect
             for (int j = 0; j < panel.getRectangleModels().size(); j++) {
                 br((BulletModel) movable, panel.getRectangleModels().get(j));
+                //impact
             }
-            //tria
+
             for (int p = 0; p < panel.getTriangleModels().size(); p++) {
                 bt((BulletModel) movable, panel.getTriangleModels().get(p));
+                //impact
             }
-        }
-        else if(movable instanceof RectangleModel){
+
+        } else if(movable instanceof RectangleModel){
             //epsilon
 
             //rect
             for (int i = 0; i < panel.getRectangleModels().size(); i++) {
-                if(((RectangleModel) movable).intersects(panel.getRectangleModels().get(i))
-                        && !Objects.equals(panel.getRectangleModels().get(i).getId(), ((RectangleModel) movable).getId())){
-                    //impact
-                    //correction
-                }
+                rr((RectangleModel) movable, panel.getRectangleModels().get(i));
+                //impact
             }
             //tria
             for (int i = 0; i < panel.getTriangleModels().size(); i++) {
-                if(isCollision(panel.getTriangleModels().get(i), (RectangleModel) movable)){
-                    //impact
-                }
+                rt((RectangleModel) movable, panel.getTriangleModels().get(i));
+                //impact
             }
         }
         else if(movable instanceof TriangleModel){
@@ -274,15 +271,13 @@ public class Update {
             }
             //tria
             for (int i = 0; i < panel.getTriangleModels().size(); i++) {
-                if(doTrianglesIntersect (panel.getTriangleModels().get(i), (TriangleModel) movable)
-                        && !Objects.equals(panel.getTriangleModels().get(i).getId(), ((TriangleModel) movable).getId())){
-                    //impact
-                }
+                tt((TriangleModel) movable, panel.getTriangleModels().get(i));
+                //impact
             }
         }
     }
     //collision
-    private void bt(BulletModel b, TriangleModel t){
+    private Point2D bt(BulletModel b, TriangleModel t){
         Polygon tri = new Polygon(t.getxPoints(),
                 t.getyPoints(), 3);
         if (tri.contains(bulletCenter(b))) {
@@ -295,10 +290,12 @@ public class Update {
                 death(t);
             }
             removeTriangle(t);
-            //impact
+
+            return bulletCenter(b);
         }
+        return null;
     }
-    private void br(BulletModel b, RectangleModel r){
+    private Point2D br(BulletModel b, RectangleModel r){
         Polygon rec = new Polygon(r.getxPoints(), r.getyPoints(), 4);
         if (rec.contains(bulletCenter(b))) {
             removeBullet(b);
@@ -309,8 +306,45 @@ public class Update {
                 death(r);
                 removeRect(r);
             }
-            //impact
+            return bulletCenter(b);
         }
+        return null;
+    }
+    private Point2D rr(RectangleModel m, RectangleModel r){
+        Polygon rec = new Polygon(m.getxPoints(), m.getyPoints(), 4);
+        int[] xpoint = r.getxPoints();
+        int[] ypoint = r.getyPoints();
+        for (int i = 0; i < 4; i++) {
+            if(rec.contains(new Point2D.Double(xpoint[i], ypoint[i]))){
+                return new Point2D.Double((rectCenter(r).getX() + rectCenter(m).getX())/2,
+                        (rectCenter(r).getY() + rectCenter(m).getY())/2);
+            }
+        }
+        return null;
+    }
+    private Point2D rt(RectangleModel r, TriangleModel t){
+        Polygon rec = new Polygon(r.getxPoints(), r.getyPoints(), 4);
+        int[] xpoint = t.getxPoints();
+        int[] ypoint = t.getyPoints();
+        for (int i = 0; i < 3; i++) {
+            if(rec.contains(new Point2D.Double(xpoint[i], ypoint[i]))){
+                return new Point2D.Double((rectCenter(r).getX() + t.getLoc().getX())/2,
+                        (rectCenter(r).getY() + t.getLoc().getY())/2);
+            }
+        }
+        return null;
+    }
+    private Point2D tt(TriangleModel m, TriangleModel t ){
+        Polygon tri = new Polygon(m.getxPoints(), m.getyPoints(), 3);
+        int[] xpoint = t.getxPoints();
+        int[] ypoint = t.getyPoints();
+        for (int i = 0; i < 3; i++) {
+            if(tri.contains(new Point2D.Double(xpoint[i], ypoint[i]))){
+                return new Point2D.Double((m.getLoc().getX() + t.getLoc().getX())/2,
+                        (m.getLoc().getY() + t.getLoc().getY())/2);
+            }
+        }
+        return null;
     }
     private void victory(){
         if(panel.isVictory()){

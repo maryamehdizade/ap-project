@@ -10,6 +10,7 @@ import java.awt.geom.Point2D;
 import static controller.Constant.*;
 
 public class Util {
+
     //triangle triangle collision
     private static boolean isPointInsideTriangle(double x, double y, TriangleModel triangle) {
 
