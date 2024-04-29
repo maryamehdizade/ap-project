@@ -273,22 +273,31 @@ public class Update {
 
             //rect
             for (int i = 0; i < panel.getRectangleModels().size(); i++) {
-                if(((RectangleModel) movable).intersects(panel.getRectangleModels().get(i))
-                        && !Objects.equals(panel.getRectangleModels().get(i).getId(), ((RectangleModel) movable).getId())){
-                    //impact
-                    //correction
+                Polygon rec =new Polygon(((RectangleModel) movable).getxPoints(),
+                        ((RectangleModel) movable).getyPoints(), 4);
+                for (int j = 0; j < 4; j++) {
+                    if (rec.contains(new Point2D.Double(panel.getRectangleModels().get(i).getxPoints()[j],
+                            panel.getRectangleModels().get(i).getyPoints()[j]))) {
+                        //impact
+                    }
                 }
             }
             //tria
             for (int i = 0; i < panel.getTriangleModels().size(); i++) {
-                if(isCollision(panel.getTriangleModels().get(i), (RectangleModel) movable)){
-                    //impact
+                Polygon rec =new Polygon(((RectangleModel) movable).getxPoints(),
+                        ((RectangleModel) movable).getyPoints(), 4);
+                for (int j = 0; j < 3; j++) {
+                    if (rec.contains(new Point2D.Double(panel.getTriangleModels().get(i).xPoints[j],
+                            panel.getTriangleModels().get(i).yPoints[j]))) {
+                        //impact
+                    }
                 }
             }
         }
         else if(movable instanceof TriangleModel){
             //epsilon
-            int c = doesCircleIntersectTriangle(playerCenter(panel.playerModel).getX(), playerCenter(panel.playerModel).getY() , (TriangleModel) movable);
+            int c = doesCircleIntersectTriangle(playerCenter(panel.playerModel).getX(), playerCenter(panel.playerModel).getY()
+                    , (TriangleModel) movable);
             if(c == 1){
 //                reduceHp(movable);
                 //impact
@@ -297,9 +306,12 @@ public class Update {
             }
             //tria
             for (int i = 0; i < panel.getTriangleModels().size(); i++) {
-                if(doTrianglesIntersect (panel.getTriangleModels().get(i), (TriangleModel) movable)
-                        && !Objects.equals(panel.getTriangleModels().get(i).getId(), ((TriangleModel) movable).getId())){
-                    //impact
+                Polygon tri = new Polygon(((TriangleModel) movable).xPoints, ((TriangleModel) movable).yPoints, 3);
+                for (int j = 0; j < 3; j++) {
+                    if(tri.contains(new Point2D.Double(panel.getTriangleModels().get(i).xPoints[j],
+                            panel.getTriangleModels().get(i).yPoints[j]))){
+                        //impact
+                    }
                 }
             }
         }

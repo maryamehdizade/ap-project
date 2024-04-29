@@ -19,6 +19,8 @@ public class TriangleModel implements Movable {
     private double dy;
     private int hp = 15;
     private PlayerModel playerModel;
+    public int[] xPoints ;
+    public int[] yPoints ;
     private String id;
     private Random random = new Random();
     private GamePanel panel;
@@ -47,6 +49,9 @@ public class TriangleModel implements Movable {
         y2 += dy;
         x3 += dx;
         y3 += dy;
+
+        xPoints = new int[]{(int) x1, (int) x3, (int) x2};
+        yPoints = new int[]{(int) y1, (int) y3, (int) y2};
 
         loc = new Point2D.Double((x1 + x2 + x3)/3, (y1 + y2 + y3)/3);
 
