@@ -238,15 +238,15 @@ public class Update {
         if(movable instanceof BulletModel){
             //rect
             for (int j = 0; j < panel.getRectangleModels().size(); j++) {
-                if(doesRecIntersectEpsilon(panel.getRectangleModels().get(j), movable.getLoc(), BULLET_SIZE) != 0){
+                Polygon rec = new Polygon(panel.getRectangleModels().get(j).getxPoints(), panel.getRectangleModels().get(j).getyPoints(), 4);
+                if(rec.contains(bulletCenter((BulletModel) movable))) {
+                    removeBullet((BulletModel) movable);
                     panel.getRectangleModels().get(j).setHp(panel.getRectangleModels().get(j).getHp() - 5);
-                    if(panel.getRectangleModels().get(j).getHp() <= 0){
-
+                    if (panel.getRectangleModels().get(j).getHp() <= 0) {
+                        removeFromMovables(panel.getRectangleModels().get(j));
                         death(panel.getRectangleModels().get(j));
                         removeRect(j);
                     }
-//                    removeBullet((BulletModel) movable);
-                    //correction
                     //impact
                 }
             }
@@ -256,10 +256,9 @@ public class Update {
                         bulletCenter((BulletModel) movable).getY(), panel.getTriangleModels().get(p)) != 0){
                     panel.getTriangleModels().get(p).setHp(panel.getTriangleModels().get(p).getHp() - 5);
                     if(panel.getTriangleModels().get(p).getHp() <= 0){
-
+                        removeFromMovables(panel.getTriangleModels().get(p));
                         death(panel.getTriangleModels().get(p));
                         removeTriangle(p);
-
                     }
                     removeBullet((BulletModel) movable);
                     //impact
@@ -320,7 +319,6 @@ public class Update {
                 v();
                 updatePlayerView();
             });
-
         }
     }
     private void v(){
@@ -383,6 +381,17 @@ public class Update {
     }
 
     //remove
+    private void removeFromMovables(Movable movable){
+        for (int i = 0; i < panel.getMovables().size(); i ++) {
+            if(movable == panel.getMovables().get(i)){
+                removeFromMovables(i);
+            }
+        }
+    }
+    private void removeFromMovables(int i) {
+     panel.getMovables().remove(i);
+    }
+
     private void removeTriangle(int i){
         panel.getTriangleViews().remove(i);
         panel.getTriangleModels().remove(i);

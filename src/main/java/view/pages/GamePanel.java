@@ -58,6 +58,7 @@ public  class GamePanel extends JPanel implements KeyListener, MouseListener {
     private boolean start = false;
     private boolean wave2 = false;
     private boolean wave3 = false;
+    public int enemies = 0;
 
 
     public GamePanel(Game game){
@@ -95,21 +96,22 @@ public  class GamePanel extends JPanel implements KeyListener, MouseListener {
             setSize(dimension);
             setLocation(loc);
             if (random.nextDouble(0, bound) < 1) {
-                if((wave == 1 && movables.size() <= 10) || (wave == 2 && movables.size() <= 15) || (wave == 3 && movables.size() < 25)) {
+                if((wave == 1 && enemies <= 10) || (wave == 2 && enemies <= 15) || (wave == 3 && enemies <= 25)) {
                     RectangleModel r1 = new RectangleModel(this);
                     rectangleModels.add(r1);
                     rectangleView.add(createRectView(r1));
                     movables.add(r1);
+                    enemies ++;
                 }
                 start = true;
             }
             if (random.nextDouble(0, bound) < 1) {
-                if((wave == 1 && movables.size() <= 10) || (wave == 2 && movables.size() <= 15) ||
-                        (wave == 3 && movables.size() <= 25)) {
+                if((wave == 1 && enemies <= 10) || (wave == 2 && enemies <= 15) || (wave == 3 && enemies <= 25)) {
                     TriangleModel t1 = new TriangleModel(this);
                     triangleModels.add(t1);
                     triangleViews.add(createTriangleView(t1));
                     movables.add(t1);
+                    enemies ++;
                 }
                 start = true;
             }
@@ -121,10 +123,16 @@ public  class GamePanel extends JPanel implements KeyListener, MouseListener {
     }
 
     private void Wave(){
-        if(movables.size() == 1 && wave != 3 && start){
+        if(enemies >= 10 && wave1 && start && movables.size() == 1){
             wave++;
-            System.out.println(wave);
-        }else if(wave == 3 && movables.size() == 1){
+            enemies = 0;
+            System.out.println("hi");
+        }
+        else if(enemies == 15 && wave2 && movables.size() == 1){
+            wave++;
+            enemies = 0;
+            System.out.println("hi2");
+        }else if(wave == 3 && movables.size() == 1 && enemies == 25){
             victory = true;
         }
     }
