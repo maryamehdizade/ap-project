@@ -126,13 +126,12 @@ public  class GamePanel extends JPanel implements KeyListener, MouseListener {
         if(enemies >= 10 && wave1 && start && movables.size() == 1){
             wave++;
             enemies = 0;
-            System.out.println("hi");
-        }
-        else if(enemies == 15 && wave2 && movables.size() == 1){
+
+        } else if(enemies >= 15 && wave2 && movables.size() == 1){
             wave++;
             enemies = 0;
-            System.out.println("hi2");
-        }else if(wave == 3 && movables.size() == 1 && enemies == 25){
+
+        }else if(wave >= 3 && movables.size() == 1 && enemies == 25){
             victory = true;
         }
     }

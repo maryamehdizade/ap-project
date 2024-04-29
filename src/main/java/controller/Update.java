@@ -200,6 +200,7 @@ public class Update {
             }
             panel.movePlayer.move(panel.movePlayer.getYvelocity());
         }
+        //wall
         if (panel.playerModel.getLocation().getY() + BALL_SIZE> panel.getHeight()) {
             panel.playerModel.setLocation(
                     new Point2D.Double(panel.playerModel.getLocation().getX(), panel.getHeight() - BALL_SIZE - 5));
@@ -215,22 +216,21 @@ public class Update {
                     new Point2D.Double(10,panel.playerModel.getLocation().getY()));
 
         }
-        if(impact){
-            increase(panel.movePlayer);
-            if(panel.movePlayer.getXvelocity() == 0 && panel.movePlayer.getYvelocity() == 0)impact = false;
-
-        }
         getC();
     }
     private void getC(){
         for (int i = 0; i < panel.getCollectableModels().size(); i++) {
-            if(Math.abs(panel.getCollectableModels().get(i).getLoc().getX() - panel.playerModel.getLocation().getX()) <= 13 &&
-                    Math.abs(panel.getCollectableModels().get(i).getLoc().getY() - panel.playerModel.getLocation().getY()) <= 13 ){
+            CollectableModel c = panel.getCollectableModels().get(i);
+            if(Math.abs(c.getLoc().getX() - panel.playerModel.getLocation().getX()) <= 13 &&
+                    Math.abs(c.getLoc().getY() - panel.playerModel.getLocation().getY()) <= 13 ){
+
+                panel.getCollectableModels().get(i).timer.stop();
 
                 panel.getCollectableModels().remove(i);
                 panel.getCollectableViews().remove(i);
 
                 panel.playerModel.setXp(panel.playerModel.getXp() + 5);
+
             }
         }
     }
