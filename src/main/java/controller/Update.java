@@ -16,11 +16,9 @@ import javax.swing.*;
 
 import java.awt.*;
 import java.awt.geom.Point2D;
-import java.util.Objects;
 import java.util.Random;
 
 import static controller.Constant.*;
-import static controller.Util.doTrianglesIntersect;
 import static controller.Controller.*;
 import static controller.Util.*;
 
@@ -97,7 +95,9 @@ public class Update {
         panel.playerView.setHp(playerViewHp(panel.playerModel));
         panel.playerView.size = panel.playerModel.size;
     }
-    public void updateModel() throws Exception {
+
+    //model
+    public void updateModel(){
         moveEpsilon();
         updateBullets();
         updateRecs();
@@ -113,9 +113,9 @@ public class Update {
             }
         }
     }
-    private void updateRecs() throws Exception {
+    private void updateRecs(){
         for (int i = 0; i < panel.getRectangleModels().size(); i++) {
-            increase(panel.getRectangleModels().get(i));
+
             if(new Random().nextDouble(0,50) <= 1){
                 panel.getRectangleModels().get(i).setSpeed(2);
             }if(second % 2 == 0)panel.getRectangleModels().get(i).setSpeed(1);
@@ -123,7 +123,7 @@ public class Update {
             checkCollision(panel.getRectangleModels().get(i));
         }
     }
-    private void updateBullets() throws Exception{
+    private void updateBullets(){
         for (int i = 0; i < panel.getBulletsModel().size(); i++) {
             int a = panel.getBulletsModel().get(i).move();
             if(a == 1)moveLeft();
@@ -138,9 +138,8 @@ public class Update {
         }
     }
 
-    private void updateTriangles() throws Exception {
+    private void updateTriangles() {
         for (int i = 0; i < panel.getTriangleModels().size() ; i++) {
-            increase(panel.getTriangleModels().get(i));
             if (Math.abs(panel.getTriangleModels().get(i).getY3() - panel.playerModel.getLocation().getY()) >= 200) {
                 panel.getTriangleModels().get(i).setSpeed(2);
             }else{
@@ -234,7 +233,7 @@ public class Update {
             }
         }
     }
-    private void checkCollision(Movable movable) throws Exception {
+    private void checkCollision(Movable movable){
         if(movable instanceof BulletModel) {
             for (int j = 0; j < panel.getRectangleModels().size(); j++) {
                 br((BulletModel) movable, panel.getRectangleModels().get(j));
@@ -262,13 +261,7 @@ public class Update {
         }
         else if(movable instanceof TriangleModel){
             //epsilon
-            int c = doesCircleIntersectTriangle(playerCenter(panel.playerModel).getX(), playerCenter(panel.playerModel).getY() , (TriangleModel) movable);
-            if(c == 1){
-//                reduceHp(movable);
-                //impact
-            }else if(c == 2){
-                //impact
-            }
+
             //tria
             for (int i = 0; i < panel.getTriangleModels().size(); i++) {
                 tt((TriangleModel) movable, panel.getTriangleModels().get(i));
@@ -374,20 +367,10 @@ public class Update {
     }
 
     private void death(Movable movable){
-        if(movable instanceof TriangleModel){
-            CollectableModel c = new CollectableModel(new Point2D.Double(((TriangleModel) movable).getX1(), ((TriangleModel) movable).getY1()));
-            CollectableModel c1 = new CollectableModel(addVector(new Point2D.Double(((TriangleModel) movable).getX1(),
-                    ((TriangleModel) movable).getY1()), new Point2D.Double(10,10)));
-
-            panel.getCollectableModels().add(c);
-            panel.getCollectableViews().add(createCollectableView(c));
-
-            panel.getCollectableModels().add(c1);
-            panel.getCollectableViews().add(createCollectableView(c1));
-        }else if(movable instanceof RectangleModel){
-
+        int n = 1;
+        if(movable instanceof TriangleModel)n = 2;
+        for (int i = 0; i < n; i++) {
             CollectableModel c = new CollectableModel(movable.getLoc());
-
             panel.getCollectableModels().add(c);
             panel.getCollectableViews().add(createCollectableView(c));
         }

@@ -153,4 +153,7 @@ public class Util {
     public static Point2D bulletCenter(BulletModel t) {
         return new Point2D.Double(t.getLoc().getX() + BULLET_SIZE/2.0, t.getLoc().getY() + BULLET_SIZE/2.0);
     }
+    public static Point2D triangleCenter(TriangleModel t){
+        return new Point2D.Double((t.getX1() + t.getX2() + t.getX3())/3, (t.getY1() + t.getY2() + t.getY3())/3);
+    }
 }
