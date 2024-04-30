@@ -121,12 +121,12 @@ public class Update {
             panel.setLocation(panel.getLoc());
         }
         if(panel.wave == 2 && !panel.wave2){
-            panel.bound = 230;
+            panel.bound = 280;
             panel.wave2 = true;
             panel.wave1 = false;
         }
         if(panel.wave == 3 && !panel.wave3){
-            panel.bound = 200;
+            panel.bound = 250;
             panel.wave3 = true;
             panel.wave2 = false;
         }
@@ -142,7 +142,7 @@ public class Update {
             panel.start = true;
         }
         if (panel.random.nextDouble(0, panel.bound) < 1) {
-            if((panel.wave == 1 && panel.enemies <= 10) || (panel.wave == 2 && panel.enemies <= 15) || (panel.wave == 3 && panel.enemies <= 25)) {
+            if((panel.wave == 1 && panel.enemies <= 10) || (panel.wave == 2 && panel.enemies <= 15) || (panel.wave == 3 && panel.enemies <= 20)) {
                 TriangleModel t1 = new TriangleModel(panel);
                 panel.getTriangleModels().add(t1);
                 panel.getTriangleViews().add(createTriangleView(t1));
@@ -301,11 +301,12 @@ public class Update {
             }
             //tria
             for (int p = 0; p < panel.getTriangleModels().size(); p++) {
-//                Polygon rec = new Polygon(panel.getTriangleModels().get(p).getxPoints(),
-//                        panel.getTriangleModels().get(p).getyPoints(), 3);
-                if (distance(bulletCenter((BulletModel) movable).getX(), bulletCenter((BulletModel) movable).getY(),
-                        triangleCenter(panel.getTriangleModels().get(p)).getX(), triangleCenter(panel.getTriangleModels().get(p)).getY())
-                        <= (double) TRI_SIZE / 2 + (double) BULLET_SIZE / 2 + 20) {
+                Polygon rec = new Polygon(panel.getTriangleModels().get(p).getxPoints(),
+                        panel.getTriangleModels().get(p).getyPoints(), 3);
+                if(rec.contains(bulletCenter((BulletModel) movable))){
+//                if (distance(bulletCenter((BulletModel) movable).getX(), bulletCenter((BulletModel) movable).getY(),
+//                        triangleCenter(panel.getTriangleModels().get(p)).getX(), triangleCenter(panel.getTriangleModels().get(p)).getY())
+//                        <= (double) TRI_SIZE / 2 + (double) BULLET_SIZE / 2 + 20) {
                     removeBullet((BulletModel) movable);
                     panel.getTriangleModels().get(p).setHp(panel.getTriangleModels().get(p).getHp() - 5);
                     if (panel.getTriangleModels().get(p).getHp() <= 0) {
@@ -435,13 +436,7 @@ public class Update {
 
         new GameOver(this);
     }
-    void increase(Movable movable){
-        if(movable.getSpeed() < 1){
-            movable.setSpeed(movable.getSpeed() + a);
-        }if(movable.getSpeed() > 1){
-            movable.setSpeed(movable.getSpeed() - a);
-        }
-    }
+
 
     //remove
     private void removeFromMovables(Movable movable){

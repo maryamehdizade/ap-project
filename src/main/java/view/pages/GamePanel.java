@@ -51,7 +51,7 @@ public  class GamePanel extends JPanel implements KeyListener, MouseListener {
     protected boolean victory = false;
 
     public Random random = new Random();
-    public int bound = 250;
+    public int bound = 300;
     public Game game;
     public boolean wave1 = true;
     public boolean start = false;
@@ -91,7 +91,7 @@ public  class GamePanel extends JPanel implements KeyListener, MouseListener {
             wave++;
             enemies = 0;
 
-        }else if(wave == 3 && movables.size() == 1 && enemies >= 25){
+        }else if(wave == 3 && movables.size() == 1 && enemies >= 20){
             victory = true;
         }
     }
