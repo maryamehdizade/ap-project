@@ -84,6 +84,9 @@ public class TriangleModel implements Movable {
         this.x3 = x + TRI_SIZE/2.0;
         this.y3 = y + TRI_SIZE;
 
+        xPoints = new int[]{(int) x1, (int) x3, (int) x2};
+        yPoints = new int[]{(int) y1, (int) y3, (int) y2};
+
     }
 
     @Override

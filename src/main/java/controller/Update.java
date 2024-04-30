@@ -40,6 +40,7 @@ public class Update {
             try {
                 updateModel();
             } catch (Exception ignored) {
+                ignored.printStackTrace();
             }
         }){{setCoalesce(true);}};
         model.start();

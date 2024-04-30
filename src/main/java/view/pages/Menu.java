@@ -46,8 +46,9 @@ public class Menu extends JFrame {
         play.addActionListener(e -> {
             setVisible(false);
             try {
-                Minimize m = new Minimize(this);
-                if(a) {
+//                Minimize m = new Minimize(this);
+//                if(a) {
+                if(true){
                     new Game(this);
                 }
             } catch (Exception ex) {

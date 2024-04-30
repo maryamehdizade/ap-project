@@ -76,7 +76,6 @@ public class RectangleModel extends java.awt.Rectangle implements Movable {
         yPoints = new int[]{(int) loc.getY(), (int) loc.getY(), (int) (loc.getY() + RECT_SIZE), (int) (loc.getY() + RECT_SIZE)};
 
 
-        //collision
         return 0;
     }
 
