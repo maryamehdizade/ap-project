@@ -62,11 +62,4 @@ public class TriangleView {
         return id;
     }
 
-    public double getX1() {
-        return x1;
-    }
-
-    public double getY1() {
-        return y1;
-    }
 }

@@ -233,8 +233,9 @@ public class Update {
         if(movable instanceof BulletModel){
             //rect
             for (int j = 0; j < panel.getRectangleModels().size(); j++) {
-                Polygon rec = new Polygon(panel.getRectangleModels().get(j).getxPoints(), panel.getRectangleModels().get(j).getyPoints(), 4);
-                if(rec.contains(bulletCenter((BulletModel) movable))) {
+//                Polygon rec = new Polygon(panel.getRectangleModels().get(j).getxPoints(), panel.getRectangleModels().get(j).getyPoints(), 4);
+                if(distance(bulletCenter((BulletModel) movable), rectCenter(panel.getRectangleModels().get(j))) <=
+                        BULLET_SIZE/2.0 + RECT_SIZE/2.0 + 15) {
                     removeBullet((BulletModel) movable);
                     panel.getRectangleModels().get(j).setHp(panel.getRectangleModels().get(j).getHp() - 5);
                     if (panel.getRectangleModels().get(j).getHp() <= 0) {
@@ -247,9 +248,10 @@ public class Update {
             }
             //tria
             for (int p = 0; p < panel.getTriangleModels().size(); p++) {
-                Polygon rec = new Polygon(panel.getTriangleModels().get(p).getxPoints(),
-                        panel.getTriangleModels().get(p).getyPoints(), 3);
-                if(rec.contains(bulletCenter((BulletModel) movable))) {
+//                Polygon rec = new Polygon(panel.getTriangleModels().get(p).getxPoints(),
+//                        panel.getTriangleModels().get(p).getyPoints(), 3);
+                if(distance(bulletCenter((BulletModel) movable), triangleCenter(panel.getTriangleModels().get(p)))
+                        <= TRI_SIZE/2 + BULLET_SIZE/2 + 15) {
                     removeBullet((BulletModel) movable);
                     panel.getTriangleModels().get(p).setHp(panel.getTriangleModels().get(p).getHp() - 5);
                     if (panel.getTriangleModels().get(p).getHp() <= 0) {
@@ -263,12 +265,15 @@ public class Update {
         }
         else if(movable instanceof RectangleModel){
             //epsilon
-
+            if(ert(panel.playerModel, movable) != null){
+                reduceHp(movable);
+                //impact
+            }
 
             //rect
             for (int i = 0; i < panel.getRectangleModels().size(); i++) {
-                Polygon rec =new Polygon(((RectangleModel) movable).getxPoints(),
-                        ((RectangleModel) movable).getyPoints(), 4);
+                Polygon rec =new Polygon(movable.getxPoints(),
+                        movable.getyPoints(), 4);
                 for (int j = 0; j < 4; j++) {
                     if (rec.contains(new Point2D.Double(panel.getRectangleModels().get(i).getxPoints()[j],
                             panel.getRectangleModels().get(i).getyPoints()[j]))) {
@@ -278,8 +283,8 @@ public class Update {
             }
             //tria
             for (int i = 0; i < panel.getTriangleModels().size(); i++) {
-                Polygon rec =new Polygon(((RectangleModel) movable).getxPoints(),
-                        ((RectangleModel) movable).getyPoints(), 4);
+                Polygon rec =new Polygon(movable.getxPoints(),
+                        movable.getyPoints(), 4);
                 for (int j = 0; j < 3; j++) {
                     if (rec.contains(new Point2D.Double(panel.getTriangleModels().get(i).getxPoints()[j],
                             panel.getTriangleModels().get(i).getyPoints()[j]))) {
@@ -291,14 +296,12 @@ public class Update {
         else if(movable instanceof TriangleModel){
             //epsilon
             if(ert(panel.playerModel, movable) != null){
-                panel.getTriangleModels().remove(movable);
                 reduceHp(movable);
-                System.out.println("tri epsilon impact");
                 //impact
             }
             //tria
             for (int i = 0; i < panel.getTriangleModels().size(); i++) {
-                Polygon tri = new Polygon(((TriangleModel) movable).getxPoints(), ((TriangleModel) movable).getyPoints(), 3);
+                Polygon tri = new Polygon(movable.getxPoints(), movable.getyPoints(), 3);
                 for (int j = 0; j < 3; j++) {
                     if(tri.contains(new Point2D.Double(panel.getTriangleModels().get(i).getxPoints()[j],
                             panel.getTriangleModels().get(i).getyPoints()[j]))){
