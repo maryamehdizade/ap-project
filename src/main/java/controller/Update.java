@@ -32,6 +32,8 @@ public class Update {
     public GamePanel panel;
     private final double a = 0.1;
     private int second;
+    Point2D collision ;
+    Point2D collision2;
     private boolean impact = false;
     public Update(GamePanel panel) {
         this.panel = panel;
@@ -106,11 +108,12 @@ public class Update {
         updateTriangles();
         updateCollectable();
         victory();
-        panel.xmin();
-        panel.ymin();
-        panel.setSize(panel.getDimension());
-        panel.setLocation(panel.getLoc());
-
+        if(second >= 10) {
+            panel.xmin();
+            panel.ymin();
+            panel.setSize(panel.getDimension());
+            panel.setLocation(panel.getLoc());
+        }
         if(panel.wave == 2 && !panel.wave2){
             panel.bound = 55;
             panel.wave2 = true;
@@ -310,10 +313,15 @@ public class Update {
 
         } else if (movable instanceof RectangleModel) {
             //epsilon
-            if(ert(panel.playerModel, movable)!= null){
+             collision = ert(panel.playerModel, movable);
+             collision2 = er(panel.playerModel, (RectangleModel) movable);
+            if(collision != null){
 //                reduceHp(movable);
                 //impact
+            }else if(collision2 != null){
+                //impact
             }
+
             //rect
             for (int i = 0; i < panel.getRectangleModels().size(); i++) {
                 Polygon rec = new Polygon(movable.getxPoints(),
@@ -338,9 +346,12 @@ public class Update {
             }
         } else if (movable instanceof TriangleModel) {
             //epsilon
-
-            if (ert(panel.playerModel, movable) != null) {
+            collision = ert(panel.playerModel, movable);
+            collision2 = et(panel.playerModel, (TriangleModel) movable);
+            if (collision != null) {
 //                reduceHp(movable);
+                //impact
+            }else if(collision2 != null){
                 //impact
             }
             //tria
@@ -360,8 +371,7 @@ public class Update {
     }
 
     private void victory(){
-//        if(panel.isVictory()){
-        if(second >= 2){
+        if(panel.isVictory()){
             model.stop();
             view.stop();
             time.stop();
