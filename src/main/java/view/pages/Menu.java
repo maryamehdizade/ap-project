@@ -64,6 +64,10 @@ public class Menu extends JFrame {
         skillTree.setSize(buttonWidth,buttonHieght);
         skillTree.setLocation(xLoc,200);
         skillTree.setBackground(color);
+        skillTree.addActionListener(e -> {
+            new SkillTree(this);
+            setVisible(false);
+        });
 
         tutorial.setSize(buttonWidth,buttonHieght);
         tutorial.setLocation(xLoc,300);
