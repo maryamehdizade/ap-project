@@ -17,4 +17,7 @@ public interface Movable {
      double getYvelocity();
     Point2D getLoc();
     void findPlayer();
+     int[] getxPoints();
+
+    int[] getyPoints();
 }

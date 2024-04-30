@@ -19,8 +19,8 @@ public class TriangleModel implements Movable {
     private double dy;
     private int hp = 15;
     private PlayerModel playerModel;
-    public int[] xPoints ;
-    public int[] yPoints ;
+    private int[] xPoints ;
+    private int[] yPoints ;
     private String id;
     private Random random = new Random();
     private GamePanel panel;
@@ -160,5 +160,13 @@ public class TriangleModel implements Movable {
     @Override
     public Point2D getLoc() {
         return loc;
+    }
+
+    public int[] getxPoints() {
+        return xPoints;
+    }
+
+    public int[] getyPoints() {
+        return yPoints;
     }
 }

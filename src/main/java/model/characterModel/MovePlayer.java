@@ -98,6 +98,16 @@ public class MovePlayer implements Movable {
 
     }
 
+    @Override
+    public int[] getxPoints() {
+        return new int[0];
+    }
+
+    @Override
+    public int[] getyPoints() {
+        return new int[0];
+    }
+
     public boolean isdForce() {
         return dForce;
     }

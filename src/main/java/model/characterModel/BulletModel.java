@@ -30,6 +30,16 @@ public class BulletModel implements Movable {
     }
 
     @Override
+    public int[] getxPoints() {
+        return new int[0];
+    }
+
+    @Override
+    public int[] getyPoints() {
+        return new int[0];
+    }
+
+    @Override
     public int move() {
         loc = new Point2D.Double(loc.getX() + dx, loc.getY() + dy);
 
