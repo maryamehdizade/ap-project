@@ -48,7 +48,7 @@ public class RectangleModel extends java.awt.Rectangle implements Movable {
             if(Math.floor(Math.random()*2) == 0){
                 x = 20;
             }else{
-                x = 700;
+                x = 800;
             }
 
         }

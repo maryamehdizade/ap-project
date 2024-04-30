@@ -37,7 +37,7 @@ public class Store extends JFrame  {
     private void addButtons(){
 
         banish.setSize(size);
-        banish.setLocation(10, 120);
+        banish.setLocation(10, 130);
         banish.setBackground(color);
         banish.setFont(new Font("TimesRoman", Font.PLAIN, 22));
         banish.addActionListener(e -> {
@@ -50,7 +50,7 @@ public class Store extends JFrame  {
         });
 
         empower.setSize(size);
-        empower.setLocation(10, 60);
+        empower.setLocation(10, 80);
         empower.setBackground(color);
         empower.setFont(new Font("TimesRoman", Font.PLAIN, 22));
         empower.addActionListener(e -> {
@@ -78,7 +78,7 @@ public class Store extends JFrame  {
         JButton play = new JButton("back");
         play.setSize(size);
         play.setBackground(color);
-        play.setLocation(10,150);
+        play.setLocation(10,170);
         play.addActionListener(e -> {
             start();
         });
@@ -87,6 +87,7 @@ public class Store extends JFrame  {
         main.add(heal);
         main.add(empower);
         main.add(banish);
+        main.add(play);
         main.setBackground(Color.black);
 
     }

@@ -73,7 +73,7 @@ public class TriangleModel implements Movable {
             if(Math.floor(Math.random()*2) == 0){
                 x =20;
             }else{
-                x = 680;
+                x = 800;
             }
 
         }
