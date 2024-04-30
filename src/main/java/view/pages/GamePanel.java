@@ -36,8 +36,7 @@ public  class GamePanel extends JPanel implements KeyListener, MouseListener {
     public MovePlayer movePlayer;
     private Dimension dimension = new Dimension(700,700);
     private Point loc = new Point(100,20);
-    public Timer timerx;
-    private int wave = 1;
+    public int wave = 1;
     private ArrayList<BulletView> bullets = new ArrayList<>();
     private ArrayList<RectangleModel> rectangleModels = new ArrayList<>();
     private ArrayList<RectangleView> rectangleView = new ArrayList<>();
@@ -51,13 +50,13 @@ public  class GamePanel extends JPanel implements KeyListener, MouseListener {
     Update update;
     protected boolean victory = false;
 
-    private Random random = new Random();
+    public Random random = new Random();
     public int bound = 60;
     public Game game;
-    private boolean wave1 = true;
-    private boolean start = false;
-    private boolean wave2 = false;
-    private boolean wave3 = false;
+    public boolean wave1 = true;
+    public boolean start = false;
+    public boolean wave2 = false;
+    public boolean wave3 = false;
     public int enemies = 0;
 
 
@@ -79,67 +78,26 @@ public  class GamePanel extends JPanel implements KeyListener, MouseListener {
         movePlayer = new MovePlayer(playerModel, this);
         movables.add(movePlayer);
 
-
-        timerx = new Timer(100, e -> {
-            if(wave == 2 && !wave2){
-                bound = 55;
-                wave2 = true;
-                wave1 = false;
-            }
-            if(wave == 3 && !wave3){
-                bound = 50;
-                wave3 = true;
-                wave2 = false;
-            }
-            xmin();
-            ymin();
-            setSize(dimension);
-            setLocation(loc);
-            if (random.nextDouble(0, bound) < 1) {
-                if((wave == 1 && enemies <= 10) || (wave == 2 && enemies <= 15) || (wave == 3 && enemies <= 25)) {
-                    RectangleModel r1 = new RectangleModel(this);
-                    rectangleModels.add(r1);
-                    rectangleView.add(createRectView(r1));
-                    movables.add(r1);
-                    enemies ++;
-                }
-                start = true;
-            }
-            if (random.nextDouble(0, bound) < 1) {
-                if((wave == 1 && enemies <= 10) || (wave == 2 && enemies <= 15) || (wave == 3 && enemies <= 25)) {
-                    TriangleModel t1 = new TriangleModel(this);
-                    triangleModels.add(t1);
-                    triangleViews.add(createTriangleView(t1));
-                    movables.add(t1);
-                    enemies ++;
-                }
-                start = true;
-            }
-            Wave();
-        });
-        timerx.start();
         update = new Update(this);
 
     }
 
-    private void Wave(){
+    public void Wave(){
         if(enemies >= 10 && wave1 && start && movables.size() == 1){
             wave++;
             enemies = 0;
-            System.out.println("hi");
         }
         else if(enemies == 15 && wave2 && movables.size() == 1){
             wave++;
             enemies = 0;
-            System.out.println("hi2");
         }else if(wave == 3 && movables.size() == 1 && enemies == 25){
             victory = true;
         }
     }
     public void xmin(){
         if(dimension.width > MIN_SIZE.width) {
-            dimension.width -= 2;
-            if(loc.getX() < 200) loc.setLocation(loc.getX() + 1,loc.getY() );
+            dimension.width -= 1;
+            if(loc.getX() < 200) loc.setLocation(loc.getX() + 0.5,loc.getY() );
         }
         if(playerModel.getLocation().getX() + BALL_SIZE > dimension.getWidth()){
             playerModel.setLocation(
@@ -153,8 +111,8 @@ public  class GamePanel extends JPanel implements KeyListener, MouseListener {
     }
     public void ymin(){
         if(dimension.height > MIN_SIZE.height) {
-            dimension.height -= 2;
-            if(loc.getY() < 200) loc.setLocation(loc.getX(),loc.getY() + 1);
+            dimension.height -= 1;
+            if(loc.getY() < 200) loc.setLocation(loc.getX(),loc.getY() + 0.5);
         }
         if (playerModel.getLocation().getY() + BALL_SIZE> dimension.getHeight()) {
             playerModel.setLocation(
@@ -193,7 +151,6 @@ public  class GamePanel extends JPanel implements KeyListener, MouseListener {
 
         repaint();
         // TODO
-        revalidate();
     }
     @Override
     public void keyPressed(KeyEvent e) {
@@ -211,7 +168,6 @@ public  class GamePanel extends JPanel implements KeyListener, MouseListener {
             update.model.stop();
             update.view.stop();
             update.time.stop();
-            timerx.stop();
             new Store(this);
         }
     }

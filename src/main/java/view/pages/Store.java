@@ -94,7 +94,6 @@ public class Store extends JFrame  {
         dispose();
         panel.update.view.start();
         panel.update.model.start();
-        panel.timerx.start();
     }
 
 
