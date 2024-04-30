@@ -209,9 +209,12 @@ public  class GamePanel extends JPanel implements KeyListener, MouseListener {
         if(keyCode == KeyEvent.VK_R){
             if(game.menu.ares){
                 if(aresCount == 0) {
-                    power = 7;
-                    update.ares = true;
-                    aresCount++;
+                    if(playerModel.getXp() >= 100) {
+                        playerModel.setXp(playerModel.getXp() -100);
+                        power = 7;
+                        update.ares = true;
+                        aresCount++;
+                    }
                 }
             }
         }

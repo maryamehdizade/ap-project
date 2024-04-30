@@ -5,6 +5,8 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import static controller.Util.playerCenter;
+
 public class Store extends JFrame  {
     private GamePanel panel;
     private JButton empower = new JButton("Empower : 75xp");
@@ -44,7 +46,7 @@ public class Store extends JFrame  {
             if(panel.playerModel.getXp() >= 100){
                 panel.playerModel.setXp(panel.playerModel.getXp() - 100);
                 //todo
-
+                panel.update.impact(playerCenter(panel.playerModel), 200);
             }
             start();
         });
