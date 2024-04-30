@@ -360,24 +360,30 @@ public class Update {
     }
 
     private void victory(){
-        if(panel.isVictory()){
+//        if(panel.isVictory()){
+        if(second >= 2){
             model.stop();
             view.stop();
             time.stop();
             new Timer(10,e -> {
-                v();
-                updatePlayerView();
-            });
+                v();updatePlayerView();
+            }).start();
         }
     }
     private void v(){
-        if(panel.getDimension().getWidth()  + 200 >= panel.playerModel.size) panel.playerModel.size += 1;
-        if(panel.playerModel.size > panel.getDimension().getWidth() + 200)v1();
+        if(panel.getDimension().getWidth()  + 200 >= panel.playerModel.size) {
+            panel.playerModel.size += 2;
+            if(panel.playerModel.getLocation().getX() < panel.getDimension().getWidth()) panel.playerModel.setLocation(new Point2D.Double
+                    (panel.playerModel.getLocation().getX() - 1, panel.playerModel.getLocation().getY() - 1));
+        }
+
+        if(panel.playerModel.size > panel.getDimension().getWidth()) v1();
     }
     private void v1(){
         if(panel.getDimension().getWidth() >= 1 && panel.getDimension().getHeight() >= 1){
             panel.setDimension(new Dimension((int) (panel.getDimension().getWidth() - 0.1),
                     (int) (panel.getDimension().getHeight()  - 0.1)));
+            panel.setSize(panel.getDimension());
         }
         if(panel.getDimension().getHeight() <= 1 || panel.getDimension().getWidth() <= 1){
             gameOver();
