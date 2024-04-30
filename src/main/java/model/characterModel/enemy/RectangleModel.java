@@ -37,18 +37,18 @@ public class RectangleModel extends java.awt.Rectangle implements Movable {
         double y;
         double r = Math.floor(Math.random()*2);
         if(r == 0) {
-            x = random.nextDouble(panel.game.getLocation().getX(), panel.getDimension().getWidth());
+            x = random.nextDouble(20,500);
             if(Math.floor(Math.random()*2) == 0){
-                y = panel.getDimension().getHeight() ;
+                y = 20 ;
             }else{
-                y = panel.game.getLocation().getY();
+                y =500;
             }
         }else {
-            y = random.nextDouble(panel.game.getLocation().getY(), panel.getDimension().getHeight());
+            y = random.nextDouble(20, 500);
             if(Math.floor(Math.random()*2) == 0){
-                x = panel.getDimension().getWidth();
+                x = 20;
             }else{
-                x = panel.game.getLocation().getX();
+                x = 700;
             }
 
         }

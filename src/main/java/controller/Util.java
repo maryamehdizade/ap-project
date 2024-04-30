@@ -10,34 +10,63 @@ import java.awt.*;
 import java.awt.geom.Point2D;
 
 import static controller.Constant.*;
+import static java.awt.geom.Point2D.distance;
 
 public class Util {
+
     // collisions
-    public static Point2D ert(PlayerModel model, Movable m)
-    {
-        if(m instanceof RectangleModel) {
+    public static Point2D ert(PlayerModel model, Movable m) {
+        if (m instanceof RectangleModel) {
             for (int i = 0; i < 4; i++) {
-                if (distance(playerCenter(model), new Point2D.Double(m.getxPoints()[i], m.getyPoints()[i]))
+                if (distance(playerCenter(model).getX(), playerCenter(model).getY()
+                        , m.getxPoints()[i], m.getyPoints()[i])
                         <= (BALL_SIZE + RECT_SIZE) / 2.0) {
                     return new Point2D.Double((playerCenter(model).getX() + rectCenter((RectangleModel) m).getX()) / 2.0,
                             (playerCenter(model).getY() + rectCenter((RectangleModel) m).getY()) / 2.0);
                 }
             }
-        }else if(m instanceof TriangleModel){
+        } else if (m instanceof TriangleModel) {
             for (int i = 0; i < 3; i++) {
-                if (distance(playerCenter(model), new Point2D.Double(m.getxPoints()[i], m.getyPoints()[i]))
-                        <= (BALL_SIZE ) / 2.0 + TRI_SIZE /3.0) {
+                if (distance(playerCenter(model).getX(), playerCenter(model).getY() ,
+                        m.getxPoints()[i], m.getyPoints()[i])
+                        <= (BALL_SIZE) / 2.0 + TRI_SIZE / 3.0) {
                     return new Point2D.Double((playerCenter(model).getX() + triangleCenter((TriangleModel) m).getX()) / 2.0,
                             (playerCenter(model).getY() + triangleCenter((TriangleModel) m).getY()) / 2.0);
                 }
             }
         }
-
         return null;
     }
-    public static double distance(Point2D a, Point2D b){
-        return Math.abs(Math.pow(b.getX() - a.getX() , 2) + Math.pow(b.getY() - a.getY(), 2));
-    }
+
+
+
+
+    //triangle triangle collision
+//    private static boolean isPointInsideTriangle(double x, double y, TriangleModel triangle) {
+//
+//        double alpha = ((triangle.getY2() - triangle.getY3()) * (x - triangle.getX3()) + (triangle.getX3() - triangle.getX2()) * (y - triangle.getY3())) /
+//                ((triangle.getY2() - triangle.getY3()) * (triangle.getX1() - triangle.getX3()) + (triangle.getX3() - triangle.getX2()) * (triangle.getY1() - triangle.getY3()));
+//        double beta = ((triangle.getY3() - triangle.getY1()) * (x - triangle.getX3()) + (triangle.getX1() - triangle.getX3()) * (y - triangle.getY3())) /
+//                ((triangle.getY2() - triangle.getY3()) * (triangle.getX1() - triangle.getX3()) + (triangle.getX3() - triangle.getX2()) * (triangle.getY1() - triangle.getY3()));
+//        double gamma = 1.0 - alpha - beta;
+//
+//
+//        return alpha >= 0 && beta >= 0 && gamma >= 0 && beta <= 1 && alpha <= 1;
+//    }
+//
+//    public static boolean doTrianglesIntersect(TriangleModel triangle1, TriangleModel triangle2) {
+//        if (isPointInsideTriangle(triangle1.getX1(), triangle1.getY1(), triangle2) ||
+//                isPointInsideTriangle(triangle1.getX2(), triangle1.getY2(), triangle2) ||
+//                isPointInsideTriangle(triangle1.getX3(), triangle1.getY3(), triangle2)) {
+//            return true;
+//
+//        }
+//
+//        return null;
+//    }
+//    public static double distance(Point2D a, Point2D b){
+//        return Math.abs(Math.pow(b.getX() - a.getX() , 2) + Math.pow(b.getY() - a.getY(), 2));
+//    }
     //triangle triangle collision
 //    private static boolean isPointInsideTriangle(double x, double y, TriangleModel triangle) {
 //

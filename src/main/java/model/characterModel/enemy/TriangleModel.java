@@ -13,14 +13,14 @@ import static controller.Constant.TRI_SIZE;
 public class TriangleModel implements Movable {
 
     private double x1, y1, x2, y2, x3, y3;
+    private int[] xPoints;
+    private int[] yPoints;
     private Point2D loc;
     private double speed = 1;
     private double dx;
     private double dy;
     private int hp = 15;
     private PlayerModel playerModel;
-    private int[] xPoints ;
-    private int[] yPoints ;
     private String id;
     private Random random = new Random();
     private GamePanel panel;

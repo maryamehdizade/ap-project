@@ -10,6 +10,7 @@ public class CollectableModel {
     private int second = 0;
     public Timer timer ;
 
+
     public CollectableModel(Point2D loc) {
         this.loc = loc;
         this.id = UUID.randomUUID().toString();
