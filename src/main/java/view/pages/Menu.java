@@ -52,7 +52,7 @@ public class Menu extends JFrame {
                     new Game(this);
                 }
             } catch (Exception ex) {
-                throw new RuntimeException(ex);
+                ex.printStackTrace();
             }
         });
 

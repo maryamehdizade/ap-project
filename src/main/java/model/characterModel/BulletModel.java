@@ -30,6 +30,11 @@ public class BulletModel implements Movable {
     }
 
     @Override
+    public void setImpact(boolean impact) {
+
+    }
+
+    @Override
     public int[] getxPoints() {
         return new int[0];
     }

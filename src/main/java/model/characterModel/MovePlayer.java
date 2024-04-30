@@ -10,7 +10,7 @@ import static controller.Constant.BALL_SIZE;
 import static controller.Util.addVector;
 
 public class MovePlayer implements Movable {
-    PlayerModel playerModel;
+    public PlayerModel playerModel;
     private Point2D loc;
     private double xvelocity = 0;
     private double yvelocity = 0;
@@ -24,6 +24,7 @@ public class MovePlayer implements Movable {
     private boolean l0Force = false;
     private GamePanel panel;
     private double speed;
+    private boolean impact;
 
     public MovePlayer(PlayerModel playerModel, GamePanel panel) {
         this.playerModel = playerModel;
@@ -36,6 +37,10 @@ public class MovePlayer implements Movable {
 
     @Override
     public int move() {
+        if(impact){
+            playerModel.setLocation(new Point2D.Double(playerModel.getLocation().getX() - xvelocity,
+                    playerModel.getLocation().getY() - yvelocity));
+        }
         return 0;
     }
 
@@ -57,6 +62,7 @@ public class MovePlayer implements Movable {
                     yvelocity = 0;
                 }
                 updateLoc();
+                impact = false;
             }
             if (rForce || lForce || l0Force || r0Force) {
                 if (playerModel.getLocation().getX() > 0 &&
@@ -74,7 +80,14 @@ public class MovePlayer implements Movable {
 
                 }
                 updateLoc();
+                impact = false;
             }
+//            else if(xvelocity != 0 || yvelocity != 0){
+//                if(xvelocity > 0)xvelocity -= 0.1;
+//                if(xvelocity < 0)xvelocity += 0.1;
+//                if(yvelocity > 0)yvelocity -= 0.1;
+//                if(yvelocity < 0)yvelocity += 0.1;
+//            }
         }
     }
 
@@ -97,6 +110,12 @@ public class MovePlayer implements Movable {
     public void findPlayer() {
 
     }
+
+    @Override
+    public void setImpact(boolean impact) {
+        this.impact = impact;
+    }
+
 
     @Override
     public int[] getxPoints() {

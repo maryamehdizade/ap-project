@@ -1,6 +1,7 @@
 package controller;
 
 import model.characterModel.BulletModel;
+import model.characterModel.MovePlayer;
 import model.characterModel.PlayerModel;
 import model.characterModel.enemy.CollectableModel;
 import model.characterModel.enemy.RectangleModel;
@@ -117,9 +118,10 @@ public class Update {
         if(second >= 10) {
             panel.xmin();
             panel.ymin();
-            panel.setSize(panel.getDimension());
-            panel.setLocation(panel.getLoc());
+
         }
+        panel.setSize(panel.getDimension());
+        panel.setLocation(panel.getLoc());
         if(panel.wave == 2 && !panel.wave2){
             panel.bound = 280;
             panel.wave2 = true;
@@ -198,6 +200,7 @@ public class Update {
     }
 
     private void moveEpsilon(){
+        panel.movePlayer.move();
         if (panel.movePlayer.isdForce()) {
             panel.movePlayer.setYvelocity(panel.movePlayer.getYvelocity() + a);
             panel.movePlayer.move(panel.movePlayer.getYvelocity());
@@ -357,9 +360,9 @@ public class Update {
             collision2 = et(panel.playerModel, (TriangleModel) movable);
             if (collision != null) {
 //                reduceHp(movable);
-                //impact
+                impact(collision, 50);
             }else if(collision2 != null){
-                //impact
+                impact(collision2, 50);
             }
             //tria
             for (int i = 0; i < panel.getTriangleModels().size(); i++) {
@@ -373,21 +376,36 @@ public class Update {
             }
         }
     }
+    private int impactV = 3;
 
     public void impact(Point2D point, double r){
         for (int i = 0; i < panel.getMovables().size(); i ++) {
             Movable m = panel.getMovables().get(i);
-            if(m.getLoc().getX() <= r && m.getLoc().getY() <= r){
-               double a = -point.getY() + m.getLoc().getY();
+            double x = 0;
+            double y = 0;
+            if(m instanceof RectangleModel){
+               x = Math.abs(rectCenter((RectangleModel) m).getX() - point.getX());
+               y = Math.abs(rectCenter((RectangleModel) m).getY() - point.getY());
+            }
+            else if(m instanceof TriangleModel){
+                x = Math.abs(triangleCenter((TriangleModel) m).getX() - point.getX());
+                y = Math.abs(triangleCenter((TriangleModel) m).getY() - point.getY());
+            }else if (m instanceof MovePlayer){
+                x = Math.abs(playerCenter(((MovePlayer) m).playerModel).getX() - point.getX());
+                y = Math.abs(playerCenter(((MovePlayer) m).playerModel).getY() - point.getY());
+            }
+            if(x  <= r && y <= r){
+                m.setImpact(true);
+                double a = -point.getY() + m.getLoc().getY();
                double b = -point.getX() + m.getLoc().getX();
                if(b != 0){
                    double angel = Math.atan(a/b);
-
-
+                   m.setYvelocity(impactV*Math.sin(angel));
+                   m.setXvelocity(impactV*Math.cos(angel));
                }else if(a >= 0){
-
+                   m.setYvelocity(impactV);
                }else if(a < 0){
-
+                   m.setYvelocity(-impactV);
                }
             }
         }
@@ -507,8 +525,8 @@ public class Update {
     }
     private final int n = 20;
     private void moveLeft(){
-        panel.setLoc(new Point((int) (panel.getLoc().getX() - n/2), (int) panel.getLoc().getY()));
-        panel.setDimension(new Dimension((int) (panel.getDimension().getWidth() + n), (int) panel.getDimension().getHeight()));
+        panel.setLoc(new Point((int) (panel.getLoc().getX() - n), (int) panel.getLoc().getY()));
+        panel.setDimension(new Dimension((int) (panel.getDimension().getWidth() + n/2), (int) panel.getDimension().getHeight()));
 
     }
     private void moveRight(){
@@ -516,8 +534,8 @@ public class Update {
         panel.setDimension(new Dimension((int) (panel.getDimension().getWidth() + n), (int) panel.getDimension().getHeight()));
     }
     private void moveUp(){
-        panel.setLoc(new Point((int) (panel.getLoc().getX() ), (int) panel.getLoc().getY()- n/2));
-        panel.setDimension(new Dimension((int)(panel.getDimension().getWidth()), (int)panel.getDimension().getHeight()+ n));
+        panel.setLoc(new Point((int) (panel.getLoc().getX() ), (int) panel.getLoc().getY()- n));
+        panel.setDimension(new Dimension((int)(panel.getDimension().getWidth()), (int)panel.getDimension().getHeight()+ n/2));
 
     }
     private void moveDown(){

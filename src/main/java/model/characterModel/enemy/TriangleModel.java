@@ -24,6 +24,8 @@ public class TriangleModel implements Movable {
     private String id;
     private Random random = new Random();
     private GamePanel panel;
+    private  double angle;
+    private boolean impact;
 
     public TriangleModel(GamePanel panel) {
         this.panel = panel;
@@ -33,15 +35,23 @@ public class TriangleModel implements Movable {
         createTriangle();
     }
     public void findPlayer(){
-        double angle = Math.atan2(playerModel.getLocation().getY() - y1, playerModel.getLocation().getX() - x1);
-         dx = Math.cos(angle) * speed;
-         dy = Math.sin(angle) * speed;
+        double m = Math.atan2((playerModel.getLocation().getY() - loc.getY()),(playerModel.getLocation().getX() - loc.getX()));
+        dx += ((Math.cos(m) * 2) * speed - dx)/80;
+        dy += ((Math.sin(m) * 2) * speed - dy)/80;
     }
     @Override
     public int move() {
-        double angle = Math.atan2(playerModel.getLocation().getY() - y1, playerModel.getLocation().getX() - x1);
-        double dx = Math.cos(angle) * speed;
-        double dy = Math.sin(angle) * speed;
+        if(!impact) {
+            angle = Math.atan2((playerModel.getLocation().getY() - y1), (playerModel.getLocation().getX() - x1));
+            dx = (Math.cos(angle) * 2) * speed;
+            dy = (Math.sin(angle) * 2) * speed;
+        }
+        if(impact){
+            findPlayer();
+        }if(dx == (Math.cos(angle) * 2) * speed && dy == (Math.sin(angle) * 2) * speed){
+            impact = false;
+        }
+
 
         x1 += dx;
         y1 += dy;
@@ -87,6 +97,11 @@ public class TriangleModel implements Movable {
         xPoints = new int[]{(int) x1, (int) x3, (int) x2};
         yPoints = new int[]{(int) y1, (int) y3, (int) y2};
 
+         angle = Math.atan2(playerModel.getLocation().getY() - y1, playerModel.getLocation().getX() - x1);
+         dx = Math.cos(angle) * speed;
+         dy = Math.sin(angle) * speed;
+
+        loc = new Point2D.Double((x1 + x2 + x3)/3, (y1 + y2 + y3)/3);
     }
 
     @Override
@@ -171,5 +186,9 @@ public class TriangleModel implements Movable {
 
     public int[] getyPoints() {
         return yPoints;
+    }
+
+    public void setImpact(boolean impact) {
+        this.impact = impact;
     }
 }

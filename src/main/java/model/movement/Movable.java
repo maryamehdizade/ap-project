@@ -17,6 +17,7 @@ public interface Movable {
      double getYvelocity();
     Point2D getLoc();
     void findPlayer();
+    void setImpact(boolean impact);
      int[] getxPoints();
 
     int[] getyPoints();

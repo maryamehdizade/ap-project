@@ -19,8 +19,7 @@ public class Minimize {
             robot.keyRelease(KeyEvent.VK_WINDOWS);
             menu.a = true;
 
-        } catch (
-                AWTException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

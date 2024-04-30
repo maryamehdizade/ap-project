@@ -23,14 +23,14 @@ public class RectangleModel extends java.awt.Rectangle implements Movable {
     private double dx;
     private double dy;
     String id;
+    private boolean impact;
+    private double m;
 
     public RectangleModel(GamePanel panel) {
         this.panel = panel;
-
-        createRecs();
-
         this.playerModel = panel.playerModel;
         this.id = UUID.randomUUID().toString();
+        createRecs();
     }
     public void createRecs(){
         double x;
@@ -58,16 +58,26 @@ public class RectangleModel extends java.awt.Rectangle implements Movable {
         xPoints = new int[]{(int) loc.getX(), (int) (loc.getX() + RECT_SIZE),(int) (loc.getX() + RECT_SIZE), (int) loc.getX()};
         yPoints = new int[]{(int) loc.getY(), (int) loc.getY(), (int) (loc.getY() + RECT_SIZE), (int) (loc.getY() + RECT_SIZE)};
 
-
+        m = Math.atan2((playerModel.getLocation().getY() - loc.getY()),(playerModel.getLocation().getX() - loc.getX()));
+        dx = (Math.cos(m) * 2) * speed;
+        dy = (Math.sin(m) * 2) * speed;
 
     }
 
     @Override
     public int move() {
 
-        double m = Math.atan2((playerModel.getLocation().getY() - loc.getY()),(playerModel.getLocation().getX() - loc.getX()));
-         dx = (Math.cos(m) * 2) * speed;
-          dy = (Math.sin(m) * 2) * speed;
+        if(!impact) {
+            m = Math.atan2((playerModel.getLocation().getY() - loc.getY()), (playerModel.getLocation().getX() - loc.getX()));
+            dx = (Math.cos(m) * 2) * speed;
+            dy = (Math.sin(m) * 2) * speed;
+        }
+
+        if(impact){
+            findPlayer();
+        }if(dx == (Math.cos(m) * 2) * speed && dy == (Math.sin(m) * 2) * speed){
+            impact = false;
+        }
 
 
         loc = new Point2D.Double(loc.getX() + dx, loc.getY() + dy);
@@ -82,9 +92,15 @@ public class RectangleModel extends java.awt.Rectangle implements Movable {
     @Override
     public void findPlayer() {
         double m = Math.atan2((playerModel.getLocation().getY() - loc.getY()),(playerModel.getLocation().getX() - loc.getX()));
-        dx = (Math.cos(m) * 2) * speed;
-        dy = (Math.sin(m) * 2) * speed;
+        dx += ((Math.cos(m) * 2) * speed - dx)/80;
+        dy += ((Math.sin(m) * 2) * speed - dy)/80;
     }
+
+    @Override
+    public void setImpact(boolean impact) {
+        this.impact = impact;
+    }
+
     public Point2D getLoc() {
         return loc;
     }
