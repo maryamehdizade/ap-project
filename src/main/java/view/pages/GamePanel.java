@@ -51,7 +51,7 @@ public  class GamePanel extends JPanel implements KeyListener, MouseListener {
     protected boolean victory = false;
 
     public Random random = new Random();
-    public int bound = 60;
+    public int bound = 250;
     public Game game;
     public boolean wave1 = true;
     public boolean start = false;
@@ -146,7 +146,7 @@ public  class GamePanel extends JPanel implements KeyListener, MouseListener {
 
         g.setColor(new Color(133, 186, 83));
         g.drawString("xp:" + playerView.getXp() + "          " + "hp:" + playerView.getHp()
-                + "             " + update.getSecond()+ "             wave:" + wave
+                + "             " + (int)update.getSecond()+ "             wave:" + wave
                 , game.getLocation().x - 273, game.getBounds().y + 20);
 
 

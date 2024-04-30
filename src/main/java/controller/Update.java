@@ -31,7 +31,7 @@ public class Update {
     public Timer view;
     public GamePanel panel;
     private final double a = 0.1;
-    private int second;
+    private double second;
     Point2D collision ;
     Point2D collision2;
     private boolean impact = false;
@@ -48,7 +48,7 @@ public class Update {
         }){{setCoalesce(true);}};
         model.start();
 
-        time = new Timer(1000,e -> second++);
+        time = new Timer(100,e -> second += 0.1);
         time.start();
 
     }
@@ -108,7 +108,7 @@ public class Update {
         updateTriangles();
         updateCollectable();
         victory();
-        if(second == 0){
+        if(second <= 0.1){
             panel.xmin();
             panel.ymin();
             panel.setSize(panel.getDimension());
@@ -121,18 +121,18 @@ public class Update {
             panel.setLocation(panel.getLoc());
         }
         if(panel.wave == 2 && !panel.wave2){
-            panel.bound = 55;
+            panel.bound = 230;
             panel.wave2 = true;
             panel.wave1 = false;
         }
         if(panel.wave == 3 && !panel.wave3){
-            panel.bound = 50;
+            panel.bound = 200;
             panel.wave3 = true;
             panel.wave2 = false;
         }
         if (panel.random.nextDouble(0, panel.bound) < 1) {
             if((panel.wave == 1 && panel.enemies <= 10) || (panel.wave == 2 && panel.enemies <= 15) ||
-                    (panel.wave == 3 && panel.enemies <= 25)) {
+                    (panel.wave == 3 && panel.enemies <= 20)) {
                 RectangleModel r1 = new RectangleModel(panel);
                 panel.getRectangleModels().add(r1);
                 panel.getRectangleView().add(createRectView(r1));
@@ -376,14 +376,16 @@ public class Update {
         }
     }
 
+    Timer t;
     private void victory(){
         if(panel.isVictory()){
             model.stop();
             view.stop();
             time.stop();
-            new Timer(10,e -> {
+            t = new Timer(10,e -> {
                 v();updatePlayerView();
-            }).start();
+            });
+            t.start();
         }
     }
     private void v(){
@@ -402,6 +404,7 @@ public class Update {
             panel.setSize(panel.getDimension());
         }
         if(panel.getDimension().getHeight() <= 1 || panel.getDimension().getWidth() <= 1){
+            t.stop();
             gameOver();
             panel.game.dispose();
         }
@@ -492,7 +495,7 @@ public class Update {
             if(panel.getBulletsModel().get(i).getId().equals(bulletModel.getId()))removeBullet(i);
         }
     }
-    private final int n = 10;
+    private final int n = 20;
     private void moveLeft(){
         panel.setLoc(new Point((int) (panel.getLoc().getX() - n/2), (int) panel.getLoc().getY()));
         panel.setDimension(new Dimension((int) (panel.getDimension().getWidth() + n), (int) panel.getDimension().getHeight()));
@@ -512,7 +515,7 @@ public class Update {
         panel.setDimension(new Dimension((int)(panel.getDimension().getWidth()), (int)panel.getDimension().getHeight()+ n));
     }
 
-    public int getSecond() {
+    public double getSecond() {
         return second;
     }
 }

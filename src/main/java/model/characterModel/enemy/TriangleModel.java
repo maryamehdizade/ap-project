@@ -62,18 +62,18 @@ public class TriangleModel implements Movable {
         double y;
         double r = Math.floor(Math.random()*2);
         if(r == 0) {
-            x = random.nextDouble(panel.getLoc().getX(), panel.getDimension().getWidth() );
+            x = random.nextDouble(20, 700);
             if(Math.floor(Math.random()*2) == 0){
-                y = panel.getDimension().getHeight() + panel.getLoc().getY() ;
+                y = 30;
             }else{
-                y = panel.game.getLocation().getY();
+                y = 500;
             }
         }else {
-            y = random.nextDouble(panel.getLoc().getY(), panel.getDimension().getHeight());
+            y = random.nextDouble(0, 500);
             if(Math.floor(Math.random()*2) == 0){
-                x = panel.getDimension().getWidth() + panel.getLoc().getX();
+                x =20;
             }else{
-                x = panel.game.getLocation().getX();
+                x = 680;
             }
 
         }
