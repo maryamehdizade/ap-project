@@ -31,7 +31,7 @@ public class Update {
 
     public Timer view;
     public GamePanel panel;
-    private final double a = 0.1;
+    public double a = 0.1;
     private double second;
     Point2D collision ;
     Point2D collision2;
@@ -154,12 +154,16 @@ public class Update {
         panel.setSize(panel.getDimension());
         panel.setLocation(panel.getLoc());
         if(panel.wave == 2 && !panel.wave2){
-            panel.bound = 280;
+            if(panel.count == 0) {
+                panel.bound -= 20;
+            }panel.count++;
             panel.wave2 = true;
             panel.wave1 = false;
         }
         if(panel.wave == 3 && !panel.wave3){
-            panel.bound = 250;
+            if(panel.count == 0) {
+                panel.bound -= 20;
+            }panel.count++;
             panel.wave3 = true;
             panel.wave2 = false;
         }

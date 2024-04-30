@@ -45,7 +45,6 @@ public class Store extends JFrame  {
         banish.addActionListener(e -> {
             if(panel.playerModel.getXp() >= 100){
                 panel.playerModel.setXp(panel.playerModel.getXp() - 100);
-                //todo
                 panel.update.impact(playerCenter(panel.playerModel), 200);
             }
             start();
@@ -56,10 +55,8 @@ public class Store extends JFrame  {
         empower.setBackground(color);
         empower.setFont(new Font("TimesRoman", Font.PLAIN, 22));
         empower.addActionListener(e -> {
-//            if(panel.playerModel.getXp() >= 75){
-            if(true){
+            if(panel.playerModel.getXp() >= 75){
                 panel.playerModel.setXp(panel.playerModel.getXp() - 75);
-                //todo
                 panel.empower = true;
             }
             start();

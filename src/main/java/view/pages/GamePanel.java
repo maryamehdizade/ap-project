@@ -60,6 +60,7 @@ public  class GamePanel extends JPanel implements KeyListener, MouseListener {
     public Game game;
     Update update;
     int power = 5;
+    public int count = 0;
 
     public GamePanel(Game game){
 //        sound = new Sound();
@@ -87,10 +88,12 @@ public  class GamePanel extends JPanel implements KeyListener, MouseListener {
         if(enemies >= 10 && wave1 && start && movables.size() == 1){
             wave++;
             enemies = 0;
+            count = 0;
 
         } else if(enemies >= 15 && wave2 && movables.size() == 1){
             wave++;
             enemies = 0;
+            count = 0;
 
         }else if(wave == 3 && movables.size() == 1 && enemies >= 20){
             victory = true;

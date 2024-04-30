@@ -30,14 +30,20 @@ public class Setting extends JFrame {
         sound.setSize(200,100);
         sound.addChangeListener(e -> adjustVolume());
 
-        sensitivity = new JSlider(JSlider.HORIZONTAL, 0, 100, 50);
+        sensitivity = new JSlider(JSlider.HORIZONTAL, 1, 3, 50);
         sensitivity.setLocation(300,250);
         sensitivity.setSize(200,100);
+        sensitivity.addChangeListener(e -> {
+            m.game.gamePanel.update.a = sensitivity.getValue()/10.0;
+        });
 
 
-        level = new JSlider(JSlider.HORIZONTAL, 0, 100, 50);
+        level = new JSlider(JSlider.HORIZONTAL, 1, 2, 50);
         level.setLocation(300,400);
         level.setSize(200,100);
+        level.addChangeListener(e -> {
+            m.game.gamePanel.bound /= level.getValue();
+        });
 
         JLabel sound1 = new JLabel("sound");
         sound1.setLocation(100,100);

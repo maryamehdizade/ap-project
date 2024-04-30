@@ -87,12 +87,6 @@ public class MovePlayer implements Movable {
                 updateLoc();
                 impact = false;
             }
-//            else if(xvelocity != 0 || yvelocity != 0){
-//                if(xvelocity > 0)xvelocity -= 0.1;
-//                if(xvelocity < 0)xvelocity += 0.1;
-//                if(yvelocity > 0)yvelocity -= 0.1;
-//                if(yvelocity < 0)yvelocity += 0.1;
-//            }
         }
     }
 
