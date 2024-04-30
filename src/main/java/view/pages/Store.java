@@ -56,10 +56,11 @@ public class Store extends JFrame  {
         empower.setBackground(color);
         empower.setFont(new Font("TimesRoman", Font.PLAIN, 22));
         empower.addActionListener(e -> {
-            if(panel.playerModel.getXp() >= 75){
+//            if(panel.playerModel.getXp() >= 75){
+            if(true){
                 panel.playerModel.setXp(panel.playerModel.getXp() - 75);
                 //todo
-
+                panel.empower = true;
             }
             start();
         });

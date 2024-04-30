@@ -34,9 +34,6 @@ public  class GamePanel extends JPanel implements KeyListener, MouseListener {
     public PlayerModel playerModel;
     public PlayerView playerView;
     public MovePlayer movePlayer;
-    private Dimension dimension = new Dimension(700,700);
-    private Point loc = new Point(100,20);
-    public int wave = 1;
     private ArrayList<BulletView> bullets = new ArrayList<>();
     private ArrayList<RectangleModel> rectangleModels = new ArrayList<>();
     private ArrayList<RectangleView> rectangleView = new ArrayList<>();
@@ -46,22 +43,23 @@ public  class GamePanel extends JPanel implements KeyListener, MouseListener {
     private ArrayList<CollectableView> collectableViews = new ArrayList<>();
     private ArrayList<CollectableModel> collectableModels = new ArrayList<>();
     private ArrayList<Movable> movables = new ArrayList<>();
-    protected Sound sound;
-    Update update;
-    int power = 5;
+    private Dimension dimension = new Dimension(700,700);
+    private Point loc = new Point(100,20);
     protected boolean victory = false;
-
     public Random random = new Random();
-    public int bound = 300;
-    public Game game;
     public boolean wave1 = true;
     public boolean start = false;
     public boolean wave2 = false;
     public boolean wave3 = false;
+    public boolean empower = false;
+    protected Sound sound;
+    public int wave = 1;
+    public int bound = 300;
     public int enemies = 0;
     public int aresCount ;
-
-
+    public Game game;
+    Update update;
+    int power = 5;
 
     public GamePanel(Game game){
 //        sound = new Sound();
@@ -224,11 +222,14 @@ public  class GamePanel extends JPanel implements KeyListener, MouseListener {
     public void mouseClicked(MouseEvent e) {
         int targetX = e.getX();
         int targetY = e.getY();
-
-        BulletModel model = new BulletModel(playerCenter(playerModel), targetX, targetY, this);
-
-        bulletsModel.add(model);
-        bullets.add(createBulletView(model));
+        int n = 0;
+        if(empower)n = 2;
+        for (int i = -1; i < n; i++) {
+            BulletModel model = new BulletModel(playerCenter(playerModel), targetX + i * n * 10,
+                    targetY + i * n * 10, this);
+            bulletsModel.add(model);
+            bullets.add(createBulletView(model));
+        }
 
 
     }

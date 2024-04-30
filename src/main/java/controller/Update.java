@@ -45,6 +45,7 @@ public class Update {
     public boolean aresC ;
     public boolean acesoC;
     public boolean proteusC;
+    private double empowerSec;
     public Update(GamePanel panel) {
         this.panel = panel;
         view = new Timer((int) FRAME_UPDATE_TIME, e -> updateView()){{setCoalesce(true);}};
@@ -60,15 +61,24 @@ public class Update {
 
         time = new Timer(100,e -> {
             second += 0.1;
-            if(ares || aresC)aresSec+= 0.1;
-            if(aresSec == 15 && !aresC){
-                ares = false;
-                panel.setPower(5);
-                aresSec = 0;
-                aresC = true;
-            }if(aresSec == 300){
-                aresC = false;
-                panel.aresCount = 0;
+            //skill tree ares
+            if(ares || aresC) {
+                aresSec += 0.1;
+                if (aresSec == 15 && !aresC) {
+                    ares = false;
+                    panel.setPower(5);
+                    aresSec = 0;
+                    aresC = true;
+                }
+                if (aresSec == 300) {
+                    aresC = false;
+                    panel.aresCount = 0;
+                }
+            }
+            //store empower
+            if(panel.empower) {
+                empowerSec += 0.1;
+                if (empowerSec == 15) panel.empower = false;
             }
         });
         time.start();
