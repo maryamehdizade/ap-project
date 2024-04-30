@@ -115,7 +115,7 @@ public class Update {
             panel.setSize(panel.getDimension());
             panel.setLocation(panel.getLoc());
         }
-        if(second >= 10) {
+        if(second >= 100) {
             panel.xmin();
             panel.ymin();
 
@@ -299,7 +299,7 @@ public class Update {
                         death(panel.getRectangleModels().get(j));
                         removeRect(j);
                     }
-                    //impact
+                    impact(bulletCenter((BulletModel) movable), 50);
                 }
             }
             //tria
@@ -317,7 +317,7 @@ public class Update {
                         death(panel.getTriangleModels().get(p));
                         removeTriangle(p);
                     }
-                    //impact
+                    impact(bulletCenter((BulletModel) movable), 50);
                 }
             }
 
@@ -327,19 +327,25 @@ public class Update {
              collision2 = er(panel.playerModel, (RectangleModel) movable);
             if(collision != null){
 //                reduceHp(movable);
-                //impact
+                impact(collision, 50);
             }else if(collision2 != null){
-                //impact
+                impact(collision2, 50);
             }
 
             //rect
             for (int i = 0; i < panel.getRectangleModels().size(); i++) {
-                Polygon rec = new Polygon(movable.getxPoints(),
-                        movable.getyPoints(), 4);
-                for (int j = 0; j < 4; j++) {
-                    if (rec.contains(new Point2D.Double(panel.getRectangleModels().get(i).getxPoints()[j],
-                            panel.getRectangleModels().get(i).getyPoints()[j]))) {
-                        //impact
+                if(movable != panel.getRectangleModels().get(i)) {
+                    Polygon rec = new Polygon(movable.getxPoints(),
+                            movable.getyPoints(), 4);
+                    for (int j = 0; j < 4; j++) {
+                        if (rec.contains(new Point2D.Double(panel.getRectangleModels().get(i).getxPoints()[j],
+                                panel.getRectangleModels().get(i).getyPoints()[j]))) {
+                            System.out.println("rr");
+                            impact(new Point2D.Double(rectCenter((RectangleModel) movable).getX() / 2 +
+                                    rectCenter(panel.getRectangleModels().get(i)).getX() / 2,
+                                    rectCenter((RectangleModel) movable).getY() / 2 +
+                                            rectCenter(panel.getRectangleModels().get(i)).getY() / 2), 50);
+                        }
                     }
                 }
             }
@@ -350,7 +356,11 @@ public class Update {
                 for (int j = 0; j < 3; j++) {
                     if (rec.contains(new Point2D.Double(panel.getTriangleModels().get(i).getxPoints()[j],
                             panel.getTriangleModels().get(i).getyPoints()[j]))) {
-                        //impact
+                        System.out.println("tr");
+                        impact(new Point2D.Double(rectCenter((RectangleModel) movable).getX()/2 +
+                                triangleCenter(panel.getTriangleModels().get(i)).getX()/2,
+                                rectCenter((RectangleModel) movable).getY()/2 +
+                                        triangleCenter(panel.getTriangleModels().get(i)).getY()/2), 50);
                     }
                 }
             }
@@ -366,17 +376,23 @@ public class Update {
             }
             //tria
             for (int i = 0; i < panel.getTriangleModels().size(); i++) {
-                Polygon tri = new Polygon(movable.getxPoints(), movable.getyPoints(), 3);
-                for (int j = 0; j < 3; j++) {
-                    if (tri.contains(new Point2D.Double(panel.getTriangleModels().get(i).getxPoints()[j],
-                            panel.getTriangleModels().get(i).getyPoints()[j]))) {
-                        //impact
+                if(movable != panel.getTriangleModels().get(i)) {
+                    Polygon tri = new Polygon(movable.getxPoints(), movable.getyPoints(), 3);
+                    for (int j = 0; j < 3; j++) {
+                        if (tri.contains(new Point2D.Double(panel.getTriangleModels().get(i).getxPoints()[j],
+                                panel.getTriangleModels().get(i).getyPoints()[j]))) {
+                            System.out.println("tt");
+                            impact(new Point2D.Double(triangleCenter((TriangleModel) movable).getX() / 2 +
+                                    triangleCenter(panel.getTriangleModels().get(i)).getX() / 2,
+                                    triangleCenter((TriangleModel) movable).getY() / 2 +
+                                            triangleCenter(panel.getTriangleModels().get(i)).getY() / 2), 50);
+                        }
                     }
                 }
             }
         }
     }
-    private int impactV = 3;
+    private int impactV = 4;
 
     public void impact(Point2D point, double r){
         for (int i = 0; i < panel.getMovables().size(); i ++) {
@@ -388,8 +404,8 @@ public class Update {
                y = Math.abs(rectCenter((RectangleModel) m).getY() - point.getY());
             }
             else if(m instanceof TriangleModel){
-                x = Math.abs(triangleCenter((TriangleModel) m).getX() - point.getX());
-                y = Math.abs(triangleCenter((TriangleModel) m).getY() - point.getY());
+                x = Math.abs(m.getLoc().getX() - point.getX());
+                y = Math.abs(m.getLoc().getY() - point.getY());
             }else if (m instanceof MovePlayer){
                 x = Math.abs(playerCenter(((MovePlayer) m).playerModel).getX() - point.getX());
                 y = Math.abs(playerCenter(((MovePlayer) m).playerModel).getY() - point.getY());

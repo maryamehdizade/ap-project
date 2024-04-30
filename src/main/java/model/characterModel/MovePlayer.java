@@ -35,11 +35,16 @@ public class MovePlayer implements Movable {
         loc = playerModel.getLocation();
     }
 
+    int count;
     @Override
     public int move() {
         if(impact){
             playerModel.setLocation(new Point2D.Double(playerModel.getLocation().getX() - xvelocity,
                     playerModel.getLocation().getY() - yvelocity));
+            count ++;
+        }if(count == 50){
+            impact = false;
+            count = 0;
         }
         return 0;
     }
