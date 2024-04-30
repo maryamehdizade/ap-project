@@ -108,6 +108,12 @@ public class Update {
         updateTriangles();
         updateCollectable();
         victory();
+        if(second == 0){
+            panel.xmin();
+            panel.ymin();
+            panel.setSize(panel.getDimension());
+            panel.setLocation(panel.getLoc());
+        }
         if(second >= 10) {
             panel.xmin();
             panel.ymin();
