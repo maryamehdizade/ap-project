@@ -25,6 +25,7 @@ public class GameOver extends JFrame {
         add();
     }
     private void add(){
+        update.panel.game.menu.setXp(update.panel.game.menu.getXp() + update.panel.playerModel.getXp());
 
         JLabel xp = new JLabel(String.valueOf(update.panel.playerModel.getXp()));
         xp.setSize(100,70);

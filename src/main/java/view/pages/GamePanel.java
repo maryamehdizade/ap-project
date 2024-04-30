@@ -48,6 +48,7 @@ public  class GamePanel extends JPanel implements KeyListener, MouseListener {
     private ArrayList<Movable> movables = new ArrayList<>();
     protected Sound sound;
     Update update;
+    int power = 5;
     protected boolean victory = false;
 
     public Random random = new Random();
@@ -58,6 +59,8 @@ public  class GamePanel extends JPanel implements KeyListener, MouseListener {
     public boolean wave2 = false;
     public boolean wave3 = false;
     public int enemies = 0;
+    public int aresCount ;
+
 
 
     public GamePanel(Game game){
@@ -193,6 +196,25 @@ public  class GamePanel extends JPanel implements KeyListener, MouseListener {
             movePlayer.setuForce(false);
             movePlayer.setU0Force(true);
         }
+        if(keyCode == KeyEvent.VK_P){
+            if(game.menu.proteus){
+                //todo
+            }
+        }
+        if(keyCode == KeyEvent.VK_C){
+            if(game.menu.aceso){
+                //todo
+            }
+        }
+        if(keyCode == KeyEvent.VK_R){
+            if(game.menu.ares){
+                if(aresCount == 0) {
+                    power = 7;
+                    update.ares = true;
+                    aresCount++;
+                }
+            }
+        }
     }
 
     @Override
@@ -282,5 +304,13 @@ public  class GamePanel extends JPanel implements KeyListener, MouseListener {
 
     public boolean isVictory() {
         return victory;
+    }
+
+    public int getPower() {
+        return power;
+    }
+
+    public void setPower(int power) {
+        this.power = power;
     }
 }

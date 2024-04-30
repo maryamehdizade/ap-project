@@ -36,6 +36,15 @@ public class Update {
     Point2D collision ;
     Point2D collision2;
     private boolean impact = false;
+    private double aresSec = 0;
+    private double acesoSec = 0;
+    private double proteusSec = 0;
+    public boolean ares ;
+    public boolean aceso;
+    public boolean proteus;
+    public boolean aresC ;
+    public boolean acesoC;
+    public boolean proteusC;
     public Update(GamePanel panel) {
         this.panel = panel;
         view = new Timer((int) FRAME_UPDATE_TIME, e -> updateView()){{setCoalesce(true);}};
@@ -49,7 +58,19 @@ public class Update {
         }){{setCoalesce(true);}};
         model.start();
 
-        time = new Timer(100,e -> second += 0.1);
+        time = new Timer(100,e -> {
+            second += 0.1;
+            if(ares || aresC)aresSec+= 0.1;
+            if(aresSec == 15 && !aresC){
+                ares = false;
+                panel.setPower(5);
+                aresSec = 0;
+                aresC = true;
+            }if(aresSec == 300){
+                aresC = false;
+                panel.aresCount = 0;
+            }
+        });
         time.start();
 
     }
@@ -181,6 +202,7 @@ public class Update {
             else if(a == 4)moveDown();
             checkCollision(panel.getBulletsModel().get(i));
             if (a != 0) {
+                impact(bulletCenter(panel.getBulletsModel().get(i)), 50);
                 removeBullet(i);
             }
 
@@ -293,7 +315,7 @@ public class Update {
 //                        BULLET_SIZE/2.0 + RECT_SIZE/2.0) {
                 if (rec.contains(bulletCenter((BulletModel) movable))) {
                     removeBullet((BulletModel) movable);
-                    panel.getRectangleModels().get(j).setHp(panel.getRectangleModels().get(j).getHp() - 5);
+                    panel.getRectangleModels().get(j).setHp(panel.getRectangleModels().get(j).getHp() - panel.getPower());
                     if (panel.getRectangleModels().get(j).getHp() <= 0) {
                         removeFromMovables(panel.getRectangleModels().get(j));
                         death(panel.getRectangleModels().get(j));
@@ -311,7 +333,7 @@ public class Update {
 //                        triangleCenter(panel.getTriangleModels().get(p)).getX(), triangleCenter(panel.getTriangleModels().get(p)).getY())
 //                        <= (double) TRI_SIZE / 2 + (double) BULLET_SIZE / 2 + 20) {
                     removeBullet((BulletModel) movable);
-                    panel.getTriangleModels().get(p).setHp(panel.getTriangleModels().get(p).getHp() - 5);
+                    panel.getTriangleModels().get(p).setHp(panel.getTriangleModels().get(p).getHp() - panel.getPower());
                     if (panel.getTriangleModels().get(p).getHp() <= 0) {
                         removeFromMovables(panel.getTriangleModels().get(p));
                         death(panel.getTriangleModels().get(p));

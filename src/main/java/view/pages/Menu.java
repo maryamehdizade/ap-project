@@ -18,9 +18,14 @@ public class Menu extends JFrame {
     private final int buttonHieght = 70;
     private int xLoc = 200;
     private final Color color = Color.GRAY;
+    Game game;
+    boolean ares = false;
+    boolean aceso = false;
+    boolean proteus = false;
+    private int xp;
 
     private JPanel panel = new JPanel();
-    public Menu() throws Exception {
+    public Menu(){
         setSize(700,700);
         setLocation(300,20);
         setVisible(true);
@@ -49,7 +54,7 @@ public class Menu extends JFrame {
 //                Minimize m = new Minimize(this);
 //                if(a) {
                 if(true){
-                    new Game(this);
+                   game = new Game(this);
                 }
             } catch (Exception ex) {
                 ex.printStackTrace();
@@ -83,5 +88,13 @@ public class Menu extends JFrame {
         panel.add(tutorial);
 
 
+    }
+
+    public int getXp() {
+        return xp;
+    }
+
+    public void setXp(int xp) {
+        this.xp = xp;
     }
 }
