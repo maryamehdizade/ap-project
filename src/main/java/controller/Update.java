@@ -370,13 +370,28 @@ public class Update {
                         //impact
                     }
                 }
-
-
-                //tria
             }
         }
     }
 
+    public void impact(Point2D point, double r){
+        for (int i = 0; i < panel.getMovables().size(); i ++) {
+            Movable m = panel.getMovables().get(i);
+            if(m.getLoc().getX() <= r && m.getLoc().getY() <= r){
+               double a = -point.getY() + m.getLoc().getY();
+               double b = -point.getX() + m.getLoc().getX();
+               if(b != 0){
+                   double angel = Math.atan(a/b);
+
+
+               }else if(a >= 0){
+
+               }else if(a < 0){
+
+               }
+            }
+        }
+    }
     Timer t;
     private void victory(){
         if(panel.isVictory()){
