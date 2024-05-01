@@ -57,6 +57,7 @@ public  class GamePanel extends JPanel implements KeyListener, MouseListener {
     public int bound ;
     public int enemies = 0;
     public int aresCount ;
+    public int acesoCount ;
     public Game game;
     Update update;
     int power = 5;
@@ -207,10 +208,14 @@ public  class GamePanel extends JPanel implements KeyListener, MouseListener {
         }
         if(keyCode == KeyEvent.VK_C){
             if(game.menu.aceso){
-                if(aresCount == 0) {
+                if(acesoCount == 0) {
+                    if(playerModel.getXp() >= 100) {
+                        playerModel.setXp(playerModel.getXp() -100);
+                        update.aceso = true;
+                        acesoCount ++;
 
+                    }
                 }
-                //todo
             }
         }
         if(keyCode == KeyEvent.VK_R){

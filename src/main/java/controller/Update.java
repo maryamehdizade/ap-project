@@ -71,15 +71,29 @@ public class Update {
                     aresSec = 0;
                     aresC = true;
                 }
-                if (aresSec == 300) {
+                if (aresSec >= 300) {
                     aresC = false;
                     panel.aresCount = 0;
+                }
+            }
+            //skill tree aceso
+            if(aceso || acesoC){
+                acesoSec += 0.1;
+                if(acesoSec%1 >= 0  && acesoSec%1 <= 0.12 && !acesoC) panel.playerModel.setHp(panel.playerModel.getHp() + 1);
+                if(acesoSec >= 15 && !acesoC){
+                    aceso = false;
+                    acesoSec = 0;
+                    acesoC = true;
+                }
+                if(acesoSec >= 300){
+                    acesoC = false;
+                    panel.acesoCount = 0;
                 }
             }
             //store empower
             if(panel.empower) {
                 empowerSec += 0.1;
-                if (empowerSec == 15) panel.empower = false;
+                if (empowerSec >= 15) panel.empower = false;
             }
         });
         time.start();
