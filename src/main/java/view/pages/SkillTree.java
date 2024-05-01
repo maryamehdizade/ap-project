@@ -60,7 +60,6 @@ public class SkillTree extends JFrame {
             if(menu.getXp() >= 1000){
                 menu.proteus = true;
                 menu.setXp(menu.getXp() - 1000);
-
                 //todo
             }
         });

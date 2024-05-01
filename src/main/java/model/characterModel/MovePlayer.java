@@ -122,6 +122,16 @@ public class MovePlayer implements Movable {
     }
 
     @Override
+    public void setHp(int hp) {
+
+    }
+
+    @Override
+    public int getHp() {
+        return 0;
+    }
+
+    @Override
     public int[] getyPoints() {
         return new int[0];
     }

@@ -58,6 +58,8 @@ public  class GamePanel extends JPanel implements KeyListener, MouseListener {
     public int enemies = 0;
     public int aresCount ;
     public int acesoCount ;
+    public int proteusCount ;
+    private boolean proteus;
     public Game game;
     Update update;
     int power = 5;
@@ -139,6 +141,7 @@ public  class GamePanel extends JPanel implements KeyListener, MouseListener {
 
         playerView.draw(g);
 
+
         for (BulletView b : bullets) {
             b.draw(g);
         }
@@ -202,7 +205,17 @@ public  class GamePanel extends JPanel implements KeyListener, MouseListener {
             movePlayer.setU0Force(true);
         }
         if(keyCode == KeyEvent.VK_P){
-            if(game.menu.proteus){
+//            if(game.menu.proteus){
+                if(proteusCount == 0) {
+//                    if(playerModel.getXp() >= 100) {
+                    if(true){
+                        playerModel.setXp(playerModel.getXp() -100);
+                        update.proteus = true;
+                        proteusCount ++;
+                        playerView.setLevelUp(true);
+                        proteus = true;
+                    }
+//                }
                 //todo
             }
         }
@@ -331,5 +344,13 @@ public  class GamePanel extends JPanel implements KeyListener, MouseListener {
 
     public void setPower(int power) {
         this.power = power;
+    }
+
+    public boolean isProteus() {
+        return proteus;
+    }
+
+    public void setProteus(boolean proteus) {
+        this.proteus = proteus;
     }
 }

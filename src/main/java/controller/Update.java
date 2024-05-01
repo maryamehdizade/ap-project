@@ -62,42 +62,62 @@ public class Update {
 
         time = new Timer(100,e -> {
             second += 0.1;
-            //skill tree ares
-            if(ares || aresC) {
-                aresSec += 0.1;
-                if (aresSec >= 15 && !aresC) {
-                    ares = false;
-                    panel.setPower(5);
-                    aresSec = 0;
-                    aresC = true;
-                }
-                if (aresSec >= 300) {
-                    aresC = false;
-                    panel.aresCount = 0;
-                }
-            }
-            //skill tree aceso
-            if(aceso || acesoC){
-                acesoSec += 0.1;
-                if(acesoSec%1 >= 0  && acesoSec%1 <= 0.12 && !acesoC) panel.playerModel.setHp(panel.playerModel.getHp() + 1);
-                if(acesoSec >= 15 && !acesoC){
-                    aceso = false;
-                    acesoSec = 0;
-                    acesoC = true;
-                }
-                if(acesoSec >= 300){
-                    acesoC = false;
-                    panel.acesoCount = 0;
-                }
-            }
-            //store empower
-            if(panel.empower) {
-                empowerSec += 0.1;
-                if (empowerSec >= 15) panel.empower = false;
-            }
+            skiilTree();
+            store();
+
         });
         time.start();
 
+    }
+    private void store(){
+        //store empower
+        if(panel.empower) {
+            empowerSec += 0.1;
+            if (empowerSec >= 15) panel.empower = false;
+        }
+    }
+    private void skiilTree(){
+        //skill tree ares
+        if(ares || aresC) {
+            aresSec += 0.1;
+            if (aresSec >= 15 && !aresC) {
+                ares = false;
+                panel.setPower(5);
+                aresSec = 0;
+                aresC = true;
+            }
+            if (aresSec >= 300) {
+                aresC = false;
+                panel.aresCount = 0;
+            }
+        }
+        //skill tree aceso
+        if(aceso || acesoC){
+            acesoSec += 0.1;
+            if(acesoSec%1 >= 0  && acesoSec%1 <= 0.12 && !acesoC) panel.playerModel.setHp(panel.playerModel.getHp() + 1);
+            if(acesoSec >= 15 && !acesoC){
+                aceso = false;
+                acesoSec = 0;
+                acesoC = true;
+            }
+            if(acesoSec >= 300){
+                acesoC = false;
+                panel.acesoCount = 0;
+            }
+        }
+        //proteus
+        if(proteus || proteusC){
+            proteusSec += 0.1;
+            if(proteusSec >= 10 && !proteusC){
+                proteus = false;
+                proteusSec = 0;
+                proteusC = true;
+            }
+            if(proteusSec >= 300){
+                proteusC = false;
+                panel.proteusCount = 0;
+            }
+        }
     }
     public void updateView(){
         updatePlayerView();
@@ -384,11 +404,19 @@ public class Update {
                 impact(collision2, 50);
             }
 
+            Polygon rec = new Polygon(movable.getxPoints(),
+                    movable.getyPoints(), 4);
+            if(panel.isProteus()){
+                if(rec.contains(playerCenter(panel.playerModel).getX(), playerCenter(panel.playerModel).getY() - BALL_SIZE / 3.0)){
+                    movable.setHp(movable.getHp() - 5);
+
+                    impact(new Point2D.Double(playerCenter(panel.playerModel).getX(),
+                            playerCenter(panel.playerModel).getY() - BALL_SIZE / 3.0), 50);
+                }
+            }
             //rect
             for (int i = 0; i < panel.getRectangleModels().size(); i++) {
                 if(movable != panel.getRectangleModels().get(i)) {
-                    Polygon rec = new Polygon(movable.getxPoints(),
-                            movable.getyPoints(), 4);
                     for (int j = 0; j < 4; j++) {
                         if (rec.contains(new Point2D.Double(panel.getRectangleModels().get(i).getxPoints()[j],
                                 panel.getRectangleModels().get(i).getyPoints()[j]))) {
@@ -403,8 +431,6 @@ public class Update {
             }
             //tria
             for (int i = 0; i < panel.getTriangleModels().size(); i++) {
-                Polygon rec = new Polygon(movable.getxPoints(),
-                        movable.getyPoints(), 4);
                 for (int j = 0; j < 3; j++) {
                     if (rec.contains(new Point2D.Double(panel.getTriangleModels().get(i).getxPoints()[j],
                             panel.getTriangleModels().get(i).getyPoints()[j]))) {
@@ -426,10 +452,17 @@ public class Update {
             }else if(collision2 != null){
                 impact(collision2, 50);
             }
+            Polygon tri = new Polygon(movable.getxPoints(), movable.getyPoints(), 3);
+            if(panel.isProteus()){
+                if(tri.contains(playerCenter(panel.playerModel).getX(), playerCenter(panel.playerModel).getY() - BALL_SIZE / 3.0)){
+                    movable.setHp(movable.getHp() - 5);
+                    impact(new Point2D.Double(playerCenter(panel.playerModel).getX(),
+                            playerCenter(panel.playerModel).getY() - BALL_SIZE / 3.0), 50);
+                }
+            }
             //tria
             for (int i = 0; i < panel.getTriangleModels().size(); i++) {
                 if(movable != panel.getTriangleModels().get(i)) {
-                    Polygon tri = new Polygon(movable.getxPoints(), movable.getyPoints(), 3);
                     for (int j = 0; j < 3; j++) {
                         if (tri.contains(new Point2D.Double(panel.getTriangleModels().get(i).getxPoints()[j],
                                 panel.getTriangleModels().get(i).getyPoints()[j]))) {
