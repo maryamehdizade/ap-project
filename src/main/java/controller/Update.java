@@ -65,7 +65,7 @@ public class Update {
             //skill tree ares
             if(ares || aresC) {
                 aresSec += 0.1;
-                if (aresSec == 15 && !aresC) {
+                if (aresSec >= 15 && !aresC) {
                     ares = false;
                     panel.setPower(5);
                     aresSec = 0;
@@ -180,7 +180,8 @@ public class Update {
             panel.start = true;
         }
         if (panel.random.nextDouble(0, panel.bound) < 1) {
-            if((panel.wave == 1 && panel.enemies <= 10) || (panel.wave == 2 && panel.enemies <= 15) || (panel.wave == 3 && panel.enemies <= 20)) {
+            if((panel.wave == 1 && panel.enemies <= 10) || (panel.wave == 2 && panel.enemies <= 15) ||
+                    (panel.wave == 3 && panel.enemies <= 20)) {
                 TriangleModel t1 = new TriangleModel(panel);
                 panel.getTriangleModels().add(t1);
                 panel.getTriangleViews().add(createTriangleView(t1));
@@ -377,7 +378,7 @@ public class Update {
                     for (int j = 0; j < 4; j++) {
                         if (rec.contains(new Point2D.Double(panel.getRectangleModels().get(i).getxPoints()[j],
                                 panel.getRectangleModels().get(i).getyPoints()[j]))) {
-                            System.out.println("rr");
+
                             impact(new Point2D.Double(rectCenter((RectangleModel) movable).getX() / 2 +
                                     rectCenter(panel.getRectangleModels().get(i)).getX() / 2,
                                     rectCenter((RectangleModel) movable).getY() / 2 +
@@ -393,7 +394,7 @@ public class Update {
                 for (int j = 0; j < 3; j++) {
                     if (rec.contains(new Point2D.Double(panel.getTriangleModels().get(i).getxPoints()[j],
                             panel.getTriangleModels().get(i).getyPoints()[j]))) {
-                        System.out.println("tr");
+
                         impact(new Point2D.Double(rectCenter((RectangleModel) movable).getX()/2 +
                                 triangleCenter(panel.getTriangleModels().get(i)).getX()/2,
                                 rectCenter((RectangleModel) movable).getY()/2 +
@@ -418,7 +419,7 @@ public class Update {
                     for (int j = 0; j < 3; j++) {
                         if (tri.contains(new Point2D.Double(panel.getTriangleModels().get(i).getxPoints()[j],
                                 panel.getTriangleModels().get(i).getyPoints()[j]))) {
-                            System.out.println("tt");
+
                             impact(new Point2D.Double(triangleCenter((TriangleModel) movable).getX() / 2 +
                                     triangleCenter(panel.getTriangleModels().get(i)).getX() / 2,
                                     triangleCenter((TriangleModel) movable).getY() / 2 +

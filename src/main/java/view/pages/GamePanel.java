@@ -207,6 +207,9 @@ public  class GamePanel extends JPanel implements KeyListener, MouseListener {
         }
         if(keyCode == KeyEvent.VK_C){
             if(game.menu.aceso){
+                if(aresCount == 0) {
+
+                }
                 //todo
             }
         }
@@ -317,6 +320,7 @@ public  class GamePanel extends JPanel implements KeyListener, MouseListener {
     }
 
     public int getPower() {
+        System.out.println(power);
         return power;
     }
 

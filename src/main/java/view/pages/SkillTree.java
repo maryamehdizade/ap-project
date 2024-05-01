@@ -48,7 +48,6 @@ public class SkillTree extends JFrame {
             if(menu.getXp() >= 500){
                 menu.aceso = true;
                 menu.setXp(menu.getXp() - 500);
-
                 //todo
             }
         });
