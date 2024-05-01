@@ -54,7 +54,7 @@ public  class GamePanel extends JPanel implements KeyListener, MouseListener {
     public boolean empower = false;
     protected Sound sound;
     public int wave = 1;
-    public int bound = 300;
+    public int bound ;
     public int enemies = 0;
     public int aresCount ;
     public Game game;
@@ -65,6 +65,7 @@ public  class GamePanel extends JPanel implements KeyListener, MouseListener {
     public GamePanel(Game game){
 //        sound = new Sound();
         this.game = game;
+        bound = this.game.menu.bound;
 
         setBackground(new Color(0, 0, 0));
         setFocusable(true);
@@ -81,6 +82,8 @@ public  class GamePanel extends JPanel implements KeyListener, MouseListener {
         movables.add(movePlayer);
 
         update = new Update(this);
+        System.out.println(update.a);
+        System.out.println(bound);
 
     }
 

@@ -32,4 +32,8 @@ public  class Game extends JFrame {
         add(panel);
 
     }
+
+    public Menu getMenu() {
+        return menu;
+    }
 }

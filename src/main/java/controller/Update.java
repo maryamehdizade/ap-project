@@ -31,7 +31,7 @@ public class Update {
 
     public Timer view;
     public GamePanel panel;
-    public double a = 0.1;
+    public double a ;
     private double second;
     Point2D collision ;
     Point2D collision2;
@@ -48,6 +48,7 @@ public class Update {
     private double empowerSec;
     public Update(GamePanel panel) {
         this.panel = panel;
+        a = this.panel.game.getMenu().aa;
         view = new Timer((int) FRAME_UPDATE_TIME, e -> updateView()){{setCoalesce(true);}};
         view.start();
         model = new Timer((int) MODEL_UPDATE_TIME, e -> {

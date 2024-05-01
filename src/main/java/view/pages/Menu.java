@@ -13,6 +13,8 @@ public class Menu extends JFrame {
     private JButton setting = new JButton("setting");
     private JButton tutorial = new JButton("tutorial");
     public boolean a = false;
+    public double aa = 0.1;
+    public int bound = 300;
 
     private final int buttonWidth = 300;
     private final int buttonHieght = 70;
@@ -81,7 +83,7 @@ public class Menu extends JFrame {
             try {
                 new Setting(this);
             } catch (Exception ex) {
-                throw new RuntimeException(ex);
+                ex.printStackTrace();
             }
         });
 
