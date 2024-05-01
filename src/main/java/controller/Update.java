@@ -49,7 +49,7 @@ public class Update {
     public Update(GamePanel panel) {
         this.panel = panel;
         a = this.panel.game.getMenu().aa;
-        view = new Timer((int) FRAME_UPDATE_TIME, e -> updateView()){{setCoalesce(true);}};
+        view = new Timer((int) 15, e -> updateView()){{setCoalesce(true);}};
         view.start();
         model = new Timer((int) MODEL_UPDATE_TIME, e -> {
             try {
@@ -398,7 +398,7 @@ public class Update {
              collision = ert(panel.playerModel, movable);
              collision2 = er(panel.playerModel, (RectangleModel) movable);
             if(collision != null){
-//                reduceHp(movable);
+                reduceHp(movable);
                 impact(collision, 50);
             }else if(collision2 != null){
                 impact(collision2, 50);
@@ -447,7 +447,7 @@ public class Update {
             collision = ert(panel.playerModel, movable);
             collision2 = et(panel.playerModel, (TriangleModel) movable);
             if (collision != null) {
-//                reduceHp(movable);
+                reduceHp(movable);
                 impact(collision, 50);
             }else if(collision2 != null){
                 impact(collision2, 50);
