@@ -113,6 +113,7 @@ public class Update {
                 proteus = false;
                 proteusSec = 0;
                 proteusC = true;
+                panel.setProteus(false);
             }
             if(proteusSec >= 300){
                 proteusC = false;

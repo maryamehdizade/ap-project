@@ -352,5 +352,4 @@ public  class GamePanel extends JPanel implements KeyListener, MouseListener {
     public void setProteus(boolean proteus) {
         this.proteus = proteus;
     }
-
 }
