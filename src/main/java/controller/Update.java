@@ -7,6 +7,7 @@ import model.characterModel.enemy.CollectableModel;
 import model.characterModel.enemy.RectangleModel;
 import model.characterModel.enemy.TriangleModel;
 import model.movement.Movable;
+import sound.Sound;
 import view.pages.GameOver;
 import view.pages.GamePanel;
 import view.charactersView.BulletView;
@@ -168,7 +169,7 @@ public class Update {
     }
 
     //model
-    public void updateModel(){
+    public void updateModel() throws Exception{
         moveEpsilon();
         updateBullets();
         updateRecs();
@@ -205,6 +206,7 @@ public class Update {
         if (panel.random.nextDouble(0, panel.bound) < 1) {
             if((panel.wave == 1 && panel.enemies <= 10) || (panel.wave == 2 && panel.enemies <= 15) ||
                     (panel.wave == 3 && panel.enemies <= 20)) {
+                Sound.sound().entrance();
                 RectangleModel r1 = new RectangleModel(panel);
                 panel.getRectangleModels().add(r1);
                 panel.getRectangleView().add(createRectView(r1));
@@ -216,6 +218,7 @@ public class Update {
         if (panel.random.nextDouble(0, panel.bound) < 1) {
             if((panel.wave == 1 && panel.enemies <= 10) || (panel.wave == 2 && panel.enemies <= 15) ||
                     (panel.wave == 3 && panel.enemies <= 20)) {
+                Sound.sound().entrance();
                 TriangleModel t1 = new TriangleModel(panel);
                 panel.getTriangleModels().add(t1);
                 panel.getTriangleViews().add(createTriangleView(t1));
@@ -234,7 +237,7 @@ public class Update {
             }
         }
     }
-    private void updateRecs(){
+    private void updateRecs() throws Exception{
         for (int i = 0; i < panel.getRectangleModels().size(); i++) {
             if(new Random().nextDouble(0,50) <= 1){
                 panel.getRectangleModels().get(i).setSpeed(2);
@@ -243,7 +246,7 @@ public class Update {
             checkCollision(panel.getRectangleModels().get(i));
         }
     }
-    private void updateBullets(){
+    private void updateBullets() throws Exception{
         for (int i = 0; i < panel.getBulletsModel().size(); i++) {
             int a = panel.getBulletsModel().get(i).move();
             if(a == 1)moveLeft();
@@ -259,7 +262,7 @@ public class Update {
         }
     }
 
-    private void updateTriangles() {
+    private void updateTriangles() throws Exception{
         for (int i = 0; i < panel.getTriangleModels().size() ; i++) {
             if (Math.abs(panel.getTriangleModels().get(i).getY3() - panel.playerModel.getLocation().getY()) >= 200) {
                 panel.getTriangleModels().get(i).setSpeed(2);
@@ -357,16 +360,18 @@ public class Update {
             }
         }
     }
-    private void checkCollision(Movable movable) {
+    private void checkCollision(Movable movable) throws Exception {
         if (movable instanceof BulletModel) {
             for (int j = 0; j < panel.getRectangleModels().size(); j++) {
                 Polygon rec = new Polygon(panel.getRectangleModels().get(j).getxPoints(), panel.getRectangleModels().get(j).getyPoints(), 4);
 //                if(distance(bulletCenter((BulletModel) movable), rectCenter(panel.getRectangleModels().get(j))) <=
 //                        BULLET_SIZE/2.0 + RECT_SIZE/2.0) {
                 if (rec.contains(bulletCenter((BulletModel) movable))) {
+                    Sound.sound().injured();
                     removeBullet((BulletModel) movable);
                     panel.getRectangleModels().get(j).setHp(panel.getRectangleModels().get(j).getHp() - panel.getPower());
                     if (panel.getRectangleModels().get(j).getHp() <= 0) {
+                        Sound.sound().death();
                         removeFromMovables(panel.getRectangleModels().get(j));
                         death(panel.getRectangleModels().get(j));
                         removeRect(j);
@@ -379,12 +384,14 @@ public class Update {
                 Polygon rec = new Polygon(panel.getTriangleModels().get(p).getxPoints(),
                         panel.getTriangleModels().get(p).getyPoints(), 3);
                 if(rec.contains(bulletCenter((BulletModel) movable))){
+                    Sound.sound().injured();
 //                if (distance(bulletCenter((BulletModel) movable).getX(), bulletCenter((BulletModel) movable).getY(),
 //                        triangleCenter(panel.getTriangleModels().get(p)).getX(), triangleCenter(panel.getTriangleModels().get(p)).getY())
 //                        <= (double) TRI_SIZE / 2 + (double) BULLET_SIZE / 2 + 20) {
                     removeBullet((BulletModel) movable);
                     panel.getTriangleModels().get(p).setHp(panel.getTriangleModels().get(p).getHp() - panel.getPower());
                     if (panel.getTriangleModels().get(p).getHp() <= 0) {
+                        Sound.sound().death();
                         removeFromMovables(panel.getTriangleModels().get(p));
                         death(panel.getTriangleModels().get(p));
                         removeTriangle(p);
@@ -421,10 +428,8 @@ public class Update {
                         if (rec.contains(new Point2D.Double(panel.getRectangleModels().get(i).getxPoints()[j],
                                 panel.getRectangleModels().get(i).getyPoints()[j]))) {
 
-                            impact(new Point2D.Double(rectCenter((RectangleModel) movable).getX() / 2 +
-                                    rectCenter(panel.getRectangleModels().get(i)).getX() / 2,
-                                    rectCenter((RectangleModel) movable).getY() / 2 +
-                                            rectCenter(panel.getRectangleModels().get(i)).getY() / 2), 50);
+                            impact(new Point2D.Double(panel.getRectangleModels().get(i).getxPoints()[j],
+                                    panel.getRectangleModels().get(i).getyPoints()[j]), 50);
                         }
                     }
                 }
@@ -435,10 +440,8 @@ public class Update {
                     if (rec.contains(new Point2D.Double(panel.getTriangleModels().get(i).getxPoints()[j],
                             panel.getTriangleModels().get(i).getyPoints()[j]))) {
 
-                        impact(new Point2D.Double(rectCenter((RectangleModel) movable).getX()/2 +
-                                triangleCenter(panel.getTriangleModels().get(i)).getX()/2,
-                                rectCenter((RectangleModel) movable).getY()/2 +
-                                        triangleCenter(panel.getTriangleModels().get(i)).getY()/2), 50);
+                        impact(new Point2D.Double(panel.getTriangleModels().get(i).getxPoints()[j],
+                                panel.getTriangleModels().get(i).getyPoints()[j]), 50);
                     }
                 }
             }
@@ -467,10 +470,8 @@ public class Update {
                         if (tri.contains(new Point2D.Double(panel.getTriangleModels().get(i).getxPoints()[j],
                                 panel.getTriangleModels().get(i).getyPoints()[j]))) {
 
-                            impact(new Point2D.Double(triangleCenter((TriangleModel) movable).getX() / 2 +
-                                    triangleCenter(panel.getTriangleModels().get(i)).getX() / 2,
-                                    triangleCenter((TriangleModel) movable).getY() / 2 +
-                                            triangleCenter(panel.getTriangleModels().get(i)).getY() / 2), 50);
+                            impact(new Point2D.Double(panel.getTriangleModels().get(i).getxPoints()[j],
+                                    panel.getTriangleModels().get(i).getyPoints()[j]), 50);
                         }
                     }
                 }
@@ -508,22 +509,41 @@ public class Update {
                }else if(a < 0){
                    m.setYvelocity(-impactV);
                }
+            }else if(x <= 2*r && y <= 2*r){
+                m.setImpact(true);
+                double a = -point.getY() + m.getLoc().getY();
+                double b = -point.getX() + m.getLoc().getX();
+                if(b != 0){
+                    double angel = Math.atan(a/b);
+                    m.setYvelocity(impactV*Math.sin(angel)/2.0);
+                    m.setXvelocity(impactV*Math.cos(angel)/2.0);
+                }else if(a >= 0){
+                    m.setYvelocity(impactV/2.0);
+                }else if(a < 0){
+                    m.setYvelocity(-impactV/2.0);
+                }
             }
         }
     }
     Timer t;
-    private void victory(){
+    private void victory()throws Exception{
         if(panel.isVictory()){
+            Sound.sound().Victory();
             model.stop();
             view.stop();
             time.stop();
             t = new Timer(10,e -> {
-                v();updatePlayerView();
+                try {
+                    v();
+                } catch (Exception ex) {
+                    throw new RuntimeException(ex);
+                }
+                updatePlayerView();
             });
             t.start();
         }
     }
-    private void v(){
+    private void v() throws Exception{
         if(panel.getDimension().getWidth()  + 200 >= panel.playerModel.size) {
             panel.playerModel.size += 2;
             if(panel.playerModel.getLocation().getX() < panel.getDimension().getWidth()) panel.playerModel.setLocation(new Point2D.Double
@@ -532,7 +552,7 @@ public class Update {
 
         if(panel.playerModel.size > panel.getDimension().getWidth()) v1();
     }
-    private void v1(){
+    private void v1() throws Exception {
         if(panel.getDimension().getWidth() >= 1 && panel.getDimension().getHeight() >= 1){
             panel.setDimension(new Dimension((int) (panel.getDimension().getWidth() - 0.1),
                     (int) (panel.getDimension().getHeight()  - 0.1)));
@@ -554,7 +574,7 @@ public class Update {
             panel.getCollectableViews().add(createCollectableView(c));
         }
     }
-    private void reduceHp(Movable movable){
+    private void reduceHp(Movable movable) throws Exception {
         int w = 10;
         if(movable instanceof RectangleModel)w = 6;
         panel.playerModel.setHp(panel.playerModel.getHp() - w);
@@ -562,11 +582,13 @@ public class Update {
             gameOver();
         }
     }
-    private void gameOver(){
+    private void gameOver() throws Exception {
+        if(!panel.isVictory())Sound.sound().Losing();
         model.stop();
         view.stop();
         time.stop();
         PlayerModel.setPlayer( null);
+        Sound.sound().stop();
 
         new GameOver(this);
     }

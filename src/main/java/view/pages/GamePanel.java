@@ -52,7 +52,6 @@ public  class GamePanel extends JPanel implements KeyListener, MouseListener {
     public boolean wave2 = false;
     public boolean wave3 = false;
     public boolean empower = false;
-    protected Sound sound;
     public int wave = 1;
     public int bound ;
     public int enemies = 0;
@@ -65,8 +64,9 @@ public  class GamePanel extends JPanel implements KeyListener, MouseListener {
     int power = 5;
     public int count = 0;
 
-    public GamePanel(Game game){
-//        sound = new Sound();
+    public GamePanel(Game game) throws Exception {
+        Sound.sound().wave();
+
         this.game = game;
         bound = this.game.menu.bound;
 
@@ -89,13 +89,15 @@ public  class GamePanel extends JPanel implements KeyListener, MouseListener {
 
     }
 
-    public void Wave(){
+    public void Wave() throws Exception {
         if(enemies >= 10 && wave1 && start && movables.size() == 1){
+            Sound.sound().wave();
             wave++;
             enemies = 0;
             count = 0;
 
         } else if(enemies >= 15 && wave2 && movables.size() == 1){
+            Sound.sound().wave();
             wave++;
             enemies = 0;
             count = 0;
@@ -350,4 +352,5 @@ public  class GamePanel extends JPanel implements KeyListener, MouseListener {
     public void setProteus(boolean proteus) {
         this.proteus = proteus;
     }
+
 }

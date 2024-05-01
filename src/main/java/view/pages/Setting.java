@@ -1,5 +1,7 @@
 package view.pages;
 
+import sound.Sound;
+
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -28,7 +30,13 @@ public class Setting extends JFrame {
         sound = new JSlider(JSlider.HORIZONTAL, 0, 100, 50);
         sound.setLocation(300,100);
         sound.setSize(200,100);
-        sound.addChangeListener(e -> adjustVolume());
+        sound.addChangeListener(e -> {
+            try {
+                adjustVolume();
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
+            }
+        });
 
         sensitivity = new JSlider(JSlider.HORIZONTAL, 1, 3, 1);
         sensitivity.setLocation(300,250);
@@ -80,14 +88,13 @@ public class Setting extends JFrame {
 
     }
 
-    private void adjustVolume() {
-//        if (clip != null) {
-//            int volume = sound.getValue();
-//            FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-//            float gain = (float) volume / sound.getMaximum();
-//            float dB = gainControl.getMinimum() + gain * (gainControl.getMaximum() - gainControl.getMinimum());
-//            gainControl.setValue(dB);
-//        }
+    private void adjustVolume() throws Exception {
+
+        int volume = sound.getValue();
+        FloatControl gainControl = (FloatControl) Sound.sound().getBack().getControl(FloatControl.Type.MASTER_GAIN);
+        float gain = (float) volume / sound.getMaximum();
+        float dB = gainControl.getMinimum() + gain * (gainControl.getMaximum() - gainControl.getMinimum());
+        gainControl.setValue(dB);
 
     }
 }
